@@ -1,0 +1,13 @@
+/*
+
+!.gitignore
+
+!public
+!src
+
+!README.md
+!.env.template
+!app.config.ts
+!package.json
+!routes.ts
+!tsconfig.json

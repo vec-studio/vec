@@ -89,19 +89,19 @@ globalStyle(`${checkboxClassName} svg`, {
   stroke: checkboxCheckmarkColorVar,
   strokeWidth: '3px',
   strokeDasharray: '22px',
-  strokeDashoffset: '66',
+  strokeDashoffset: '66px',
   transition: 'all 200ms'
 })
 
-globalStyle(`${checkboxClassName}[data-selected] &`, {
-  strokeDashoffset: 44
+globalStyle(`${checkboxClassName}[data-selected] svg`, {
+  strokeDashoffset: '44px'
 })
 
-globalStyle(`${checkboxClassName}[data-indeterminate] &`, {
-  strokeDashoffset: 44
+globalStyle(`${checkboxClassName}[data-indeterminate] svg`, {
+  strokeDashoffset: '44px'
 })
 
-globalStyle(`${checkboxClassName}[data-indeterminate] &`, {
+globalStyle(`${checkboxClassName}[data-indeterminate] svg`, {
   stroke: 'none',
   fill: checkboxCheckmarkColorVar
 })

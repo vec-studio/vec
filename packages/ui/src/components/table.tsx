@@ -13,7 +13,14 @@ import {
   useTableOptions
 } from 'react-aria-components'
 import { Checkbox } from './checkbox'
-import { tableClassName } from './table.css'
+import { checkboxClassName } from './checkbox.css'
+import {
+  tableCellClassName,
+  tableClassName,
+  tableColumnClassName,
+  tableHeaderClassName,
+  tableRowClassName
+} from './table.css'
 import { cn } from './utils'
 
 export function Table(props: TableProps) {
@@ -22,7 +29,7 @@ export function Table(props: TableProps) {
 
 export function Column(props: ColumnProps) {
   return (
-    <AriaColumn {...props} className={cn(props.className, tableClassName)}>
+    <AriaColumn {...props} className={cn(props.className, tableColumnClassName)}>
       {({ allowsSorting, sortDirection }) => (
         <>
           {props.children}
@@ -37,34 +44,38 @@ export function Column(props: ColumnProps) {
   )
 }
 
-export function TableHeader<T extends object>({ columns, children, className }: TableHeaderProps<T>) {
+export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
+  const { columns, children, className } = props
   let { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
 
   return (
-    <AriaTableHeader className={cn(className, tableClassName)}>
+    <AriaTableHeader className={cn(className, tableHeaderClassName)}>
       {/* Add extra columns for drag and drop and selection. */}
       {allowsDragging && <AriaColumn />}
       {selectionBehavior === 'toggle' && (
-        <AriaColumn>{selectionMode === 'multiple' && <Checkbox slot="selection" />}</AriaColumn>
+        <AriaColumn className={tableColumnClassName}>
+          {selectionMode === 'multiple' && <Checkbox slot="selection" />}
+        </AriaColumn>
       )}
       <Collection items={columns}>{children}</Collection>
     </AriaTableHeader>
   )
 }
 
-export function Row<T extends object>({ id, columns, children, ...otherProps }: RowProps<T>) {
+export function Row<T extends object>(props: RowProps<T>) {
+  const { id, columns, children, ...otherProps } = props
   let { selectionBehavior, allowsDragging } = useTableOptions()
 
   return (
-    <AriaRow id={id} {...otherProps}>
+    <AriaRow id={id} {...otherProps} className={cn(props.className, tableRowClassName)}>
       {allowsDragging && (
-        <Cell>
+        <Cell className={tableCellClassName}>
           <Button slot="drag">≡</Button>
         </Cell>
       )}
       {selectionBehavior === 'toggle' && (
-        <Cell>
-          <Checkbox slot="selection" />
+        <Cell className={tableCellClassName}>
+          <Checkbox className={checkboxClassName} slot="selection" />
         </Cell>
       )}
       <Collection items={columns}>{children}</Collection>

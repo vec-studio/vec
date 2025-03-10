@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import * as classNames from './index.css'
+import { indexClassName } from './index.css'
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute('/_layout/')({
   component() {
-    return <div className={classNames.root}></div>
+    return <div className={indexClassName}></div>
   }
 })

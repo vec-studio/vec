@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
-import { breadcrumbsClassName } from './breadcrumb.css'
+import { breadcrumbsClassName } from './breadcrumbs.css'
 
 export const linkClassName = style({
   color: semanticVars.color.linkColor,

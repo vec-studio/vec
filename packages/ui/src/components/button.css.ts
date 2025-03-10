@@ -1,5 +1,6 @@
 import { keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
+import { searchFieldClassName } from './search-field.css'
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -28,6 +29,25 @@ export const buttonClassName = style({
     '&[data-disabled]': {
       borderColor: semanticVars.color.borderColorDisabled,
       color: semanticVars.color.textColorDisabled
+    },
+    // seach-field
+    [`${searchFieldClassName} &`]: {
+      gridArea: 'button',
+      width: '1.143rem',
+      height: '1.143rem',
+      borderRadius: '1.143rem',
+      marginLeft: '-1.429rem',
+      fontSize: '0.857rem',
+      lineHeight: '0.857rem',
+      verticalAlign: 'middle',
+      textAlign: 'center',
+      background: themeVars.color.gray500,
+      color: themeVars.color.gray50,
+      border: 'none',
+      padding: 0
+    },
+    [`${searchFieldClassName} &[data-pressed]`]: {
+      background: themeVars.color.gray600
     }
   }
 })

@@ -1,5 +1,5 @@
 import { Label as RACLabel, type LabelProps as RACLabelProps } from 'react-aria-components'
-import { labelClassName } from './lable.css'
+import { labelClassName } from './label.css'
 import { cn } from './utils'
 
 export function Label(props: RACLabelProps) {

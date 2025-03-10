@@ -9,11 +9,11 @@ import { menuClassName } from './menu.css'
 import { Popover } from './popover'
 import { cn } from './utils'
 
-export interface MenuButtonProps<T> extends RACMenuProps<T>, Omit<RACMenuTriggerProps, 'children'> {
+export interface MenuProps<T> extends RACMenuProps<T>, Omit<RACMenuTriggerProps, 'children'> {
   label?: string
 }
 
-export function MenuButton<T extends object>({ label, children, ...props }: MenuButtonProps<T>) {
+export function Menu<T extends object>({ label, children, ...props }: MenuProps<T>) {
   return (
     <RACMenuTrigger {...props}>
       <Button>{label}</Button>

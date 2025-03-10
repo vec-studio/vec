@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
+import { popoverClassName } from './popover.css'
 
 export const searchFieldClassName = style({
   display: 'grid',
@@ -19,4 +20,9 @@ globalStyle(`${searchFieldClassName}[data-empty] button`, {
 globalStyle(`${searchFieldClassName} [slot=description]`, {
   gridArea: 'help',
   fontSize: '12px'
+})
+
+// menu
+globalStyle(`${popoverClassName}[data-trigger=SubmenuTrigger] ${searchFieldClassName}`, {
+  margin: '4px 8px'
 })

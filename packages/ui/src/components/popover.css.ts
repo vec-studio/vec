@@ -77,3 +77,12 @@ globalStyle(`${popoverClassName} ${overlayArrowClassName} svg`, {
   stroke: semanticVars.color.borderColor,
   strokeWidth: '1px'
 })
+
+// menu
+globalStyle(`${popoverClassName}[data-trigger=SubmenuTrigger][data-placement="right"]`, {
+  marginLeft: '-5px'
+})
+
+globalStyle(`${popoverClassName}[data-trigger=SubmenuTrigger][data-placement="left"]`, {
+  marginRight: '-5px'
+})

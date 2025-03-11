@@ -1,16 +1,11 @@
 import { style } from '@vanilla-extract/css'
-import { autocompleteClassName } from './autocomplete.css'
 import { colorSliderClassName } from './color-slider.css'
 
-export const labelClassName = style({
+export const sliderOutputClassName = style({
   selectors: {
-    // autocomplete
-    [`${autocompleteClassName} &`]: {
-      marginBottom: '.5em'
-    },
     // color slider
     [`${colorSliderClassName} &`]: {
-      gridArea: 'label'
+      gridArea: 'output'
     },
     [`${colorSliderClassName}[data-orientation=vertical] &`]: {
       display: 'none'

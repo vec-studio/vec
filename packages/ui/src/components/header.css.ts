@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { listBoxClassName } from './list-box.css'
 import { menuClassName } from './menu.css'
+import { popoverClassName } from './popover.css'
 
 export const headerClassName = style({
   selectors: {
@@ -15,6 +16,10 @@ export const headerClassName = style({
       fontSize: '1.143rem',
       fontWeight: 'bold',
       padding: '0 0.714rem'
+    },
+    // select
+    [`${popoverClassName} ${listBoxClassName} &`]: {
+      paddingLeft: '1.571rem'
     }
   }
 })

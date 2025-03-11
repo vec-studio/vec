@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
+import { popoverClassName } from './popover.css'
 
 export const listBoxClassName = style({
   display: 'flex',
@@ -53,6 +54,14 @@ export const listBoxClassName = style({
       outline: `2px solid ${semanticVars.color.highlightBackground}`,
       outlineOffset: '-1px',
       background: semanticVars.color.highlightOverlay
+    },
+    // select
+    [`${popoverClassName} &`]: {
+      display: 'block',
+      width: 'unset',
+      maxHeight: 'inherit',
+      minHeight: 'unset',
+      border: 'none'
     }
   }
 })

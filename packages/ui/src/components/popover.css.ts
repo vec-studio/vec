@@ -4,11 +4,13 @@ import { overlayArrowClassName } from './overlay-arrow.css'
 
 export const popoverBackgroundColorVar = createVar()
 export const popoverOriginVar = createVar()
+export const popoverTriggerWidthVar = createVar()
 
 export const popoverClassName = style({
   vars: {
     [popoverBackgroundColorVar]: semanticVars.color.overlayBackground,
-    [popoverOriginVar]: 'initial'
+    [popoverOriginVar]: 'initial',
+    [popoverTriggerWidthVar]: 'initial'
   },
   border: `1px solid ${semanticVars.color.borderColor}`,
   boxShadow: '0 8px 20px rgba(0 0 0 / 0.1)',
@@ -55,6 +57,10 @@ export const popoverClassName = style({
     },
     [`&[data-placement=left]:has(${overlayArrowClassName})`]: {
       marginRight: '6px'
+    },
+    // select
+    '&[data-trigger=Select]': {
+      minWidth: popoverTriggerWidthVar
     }
   }
 })

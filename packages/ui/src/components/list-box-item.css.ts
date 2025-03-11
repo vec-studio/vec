@@ -1,6 +1,7 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 import { listBoxClassName } from './list-box.css'
+import { popoverClassName } from './popover.css'
 
 export const listBoxItemClassName = style({
   padding: '0 0.571rem',
@@ -87,6 +88,28 @@ export const listBoxItemClassName = style({
     [`${listBoxClassName} &[data-drop-target]`]: {
       outline: `2px solid ${semanticVars.color.highlightBackground}`,
       background: semanticVars.color.highlightOverlay
+    },
+    // select
+    [`${popoverClassName} &`]: {
+      padding: '0 0.571rem 0 1.571rem'
+    },
+    [`${popoverClassName} &[data-focus-visible]`]: {
+      outline: 'none'
+    },
+    [`${popoverClassName} &[data-selected]`]: {
+      fontWeight: 600,
+      background: 'unset',
+      color: semanticVars.color.textColor
+    },
+    [`${popoverClassName} &[data-selected]::before`]: {
+      content: '"✓"',
+      position: 'absolute',
+      top: '4px',
+      left: '4px'
+    },
+    [`${popoverClassName} &[data-focused], ${popoverClassName} &[data-pressed]`]: {
+      background: semanticVars.color.highlightBackground,
+      color: semanticVars.color.highlightForeground
     }
   }
 })

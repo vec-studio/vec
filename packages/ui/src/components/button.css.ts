@@ -1,6 +1,7 @@
-import { keyframes, style } from '@vanilla-extract/css'
+import { globalStyle, keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
 import { searchFieldClassName } from './search-field.css'
+import { selectClassName } from './select.css'
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -48,6 +49,25 @@ export const buttonClassName = style({
     },
     [`${searchFieldClassName} &[data-pressed]`]: {
       background: themeVars.color.gray600
+    },
+    // select
+    [`${selectClassName} &`]: {
+      boxShadow: '0 1px 2px rgba(0 0 0 / 0.1)',
+      borderRadius: '6px',
+      fontSize: '1.072rem',
+      padding: '0.286rem 0.286rem 0.286rem 0.571rem',
+      display: 'flex',
+      alignItems: 'center',
+      maxWidth: '250px'
+    },
+    [`${selectClassName} &[data-focus-visible]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '-1px'
+    },
+    // select
+    [`${selectClassName} &[data-disabled]`]: {
+      borderColor: semanticVars.color.borderColorDisabled,
+      color: semanticVars.color.textColorDisabled
     }
   }
 })
@@ -55,4 +75,9 @@ export const buttonClassName = style({
 export const toggleAnimation = keyframes({
   from: { opacity: 0 },
   to: { opacity: 1 }
+})
+
+globalStyle(`${selectClassName} ${buttonClassName}[data-disabled] span[aria-hidden]`, {
+  background: semanticVars.color.borderColorDisabled,
+  color: semanticVars.color.textColorDisabled
 })

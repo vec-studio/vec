@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { colorAreaClassName } from './color-area.css'
 import { colorSliderClassName } from './color-slider.css'
+import { colorWheelClassName } from './color-wheel.css'
 
 export const colorThumbClassName = style({
   border: '2px solid white',
@@ -40,6 +41,11 @@ export const colorThumbClassName = style({
     [`${colorSliderClassName}[data-disabled] &`]: {
       background: 'gray !important',
       opacity: '0.5'
+    },
+    // color wheel
+    [`${colorWheelClassName}[data-disabled] &`]: {
+      background: 'gray !important',
+      opacity: 0.5
     }
   }
 })

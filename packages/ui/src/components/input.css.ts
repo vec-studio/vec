@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
+import { colorFieldClassName } from './color-field.css'
 import { searchFieldClassName } from './search-field.css'
 import { textFieldClassName } from './text-field.css'
 
@@ -54,6 +55,30 @@ export const inputClassName = style({
     },
     [`${searchFieldClassName} &[data-disabled]`]: {
       borderColor: semanticVars.color.borderColorDisabled,
+      color: semanticVars.color.textColorDisabled
+    },
+    // color field
+    [`${colorFieldClassName} &`]: {
+      padding: '0.286rem',
+      margin: 0,
+      border: `1px solid ${semanticVars.color.borderColor}`,
+      borderRadius: '6px',
+      background: semanticVars.color.fieldBackground,
+      fontSize: '1.143rem',
+      color: semanticVars.color.fieldBackground,
+      width: '100%',
+      maxWidth: '12ch',
+      boxSizing: 'border-box'
+    },
+    [`${colorFieldClassName} &[data-focused]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '-1px'
+    },
+    [`${colorFieldClassName}[data-invalid] &`]: {
+      borderColor: semanticVars.color.invalidColor
+    },
+    [`${colorFieldClassName} &[data-disabled]`]: {
+      borderColor: semanticVars.color.borderColor,
       color: semanticVars.color.textColorDisabled
     }
   }

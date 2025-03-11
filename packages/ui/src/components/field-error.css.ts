@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 import { checkboxGroupClassName } from './checkbox-group.css'
+import { colorFieldClassName } from './color-field.css'
 import { searchFieldClassName } from './search-field.css'
 import { textFieldClassName } from './text-field.css'
 
@@ -19,6 +20,11 @@ export const fieldErrorClassName = style({
     },
     // checkbox group
     [`${checkboxGroupClassName} &`]: {
+      fontSize: '12px',
+      color: semanticVars.color.invalidColor
+    },
+    // color field
+    [`${colorFieldClassName} &`]: {
       fontSize: '12px',
       color: semanticVars.color.invalidColor
     }

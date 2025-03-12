@@ -5,6 +5,7 @@ import { comboBoxClassName } from './combo-box.css'
 import { datePickerClassName } from './date-picker.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
+import { rangeCalendarClassName } from './range-calendar.css'
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -120,6 +121,12 @@ export const buttonClassName = style({
     [`${datePickerClassName} &[data-focus-visible]`]: {
       outline: `2px solid ${semanticVars.color.focusRingColor}`,
       outlineOffset: '2px'
+    },
+    // range calendar
+    [`${rangeCalendarClassName} &`]: {
+      width: '2rem',
+      height: '2rem',
+      padding: 0
     }
   }
 })

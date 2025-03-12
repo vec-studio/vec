@@ -1,5 +1,6 @@
 import { globalStyle, keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
+import { calendarClassName } from './calendar.css'
 import { comboBoxClassName } from './combo-box.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
@@ -90,6 +91,12 @@ export const buttonClassName = style({
     },
     [`${comboBoxClassName} &[data-disabled]`]: {
       background: semanticVars.color.borderColorDisabled
+    },
+    // button
+    [`${calendarClassName} &`]: {
+      width: '2rem',
+      height: '2rem',
+      padding: 0
     }
   }
 })

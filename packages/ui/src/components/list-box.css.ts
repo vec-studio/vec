@@ -1,5 +1,6 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
+import { comboBoxClassName } from './combo-box.css'
 import { popoverClassName } from './popover.css'
 
 export const listBoxClassName = style({
@@ -57,6 +58,14 @@ export const listBoxClassName = style({
     },
     // select
     [`${popoverClassName} &`]: {
+      display: 'block',
+      width: 'unset',
+      maxHeight: 'inherit',
+      minHeight: 'unset',
+      border: 'none'
+    },
+    // combo box
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &`]: {
       display: 'block',
       width: 'unset',
       maxHeight: 'inherit',

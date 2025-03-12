@@ -1,5 +1,6 @@
 import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
+import { comboBoxClassName } from './combo-box.css'
 import { listBoxClassName } from './list-box.css'
 import { popoverClassName } from './popover.css'
 
@@ -110,7 +111,30 @@ export const listBoxItemClassName = style({
     [`${popoverClassName} &[data-focused], ${popoverClassName} &[data-pressed]`]: {
       background: semanticVars.color.highlightBackground,
       color: semanticVars.color.highlightForeground
-    }
+    },
+    // combo box
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &`]: {
+      padding: '0 0.571rem 0 1.571rem'
+    },
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &[data-focus-visible]`]: {
+      outline: 'none'
+    },
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &[data-selected]`]: {
+      fontWeight: 600,
+      background: 'unset',
+      color: semanticVars.color.textColor
+    },
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &[data-selected]::before`]: {
+      content: '✓',
+      position: 'absolute',
+      top: '4px',
+      left: '4px'
+    },
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &[data-focused], ${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] &[data-pressed]`]:
+      {
+        background: semanticVars.color.highlightBackground,
+        color: semanticVars.color.highlightForeground
+      }
   }
 })
 

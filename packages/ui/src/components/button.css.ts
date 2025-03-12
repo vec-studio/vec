@@ -1,5 +1,6 @@
 import { globalStyle, keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
+import { comboBoxClassName } from './combo-box.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 
@@ -68,6 +69,27 @@ export const buttonClassName = style({
     [`${selectClassName} &[data-disabled]`]: {
       borderColor: semanticVars.color.borderColorDisabled,
       color: semanticVars.color.textColorDisabled
+    },
+    // combo box
+    [`${comboBoxClassName} &`]: {
+      background: semanticVars.color.highlightBackground,
+      color: semanticVars.color.highlightForeground,
+      forcedColorAdjust: 'none',
+      borderRadius: '4px',
+      border: 'none',
+      marginLeft: '-1.714rem',
+      width: '1.429rem',
+      height: '1.429rem',
+      padding: 0,
+      fontSize: '0.857rem',
+      cursor: 'default'
+    },
+    [`${comboBoxClassName} &[data-pressed]`]: {
+      boxShadow: 'none',
+      background: semanticVars.color.highlightBackground
+    },
+    [`${comboBoxClassName} &[data-disabled]`]: {
+      background: semanticVars.color.borderColorDisabled
     }
   }
 })

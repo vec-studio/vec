@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { comboBoxClassName } from './combo-box.css'
 import { listBoxClassName } from './list-box.css'
 import { menuClassName } from './menu.css'
 import { popoverClassName } from './popover.css'
@@ -19,6 +20,10 @@ export const headerClassName = style({
     },
     // select
     [`${popoverClassName} ${listBoxClassName} &`]: {
+      paddingLeft: '1.571rem'
+    },
+    // combo box
+    [`${comboBoxClassName} ${popoverClassName}[data-trigger=ComboBox] ${listBoxClassName} &`]: {
       paddingLeft: '1.571rem'
     }
   }

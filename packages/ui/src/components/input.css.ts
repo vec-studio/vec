@@ -1,6 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 import { colorFieldClassName } from './color-field.css'
+import { comboBoxClassName } from './combo-box.css'
 import { searchFieldClassName } from './search-field.css'
 import { textFieldClassName } from './text-field.css'
 
@@ -80,6 +81,28 @@ export const inputClassName = style({
     [`${colorFieldClassName} &[data-disabled]`]: {
       borderColor: semanticVars.color.borderColor,
       color: semanticVars.color.textColorDisabled
+    },
+    // combo box
+    [`${comboBoxClassName} &`]: {
+      margin: 0,
+      fontSize: '1.072rem',
+      background: semanticVars.color.fieldBackground,
+      color: semanticVars.color.fieldTextColor,
+      border: `1px solid ${semanticVars.color.borderColor}`,
+      borderRadius: '6px',
+      padding: '0.286rem 2rem 0.286rem 0.571rem',
+      verticalAlign: 'middle',
+      outline: 'none'
+    },
+    [`${comboBoxClassName} &[data-focused]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '-1px'
+    },
+    [`${comboBoxClassName} &[data-disabled]`]: {
+      borderColor: semanticVars.color.borderColorDisabled
+    },
+    [`${comboBoxClassName} &[data-invalid]:not([data-focused])`]: {
+      borderColor: semanticVars.color.invalidColor
     }
   }
 })

@@ -2,6 +2,7 @@ import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 import { checkboxGroupClassName } from './checkbox-group.css'
 import { colorFieldClassName } from './color-field.css'
+import { comboBoxClassName } from './combo-box.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { textFieldClassName } from './text-field.css'
@@ -30,6 +31,11 @@ export const fieldErrorClassName = style({
       color: semanticVars.color.invalidColor
     },
     [`${selectClassName} &`]: {
+      fontSize: '12px',
+      color: semanticVars.color.invalidColor
+    },
+    // combo box
+    [`${comboBoxClassName} &`]: {
       fontSize: '12px',
       color: semanticVars.color.invalidColor
     }

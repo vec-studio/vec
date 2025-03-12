@@ -2,6 +2,7 @@ import { globalStyle, keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
 import { calendarClassName } from './calendar.css'
 import { comboBoxClassName } from './combo-box.css'
+import { datePickerClassName } from './date-picker.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 
@@ -92,11 +93,33 @@ export const buttonClassName = style({
     [`${comboBoxClassName} &[data-disabled]`]: {
       background: semanticVars.color.borderColorDisabled
     },
-    // button
+    // calendar
     [`${calendarClassName} &`]: {
       width: '2rem',
       height: '2rem',
       padding: 0
+    },
+    // date picker
+    [`${datePickerClassName} &`]: {
+      background: semanticVars.color.highlightBackground,
+      color: semanticVars.color.highlightForeground,
+      border: `2px solid ${semanticVars.color.fieldBackground}`,
+      forcedColorAdjust: 'none',
+      borderRadius: '4px',
+      marginLeft: '-1.929rem',
+      width: '1.429rem',
+      height: '1.429rem',
+      padding: '0',
+      fontSize: '0.857rem',
+      boxSizing: 'content-box'
+    },
+    [`${datePickerClassName} &[data-pressed]`]: {
+      boxShadow: 'none',
+      background: semanticVars.color.highlightBackground
+    },
+    [`${datePickerClassName} &[data-focus-visible]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '2px'
     }
   }
 })

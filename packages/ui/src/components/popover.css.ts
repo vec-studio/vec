@@ -1,6 +1,5 @@
 import { createVar, globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
-import { comboBoxClassName } from './combo-box.css'
 import { overlayArrowClassName } from './overlay-arrow.css'
 
 export const popoverBackgroundColorVar = createVar()
@@ -64,8 +63,12 @@ export const popoverClassName = style({
       minWidth: popoverTriggerWidthVar
     },
     // combo box
-    [`${comboBoxClassName} &[data-trigger=ComboBox]`]: {
+    [`&[data-trigger=ComboBox]`]: {
       width: popoverTriggerWidthVar
+    },
+    // date picker
+    '&[data-trigger=DatePicker]': {
+      maxWidth: 'unset'
     }
   }
 })

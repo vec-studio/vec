@@ -1,10 +1,13 @@
 import { createVar, globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
+import { gridListItemClassName } from './grid-list-item.css'
 
 export const checkboxBackgroundColorVar = createVar()
 export const checkboxCheckmarkColorVar = createVar()
 export const checkboxSelectedColorPressedVar = createVar()
 export const checkboxSelectedColorVar = createVar()
+export const checkboxSheckmarkColorVar = createVar()
+export const checkboxSackgroundColorVar = createVar()
 
 export const checkboxClassName = style({
   vars: {
@@ -78,6 +81,15 @@ export const checkboxCheckboxClassName = style({
     },
     [`${checkboxClassName}[data-disabled] &`]: {
       borderColor: semanticVars.color.borderColorDisabled
+    },
+    // grid list
+    [`:where(${gridListItemClassName}) &`]: {
+      vars: {
+        [checkboxSelectedColorVar]: semanticVars.color.highlightForeground,
+        [checkboxSelectedColorPressedVar]: semanticVars.color.highlightForegroundPressed,
+        [checkboxCheckmarkColorVar]: semanticVars.color.highlightBackground,
+        [checkboxBackgroundColorVar]: semanticVars.color.highlightBackground
+      }
     }
   }
 })

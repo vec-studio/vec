@@ -1,13 +1,18 @@
-import { globalStyle, keyframes, style } from '@vanilla-extract/css'
+import { createVar, globalStyle, keyframes, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
 import { calendarClassName } from './calendar.css'
 import { comboBoxClassName } from './combo-box.css'
 import { datePickerClassName } from './date-picker.css'
 import { dateRangePickerClassName } from './date-range-picker.css'
 import { disclosureClassName } from './disclosure.css'
+import { gridListItemClassName } from './grid-list-item.css'
+import { gridListClassName } from './grid-list.css'
 import { rangeCalendarClassName } from './range-calendar.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
+
+export const buttonHighlightHoverVar = createVar()
+export const buttonHighlightPressedVar = createVar()
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -161,6 +166,32 @@ export const buttonClassName = style({
       display: 'flex',
       alignItems: 'center',
       gap: '8px'
+    },
+    // grid list
+    [`${gridListClassName} ${gridListItemClassName}[data-selected] &`]: {
+      vars: {
+        [buttonHighlightHoverVar]: 'rgb(255 255 255 / 0.1)',
+        [buttonHighlightPressedVar]: 'rgb(255 255 255 / 0.2)'
+      },
+      color: semanticVars.color.highlightForeground
+    },
+    [`${gridListClassName} ${gridListItemClassName} &:not([slot])`]: {
+      marginLeft: 'auto'
+    },
+    [`${gridListClassName} ${gridListItemClassName} &`]: {
+      background: 'transparent',
+      border: 'none',
+      fontSize: '1.2rem',
+      lineHeight: '1.2em',
+      padding: '0.286rem 0.429rem',
+      transition: 'background 200ms'
+    },
+    [`${gridListClassName} ${gridListItemClassName} &[data-hovered]`]: {
+      background: buttonHighlightHoverVar
+    },
+    [`${gridListClassName} ${gridListItemClassName} &[data-pressed]`]: {
+      background: buttonHighlightPressedVar,
+      boxShadow: 'none'
     }
   }
 })

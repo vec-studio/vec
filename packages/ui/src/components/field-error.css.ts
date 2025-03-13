@@ -5,10 +5,11 @@ import { colorFieldClassName } from './color-field.css'
 import { comboBoxClassName } from './combo-box.css'
 import { datePickerClassName } from './date-picker.css'
 import { dateRangePickerClassName } from './date-range-picker.css'
+import { numberFieldClassName } from './number-field.css'
+import { radioGroupClassName } from './radio-group.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { textFieldClassName } from './text-field.css'
-import { numberFieldClassName } from './number-field.css'
 
 export const fieldErrorClassName = style({
   selectors: {
@@ -56,6 +57,11 @@ export const fieldErrorClassName = style({
     [`${numberFieldClassName} &`]: {
       fontSize: '12px',
       color: semanticVars.color.invalidColor
+    },
+    // radio group
+    [`${radioGroupClassName} &`]: {
+      fontSize: '12px',
+      color: 'var(--invalid-color)'
     }
   }
 })

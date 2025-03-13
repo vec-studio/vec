@@ -6,6 +6,7 @@ import { datePickerClassName } from './date-picker.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { rangeCalendarClassName } from './range-calendar.css'
+import { dateRangePickerClassName } from './date-range-picker.css'
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -127,6 +128,27 @@ export const buttonClassName = style({
       width: '2rem',
       height: '2rem',
       padding: 0
+    },
+    // date range picker
+    [`${dateRangePickerClassName} &`]: {
+      background: semanticVars.color.highlightBackground,
+      color: semanticVars.color.highlightForeground,
+      border: `2px solid ${semanticVars.color.fieldBackground}`,
+      forcedColorAdjust: 'none',
+      borderRadius: '4px',
+      marginLeft: 'auto',
+      width: '1.429rem',
+      height: '1.429rem',
+      padding: '0',
+      fontSize: '0.857rem',
+      boxSizing: 'content-box',
+      flexShrink: 0,
+      position: 'sticky',
+      right: 0
+    },
+    [`${dateRangePickerClassName} &[data-focus-visible]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '2px'
     }
   }
 })

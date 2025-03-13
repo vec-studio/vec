@@ -1,5 +1,7 @@
 import { style } from '@vanilla-extract/css'
 import { datePickerClassName } from './date-picker.css'
+import { dateRangePickerClassName } from './date-range-picker.css'
+import { semanticVars } from '../theme.css'
 
 export const groupClassName = style({
   selectors: {
@@ -8,6 +10,30 @@ export const groupClassName = style({
       display: 'flex',
       width: 'fit-content',
       alignItems: 'center'
+    },
+    // date range picker
+    [`${dateRangePickerClassName} &`]: {
+      display: 'flex',
+      alignItems: 'center',
+      width: 'fit-content',
+      minWidth: '220px',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
+      overflow: 'auto',
+      position: 'relative',
+      padding: '4px 4px 4px 8px',
+      border: `1px solid ${semanticVars.color.borderColor}`,
+      borderRadius: '6px',
+      background: semanticVars.color.fieldBackground,
+      whiteSpace: 'nowrap'
+    },
+    [`${dateRangePickerClassName} &[data-pressed]`]: {
+      boxShadow: 'none',
+      background: semanticVars.color.highlightBackground
+    },
+    [`${dateRangePickerClassName} &[data-focus-within]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '-1px'
     }
   }
 })

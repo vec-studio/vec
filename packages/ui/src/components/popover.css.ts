@@ -69,6 +69,10 @@ export const popoverClassName = style({
     // date picker
     '&[data-trigger=DatePicker]': {
       maxWidth: 'unset'
+    },
+    // date range picker
+    '&[data-trigger=DateRangePicker]': {
+      maxWidth: 'unset'
     }
   }
 })

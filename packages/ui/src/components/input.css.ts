@@ -4,6 +4,8 @@ import { colorFieldClassName } from './color-field.css'
 import { comboBoxClassName } from './combo-box.css'
 import { searchFieldClassName } from './search-field.css'
 import { textFieldClassName } from './text-field.css'
+import { numberFieldClassName } from './number-field.css'
+import { groupClassName } from './group.css'
 
 export const inputClassName = style({
   selectors: {
@@ -103,6 +105,33 @@ export const inputClassName = style({
     },
     [`${comboBoxClassName} &[data-invalid]:not([data-focused])`]: {
       borderColor: semanticVars.color.invalidColor
+    },
+    // number field
+    [`${numberFieldClassName} &${groupClassName} [data-focus-within] &`]: {
+      outline: semanticVars.color.focusRingColor
+    },
+    [`${numberFieldClassName} &`]: {
+      background: semanticVars.color.fieldBackground,
+      border: `1px solid ${semanticVars.color.borderColor}`,
+      borderRadius: '0',
+      color: semanticVars.color.fieldTextColor,
+      margin: '0 -1px',
+      zIndex: 1,
+      fontSize: '1rem',
+      padding: '0.429rem 0.571rem',
+      outline: 'none',
+      width: '6rem',
+      flex: 1
+    },
+    [`${numberFieldClassName}[data-invalid] &`]: {
+      borderColor: semanticVars.color.invalidColor
+    },
+    [`${numberFieldClassName}[data-invalid]:focus-within &`]: {
+      borderColor: semanticVars.color.focusRingColor
+    },
+    [`${numberFieldClassName} &[data-disabled]`]: {
+      borderColor: semanticVars.color.borderColorDisabled,
+      color: semanticVars.color.textColorDisabled
     }
   }
 })

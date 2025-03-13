@@ -8,6 +8,7 @@ import { dateRangePickerClassName } from './date-range-picker.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { textFieldClassName } from './text-field.css'
+import { numberFieldClassName } from './number-field.css'
 
 export const fieldErrorClassName = style({
   selectors: {
@@ -48,6 +49,11 @@ export const fieldErrorClassName = style({
     },
     // date range picker
     [`${dateRangePickerClassName} &`]: {
+      fontSize: '12px',
+      color: semanticVars.color.invalidColor
+    },
+    // number field
+    [`${numberFieldClassName} &`]: {
       fontSize: '12px',
       color: semanticVars.color.invalidColor
     }

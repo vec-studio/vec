@@ -10,6 +10,8 @@ import { gridListClassName } from './grid-list.css'
 import { rangeCalendarClassName } from './range-calendar.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
+import { numberFieldClassName } from './number-field.css'
+import { groupClassName } from './group.css'
 
 export const buttonHighlightHoverVar = createVar()
 export const buttonHighlightPressedVar = createVar()
@@ -192,6 +194,33 @@ export const buttonClassName = style({
     [`${gridListClassName} ${gridListItemClassName} &[data-pressed]`]: {
       background: buttonHighlightPressedVar,
       boxShadow: 'none'
+    },
+    // number field
+    [`${numberFieldClassName} &${groupClassName} [data-focus-within] &`]: {
+      outline: semanticVars.color.focusRingColor
+    },
+    [`${numberFieldClassName} &`]: {
+      fontSize: '1.4rem',
+      width: '2.3rem',
+      padding: '0'
+    },
+    [`${numberFieldClassName} &[slot=decrement]`]: {
+      borderStartEndRadius: '0',
+      borderEndEndRadius: '0'
+    },
+    [`${numberFieldClassName} &[slot=increment]`]: {
+      borderStartStartRadius: '0',
+      borderEndStartRadius: '0'
+    },
+    [`${numberFieldClassName}[data-invalid] &`]: {
+      borderColor: semanticVars.color.invalidColor
+    },
+    [`${numberFieldClassName}[data-invalid]:focus-within &`]: {
+      borderColor: semanticVars.color.focusRingColor
+    },
+    [`${numberFieldClassName} &[data-disabled]`]: {
+      borderColor: semanticVars.color.borderColorDisabled,
+      color: semanticVars.color.textColorDisabled
     }
   }
 })

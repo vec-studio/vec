@@ -3,10 +3,11 @@ import { semanticVars, themeVars } from '../theme.css'
 import { calendarClassName } from './calendar.css'
 import { comboBoxClassName } from './combo-box.css'
 import { datePickerClassName } from './date-picker.css'
+import { dateRangePickerClassName } from './date-range-picker.css'
+import { disclosureClassName } from './disclosure.css'
+import { rangeCalendarClassName } from './range-calendar.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
-import { rangeCalendarClassName } from './range-calendar.css'
-import { dateRangePickerClassName } from './date-range-picker.css'
 
 export const buttonClassName = style({
   color: semanticVars.color.textColor,
@@ -149,6 +150,17 @@ export const buttonClassName = style({
     [`${dateRangePickerClassName} &[data-focus-visible]`]: {
       outline: `2px solid ${semanticVars.color.focusRingColor}`,
       outlineOffset: '2px'
+    },
+    // disclosure
+    [`${disclosureClassName} &[slot=trigger]`]: {
+      background: 'none',
+      border: 'none',
+      boxShadow: 'none',
+      fontWeight: 'bold',
+      fontSize: '16px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '8px'
     }
   }
 })
@@ -161,4 +173,19 @@ export const toggleAnimation = keyframes({
 globalStyle(`${selectClassName} ${buttonClassName}[data-disabled] span[aria-hidden]`, {
   background: semanticVars.color.borderColorDisabled,
   color: semanticVars.color.textColorDisabled
+})
+
+// disclosure
+globalStyle(`${disclosureClassName} ${buttonClassName}[slot=trigger] svg`, {
+  rotate: '0deg',
+  transition: 'rotate 200ms',
+  width: '12px',
+  height: '12px',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: '3px'
+})
+
+globalStyle(`${disclosureClassName}[data-expanded] ${buttonClassName}[slot=trigger] svg`, {
+  rotate: '90deg'
 })

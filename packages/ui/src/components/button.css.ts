@@ -12,6 +12,8 @@ import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { numberFieldClassName } from './number-field.css'
 import { groupClassName } from './group.css'
+import { treeClassName } from './tree.css'
+import { treeItemClassName, treeItemPaddingVar } from './tree-item.css'
 
 export const buttonHighlightHoverVar = createVar()
 export const buttonHighlightPressedVar = createVar()
@@ -221,6 +223,20 @@ export const buttonClassName = style({
     [`${numberFieldClassName} &[data-disabled]`]: {
       borderColor: semanticVars.color.borderColorDisabled,
       color: semanticVars.color.textColorDisabled
+    },
+    // tree
+    [`${treeClassName} ${treeItemClassName} &[slot=chevron]`]: {
+      all: 'unset',
+      display: 'flex',
+      visibility: 'hidden',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '1.3rem',
+      height: '100%',
+      paddingLeft: `calc((var(--tree-item-level) - 1) * ${treeItemPaddingVar})`
+    },
+    [`${treeClassName} ${treeItemClassName} &[slot=chevron]`]: {
+      visibility: 'visible'
     }
   }
 })
@@ -247,5 +263,16 @@ globalStyle(`${disclosureClassName} ${buttonClassName}[slot=trigger] svg`, {
 })
 
 globalStyle(`${disclosureClassName}[data-expanded] ${buttonClassName}[slot=trigger] svg`, {
+  rotate: '90deg'
+})
+
+globalStyle(`${treeClassName} ${treeItemClassName} ${buttonClassName}[slot=chevron] svg`, {
+  rotate: '0deg',
+  transition: 'rotate 200ms',
+  width: '12px',
+  height: '12px',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: '3px',
   rotate: '90deg'
 })

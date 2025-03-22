@@ -1,5 +1,4 @@
 import { createVar, style } from '@vanilla-extract/css'
-import { tabsClassName } from './tabs.css'
 import { tabListClassName } from './tab-list.css'
 import { semanticVars } from '../theme.css'
 

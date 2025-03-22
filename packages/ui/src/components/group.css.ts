@@ -1,8 +1,9 @@
 import { style } from '@vanilla-extract/css'
+import { semanticVars } from '../theme.css'
 import { datePickerClassName } from './date-picker.css'
 import { dateRangePickerClassName } from './date-range-picker.css'
-import { semanticVars } from '../theme.css'
 import { numberFieldClassName } from './number-field.css'
+import { toolbarClassName } from './toolbar.css'
 
 export const groupClassName = style({
   selectors: {
@@ -44,6 +45,10 @@ export const groupClassName = style({
     },
     [`${numberFieldClassName} &[data-focus-within]`]: {
       outline: `1px solid ${semanticVars.color.focusRingColor}`
+    },
+    // toolbar
+    [`${toolbarClassName} &`]: {
+      display: 'contents'
     }
   }
 })

@@ -10,6 +10,7 @@ import { radioGroupClassName } from './radio-group.css'
 import { searchFieldClassName } from './search-field.css'
 import { selectClassName } from './select.css'
 import { textFieldClassName } from './text-field.css'
+import { dateFieldClassName } from './date-field.css'
 
 export const fieldErrorClassName = style({
   selectors: {
@@ -62,6 +63,11 @@ export const fieldErrorClassName = style({
     [`${radioGroupClassName} &`]: {
       fontSize: '12px',
       color: 'var(--invalid-color)'
+    },
+    // date field
+    [`${dateFieldClassName} &`]: {
+      fontSize: '12px',
+      color: semanticVars.color.invalidColor
     }
   }
 })

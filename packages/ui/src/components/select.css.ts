@@ -20,7 +20,7 @@ globalStyle(`${selectClassName} span[aria-hidden]`, {
 
 globalStyle(`${selectClassName} ${buttonClassName}[data-disabled] span[aria-hidden]`, {
   '@media': {
-    'forced-colors: active': {
+    '(forced-colors: active)': {
       background: '0 0'
     }
   }

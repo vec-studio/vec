@@ -273,6 +273,5 @@ globalStyle(`${treeClassName} ${treeItemClassName} ${buttonClassName}[slot=chevr
   height: '12px',
   fill: 'none',
   stroke: 'currentColor',
-  strokeWidth: '3px',
-  rotate: '90deg'
+  strokeWidth: '3px'
 })

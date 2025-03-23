@@ -1,7 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Autocomplete } from './components/autocomplete'
-import { MenuItem } from './components/menu-item'
+import { Autocomplete, Button, MenuItem } from './components'
 import { semanticClassName, themeLightClassName } from './theme.css'
 
 function Components() {
@@ -10,6 +9,7 @@ function Components() {
       <Autocomplete label="label" placeholder="placeholder">
         <MenuItem>42</MenuItem>
       </Autocomplete>
+      <Button>42</Button>
     </div>
   )
 }

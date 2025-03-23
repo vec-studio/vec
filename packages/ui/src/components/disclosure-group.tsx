@@ -2,7 +2,7 @@ import {
   DisclosureGroup as RACDisclosureGroup,
   DisclosureGroupProps as RACDisclosureGroupProps
 } from 'react-aria-components'
-import { disclosureGroupClassName } from './disclosure-panel.css'
+import { disclosureGroupClassName } from './disclosure-group.css'
 import { cn } from './utils'
 
 export type DisclosureGroupProps = RACDisclosureGroupProps

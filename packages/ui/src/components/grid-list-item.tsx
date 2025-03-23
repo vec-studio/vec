@@ -1,7 +1,7 @@
 import { GridListItem as RACGridListItem, type GridListItemProps as RACGridListItemProps } from 'react-aria-components'
 import { Button } from './button'
 import { Checkbox } from './checkbox'
-import { gridListItemClassName } from './grid-list.css'
+import { gridListItemClassName } from './grid-list-item.css'
 import { cn } from './utils'
 
 export type GridListItemProps = RACGridListItemProps

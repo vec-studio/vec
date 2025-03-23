@@ -8,9 +8,7 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     hmr: {
-      host: '0.0.0.0',
-      clientPort: 5173,
-      port: 5173
+      clientPort: 5173
     }
   },
   plugins: [reactPlugin(), vanillaExtractPlugin()]

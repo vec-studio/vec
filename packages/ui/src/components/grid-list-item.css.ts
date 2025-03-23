@@ -51,10 +51,6 @@ export const gridListItemClassName = style({
     [`${gridListClassName} &[data-dragging]`]: {
       opacity: '0.6'
     },
-    [`${gridListClassName} [slot=drag][data-focus-visible]`]: {
-      borderRadius: '4px',
-      outline: `2px solid ${gridListFocusRingColorVar}`
-    },
     '&[data-drop-target]': {
       outline: `2px solid ${semanticVars.color.highlightBackground}`,
       background: semanticVars.color.highlightOverlay
@@ -66,4 +62,9 @@ globalStyle(`${gridListItemClassName} [slot=drag]`, {
   all: 'unset',
   width: '15px',
   textAlign: 'center'
+})
+
+globalStyle(`${gridListItemClassName} [slot=drag][data-focus-visible]`, {
+  borderRadius: '4px',
+  outline: `2px solid ${gridListFocusRingColorVar}`
 })

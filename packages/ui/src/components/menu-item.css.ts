@@ -1,4 +1,4 @@
-import { style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 
 export const menuItemClassName = style({
@@ -43,21 +43,24 @@ export const menuItemClassName = style({
       textDecoration: 'none',
       cursor: 'pointer'
     },
-    '& [slot=label]': {
-      fontWeight: 'bold',
-      gridArea: 'label'
-    },
-    '& [slot=description]': {
-      fontSize: 'small',
-      gridArea: 'desc'
-    },
-    '& kbd': {
-      gridArea: 'kbd',
-      fontFamily: 'monospace',
-      textAlign: 'end'
-    },
     '&[data-disabled]': {
       color: semanticVars.color.textColorDisabled
     }
   }
+})
+
+globalStyle(`${menuItemClassName} [slot=label]`, {
+  fontWeight: 'bold',
+  gridArea: 'label'
+})
+
+globalStyle(`${menuItemClassName} [slot=description]`, {
+  fontSize: 'small',
+  gridArea: 'desc'
+})
+
+globalStyle(`${menuItemClassName} kbd`, {
+  gridArea: 'kbd',
+  fontFamily: 'monospace',
+  textAlign: 'end'
 })

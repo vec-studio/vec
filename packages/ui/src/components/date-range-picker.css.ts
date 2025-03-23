@@ -2,17 +2,7 @@ import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 
 export const dateRangePickerClassName = style({
-  color: semanticVars.color.textColor,
-
-  selectors: {
-    [`&[data-invalid] [slot=end]:after`]: {
-      content: '🚫',
-      flex: 1,
-      textAlign: 'end',
-      marginLeft: '1.5rem',
-      marginRight: '-1.5rem'
-    }
-  }
+  color: semanticVars.color.textColor
 })
 
 globalStyle(`${dateRangePickerClassName} [slot=start] + span`, {
@@ -26,4 +16,12 @@ globalStyle(`${dateRangePickerClassName} [slot=end]`, {
 
 globalStyle(`${dateRangePickerClassName} [slot=description]`, {
   fontSize: '12px'
+})
+
+globalStyle(`${dateRangePickerClassName}[data-invalid] [slot=end]:after`, {
+  content: '🚫',
+  flex: 1,
+  textAlign: 'end',
+  marginLeft: '1.5rem',
+  marginRight: '-1.5rem'
 })

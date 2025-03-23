@@ -3,6 +3,7 @@ import { semanticVars } from '../theme.css'
 import { dateFieldClassName } from './date-field.css'
 import { datePickerClassName } from './date-picker.css'
 import { dateRangePickerClassName } from './date-range-picker.css'
+import { timeFieldClassName } from './time-filed.css'
 
 export const dateInputClassName = style({
   selectors: {
@@ -36,6 +37,22 @@ export const dateInputClassName = style({
       forcedColorAdjust: 'none'
     },
     [`${dateFieldClassName} &[data-focus-within]`]: {
+      outline: `2px solid ${semanticVars.color.focusRingColor}`,
+      outlineOffset: '-1px'
+    },
+    // time input
+    [`${timeFieldClassName} &`]: {
+      display: 'inline',
+      padding: '4px',
+      border: `1px solid ${semanticVars.color.borderColor}`,
+      borderRadius: '6px',
+      background: semanticVars.color.fieldBackground,
+      width: 'fit-content',
+      minWidth: '150px',
+      whiteSpace: 'nowrap',
+      forcedColorAdjust: 'none'
+    },
+    [`${timeFieldClassName} &[data-focus-within]`]: {
       outline: `2px solid ${semanticVars.color.focusRingColor}`,
       outlineOffset: '-1px'
     }

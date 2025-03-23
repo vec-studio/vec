@@ -1,3 +1,12 @@
-import { style } from '@vanilla-extract/css'
+import { globalStyle, style } from '@vanilla-extract/css'
+import { semanticVars } from '../theme.css'
 
-export const timeFieldClassName = style({})
+export const timeFieldClassName = style({
+  color: semanticVars.color.textColor,
+  display: 'flex',
+  flexDirection: 'column'
+})
+
+globalStyle(`${timeFieldClassName} [slot=description]`, {
+  fontSize: '12px'
+})

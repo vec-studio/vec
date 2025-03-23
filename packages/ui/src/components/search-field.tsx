@@ -23,7 +23,7 @@ export function SearchField({ label, description, errorMessage, placeholder, ...
     <RACSearchField {...props} className={cn(props.className, searchFieldClassName)}>
       {label && <Label>{label}</Label>}
       <Input placeholder={placeholder} />
-      <Button>✕</Button>
+      <Button>x</Button>
       {description && <Text slot="description">{description}</Text>}
       <FieldError>{errorMessage}</FieldError>
     </RACSearchField>

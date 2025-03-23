@@ -1,11 +1,12 @@
 import {
   type Key,
+  Menu,
   Autocomplete as RACAutocomplete,
   type AutocompleteProps as RACAutocompleteProps,
   useFilter
 } from 'react-aria-components'
 import { autocompleteClassName } from './autocomplete.css'
-import { Menu } from './menu'
+import { menuClassName } from './menu.css'
 import { SearchField } from './search-field'
 
 export interface AutocompleteProps<T extends object> extends Omit<RACAutocompleteProps, 'children'> {
@@ -29,7 +30,7 @@ export function Autocomplete<T extends object>({
     <div className={autocompleteClassName}>
       <RACAutocomplete filter={contains} {...props}>
         <SearchField label={label} placeholder={placeholder} />
-        <Menu items={items} onAction={onAction}>
+        <Menu items={items} onAction={onAction} className={menuClassName}>
           {children}
         </Menu>
       </RACAutocomplete>

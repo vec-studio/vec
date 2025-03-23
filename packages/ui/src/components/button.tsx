@@ -1,7 +1,7 @@
-import { ButtonProps, Button as AriaButton } from 'react-aria-components'
+import { ButtonProps, Button as RACButton } from 'react-aria-components'
 import { buttonClassName } from './button.css'
 import { cn } from './utils'
 
 export function Button(props: ButtonProps) {
-  return <AriaButton {...props} className={cn(props.className, buttonClassName)} />
+  return <RACButton {...props} className={cn(props.className, buttonClassName)} />
 }

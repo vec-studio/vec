@@ -14,5 +14,5 @@
     "target": "esnext"
   },
   "files": ["vite.config.ts"],
-  "include": ["src/**/*"]
+  "include": ["src/**/*", ".ladle"]
 }

@@ -2,10 +2,10 @@
 
 !.gitignore
 
+!.ladle
 !src
 
 !README.md
-!index.html
 !package.json
 !tsconfig.json
 !vite.config.ts

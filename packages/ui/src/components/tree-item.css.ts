@@ -27,9 +27,6 @@ export const treeItemClassName = style({
     [`${treeClassName} &[data-has-child-items]`]: {
       visibility: 'visible'
     },
-    [`${treeClassName} &[data-expanded]`]: {
-      rotate: '90deg'
-    },
     [`${treeClassName} &[data-focus-visible]`]: {
       outline: `2px solid ${treeItemFocusRingColorVar}`,
       outlineOffset: '-2px'

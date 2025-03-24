@@ -235,7 +235,7 @@ export const buttonClassName = style({
       height: '100%',
       paddingLeft: `calc((var(--tree-item-level) - 1) * ${treeItemPaddingVar})`
     },
-    [`${treeClassName} ${treeItemClassName} &[slot=chevron]`]: {
+    [`${treeClassName} ${treeItemClassName}[data-has-child-items] &[slot=chevron]`]: {
       visibility: 'visible'
     }
   }
@@ -266,6 +266,7 @@ globalStyle(`${disclosureClassName}[data-expanded] ${buttonClassName}[slot=trigg
   rotate: '90deg'
 })
 
+// tree
 globalStyle(`${treeClassName} ${treeItemClassName} ${buttonClassName}[slot=chevron] svg`, {
   rotate: '0deg',
   transition: 'rotate 200ms',
@@ -274,4 +275,8 @@ globalStyle(`${treeClassName} ${treeItemClassName} ${buttonClassName}[slot=chevr
   fill: 'none',
   stroke: 'currentColor',
   strokeWidth: '3px'
+})
+
+globalStyle(`${treeClassName} ${treeItemClassName}[data-expanded] ${buttonClassName}[slot=chevron] svg`, {
+  rotate: '90deg'
 })

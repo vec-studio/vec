@@ -15,7 +15,9 @@ import {
   Tag,
   TagGroup,
   ToggleButton,
-  ToggleButtonGroup
+  ToggleButtonGroup,
+  Tree,
+  TreeItem
 } from '../components'
 import { Card } from './card'
 import { componentsClassName } from './components.css'
@@ -97,6 +99,19 @@ export function Components() {
           <Tag>Strawberry</Tag>
           <Tag>Vanilla</Tag>
         </TagGroup>
+      </Card>
+      <Card title="Tree">
+        <Tree aria-label="Files" style={{ height: '300px' }} defaultExpandedKeys={['documents', 'photos', 'project']}>
+          <TreeItem title="Documents">
+            <TreeItem title="Project">
+              <TreeItem title="Weekly Report" />
+            </TreeItem>
+          </TreeItem>
+          <TreeItem title="Photos">
+            <TreeItem title="Image 1" />
+            <TreeItem title="Image 2" />
+          </TreeItem>
+        </Tree>
       </Card>
       <Card title="Autocomplete">
         <Autocomplete label="Commands" placeholder="Search commands...">

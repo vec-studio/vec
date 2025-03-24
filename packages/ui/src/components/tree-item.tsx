@@ -1,6 +1,7 @@
 import { TreeItem as RACTreeItem, type TreeItemProps as RACTreeItemProps } from 'react-aria-components'
 import { TreeItemContent } from './tree-item-content'
 import { treeItemClassName } from './tree-item.css'
+import { cn } from './utils'
 
 export interface TreeItemProps extends Partial<RACTreeItemProps> {
   title: string

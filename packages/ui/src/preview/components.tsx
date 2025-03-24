@@ -5,6 +5,7 @@ import {
   ColorArea,
   ColorField,
   ColorPicker,
+  ColorSlider,
   ColorThumb,
   Column,
   GridList,
@@ -139,6 +140,9 @@ export function Components() {
       </Card>
       <Card title="ColorPicker">
         <ColorPicker label="Fill color" defaultValue="#f00" />
+      </Card>
+      <Card title="ColorSlider">
+        <ColorSlider label="Red Opacity" defaultValue="#f00" channel="alpha" />
       </Card>
     </div>
   )

@@ -1,10 +1,10 @@
 import { ColorSlider as RACColorSlider, type ColorSliderProps as RACColorSliderProps } from 'react-aria-components'
+import { colorSliderClassName } from './color-slider.css'
 import { ColorThumb } from './color-thumb'
 import { Label } from './label'
 import { SliderOutput } from './slider-output'
 import { SliderTrack } from './slider-track'
 import { cn } from './utils'
-import { colorSliderClassName } from './color-slider.css'
 
 export interface ColorSliderProps extends RACColorSliderProps {
   label?: string

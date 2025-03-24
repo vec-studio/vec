@@ -9,11 +9,11 @@ export const tagGroupClassName = style({
   color: semanticVars.color.textColor
 })
 
-globalStyle(`${tagGroupClassName} & [slot=description]`, {
+globalStyle(`${tagGroupClassName} [slot=description]`, {
   fontSize: '0.857rem'
 })
 
-globalStyle(`${tagGroupClassName} & [slot=errorMessage]`, {
+globalStyle(`${tagGroupClassName} [slot=errorMessage]`, {
   fontSize: '0.857rem',
   color: semanticVars.color.invalidColor
 })

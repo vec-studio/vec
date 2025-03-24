@@ -23,13 +23,6 @@ import { componentsClassName } from './components.css'
 export function Components() {
   return (
     <div className={`${componentsClassName}`}>
-      <Card title="Autocomplete">
-        <Autocomplete label="label" placeholder="placeholder">
-          <MenuItem>Option 1</MenuItem>
-          <MenuItem>Option 2</MenuItem>
-          <MenuItem>Option 3</MenuItem>
-        </Autocomplete>
-      </Card>
       <Card title="Button">
         <Button>Press me</Button>
       </Card>
@@ -104,6 +97,18 @@ export function Components() {
           <Tag>Strawberry</Tag>
           <Tag>Vanilla</Tag>
         </TagGroup>
+      </Card>
+      <Card title="Autocomplete">
+        <Autocomplete label="Commands" placeholder="Search commands...">
+          <MenuItem>Create new file...</MenuItem>
+          <MenuItem>Create new folder...</MenuItem>
+          <MenuItem>Assign to...</MenuItem>
+          <MenuItem>Assign to me</MenuItem>
+          <MenuItem>Change status...</MenuItem>
+          <MenuItem>Change priority...</MenuItem>
+          <MenuItem>Add label...</MenuItem>
+          <MenuItem>Remove label...</MenuItem>
+        </Autocomplete>
       </Card>
     </div>
   )

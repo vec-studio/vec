@@ -6,7 +6,12 @@ import {
   ColorField,
   ColorPicker,
   ColorSlider,
+  ColorSwatch,
+  ColorSwatchPicker,
+  ColorSwatchPickerItem,
   ColorThumb,
+  ColorWheel,
+  ColorWheelTrack,
   Column,
   GridList,
   GridListItem,
@@ -44,7 +49,7 @@ export function Components() {
         </ToggleButtonGroup>
       </Card>
       <Card title="GridList">
-        <GridList selectionMode="multiple">
+        <GridList aria-label="Ice cream flavors" selectionMode="multiple">
           <GridListItem>Chocolate</GridListItem>
           <GridListItem>Mint</GridListItem>
           <GridListItem>Strawberry</GridListItem>
@@ -52,7 +57,7 @@ export function Components() {
         </GridList>
       </Card>
       <Card title="ListBox">
-        <ListBox selectionMode="single">
+        <ListBox aria-label="Ice cream flavor" selectionMode="single">
           <ListBoxItem>Chocolate</ListBoxItem>
           <ListBoxItem>Mint</ListBoxItem>
           <ListBoxItem>Strawberry</ListBoxItem>
@@ -143,6 +148,22 @@ export function Components() {
       </Card>
       <Card title="ColorSlider">
         <ColorSlider label="Red Opacity" defaultValue="#f00" channel="alpha" />
+      </Card>
+      <Card title="ColorSwatch">
+        <ColorSwatch color="#f00" />
+      </Card>
+      <Card title="ColorSwatchPicker">
+        <ColorSwatchPicker>
+          <ColorSwatchPickerItem color="#A00" />
+          <ColorSwatchPickerItem color="#f80" />
+          <ColorSwatchPickerItem color="#080" />
+          <ColorSwatchPickerItem color="#08f" />
+          <ColorSwatchPickerItem color="#088" />
+          <ColorSwatchPickerItem color="#008" />
+        </ColorSwatchPicker>
+      </Card>
+      <Card title="ColorWheel">
+        <ColorWheel defaultValue="hsl(30, 100%, 50%)" />
       </Card>
     </div>
   )

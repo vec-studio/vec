@@ -1,5 +1,7 @@
 import {
+  Dialog,
   DialogTrigger,
+  Popover,
   ColorPicker as RACColorPicker,
   type ColorPickerProps as RACColorPickerProps
 } from 'react-aria-components'
@@ -9,8 +11,7 @@ import { ColorField } from './color-field'
 import { colorPickerClassName, colorPickerDialogClassName } from './color-picker.css'
 import { ColorSlider } from './color-slider'
 import { ColorSwatch } from './color-swatch'
-import { Dialog } from './dialog'
-import { Popover } from './popover'
+import { popoverClassName } from './popover.css'
 
 export interface ColorPickerProps extends RACColorPickerProps {
   label?: string
@@ -25,7 +26,7 @@ export function ColorPicker({ label, children, ...props }: ColorPickerProps) {
           <ColorSwatch />
           <span>{label}</span>
         </Button>
-        <Popover placement="bottom start">
+        <Popover placement="bottom start" className={popoverClassName}>
           <Dialog className={colorPickerDialogClassName}>
             {children || (
               <>

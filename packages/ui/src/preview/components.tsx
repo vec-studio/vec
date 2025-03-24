@@ -4,6 +4,7 @@ import {
   Button,
   ColorArea,
   ColorField,
+  ColorPicker,
   ColorThumb,
   Column,
   GridList,
@@ -135,6 +136,9 @@ export function Components() {
       </Card>
       <Card title="ColorField">
         <ColorField label="Color" />
+      </Card>
+      <Card title="ColorPicker">
+        <ColorPicker label="Fill color" defaultValue="#f00" />
       </Card>
     </div>
   )

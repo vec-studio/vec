@@ -2,18 +2,18 @@ import { style } from '@vanilla-extract/css'
 import { semanticVars } from '../theme.css'
 
 export const colorPickerClassName = style({
+  alignItems: 'center',
+  appearance: 'none',
   background: 'none',
   border: 'none',
-  padding: 0,
+  borderRadius: '4px',
+  color: semanticVars.color.textColor,
   display: 'flex',
-  alignItems: 'center',
+  fontSize: '1rem',
   gap: '8px',
   outline: 'none',
-  borderRadius: '4px',
-  appearance: 'none',
+  padding: 0,
   verticalAlign: 'middle',
-  fontSize: '1rem',
-  color: semanticVars.color.textColor,
 
   selectors: {
     '&[data-focus-visible]': {

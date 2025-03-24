@@ -2,6 +2,8 @@ import { Cell, TableBody } from 'react-aria-components'
 import {
   Autocomplete,
   Button,
+  ColorArea,
+  ColorThumb,
   Column,
   GridList,
   GridListItem,
@@ -124,6 +126,11 @@ export function Components() {
           <MenuItem>Add label...</MenuItem>
           <MenuItem>Remove label...</MenuItem>
         </Autocomplete>
+      </Card>
+      <Card title="ColorArea">
+        <ColorArea>
+          <ColorThumb />
+        </ColorArea>
       </Card>
     </div>
   )

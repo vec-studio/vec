@@ -2,8 +2,8 @@ import { CalendarGrid as RACCalendarGrid, type CalendarGridProps as RACCalendarG
 import { calendarGridClassName } from './calendar-grid.css'
 import { cn } from './utils'
 
-export type CalendarProps = RACCalendarGridProps
+export type CalendarGridProps = RACCalendarGridProps
 
-export function CalendarGrid(props: CalendarProps) {
+export function CalendarGrid(props: CalendarGridProps) {
   return <RACCalendarGrid {...props} className={cn(props.className, calendarGridClassName)} />
 }

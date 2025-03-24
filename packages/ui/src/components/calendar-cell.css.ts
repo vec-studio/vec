@@ -91,6 +91,6 @@ export const calendarCellClassName = style({
 })
 
 globalStyle(`${calendarClassName} [slot=errorMessage]`, {
-  fontSize: '12px',
+  fontSize: '0.857rem',
   color: semanticVars.color.invalidColor
 })

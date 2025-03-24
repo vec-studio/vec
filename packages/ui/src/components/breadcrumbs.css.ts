@@ -6,6 +6,6 @@ export const breadcrumbsClassName = style({
   listStyle: 'none',
   margin: 0,
   padding: 0,
-  fontSize: '18px',
+  fontSize: '1.285rem',
   color: 'var(--text-color)'
 })

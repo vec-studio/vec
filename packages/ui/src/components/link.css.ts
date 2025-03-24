@@ -4,7 +4,7 @@ import { breadcrumbsClassName } from './breadcrumbs.css'
 
 export const linkClassName = style({
   color: semanticVars.color.linkColor,
-  fontSize: '18px',
+  fontSize: '1.285rem',
   transition: 'all 200ms',
   textDecoration: 'underline',
   cursor: 'pointer',

@@ -6,5 +6,5 @@ export const datePickerClassName = style({
 })
 
 globalStyle(`${datePickerClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

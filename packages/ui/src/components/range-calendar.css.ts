@@ -22,6 +22,6 @@ globalStyle(`${rangeCalendarClassName} table td`, {
 })
 
 globalStyle(`${rangeCalendarClassName} [slot=errorMessage]`, {
-  fontSize: '12px',
+  fontSize: '0.857rem',
   color: semanticVars.color.invalidColor
 })

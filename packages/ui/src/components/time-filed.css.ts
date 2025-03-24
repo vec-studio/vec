@@ -8,5 +8,5 @@ export const timeFieldClassName = style({
 })
 
 globalStyle(`${timeFieldClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

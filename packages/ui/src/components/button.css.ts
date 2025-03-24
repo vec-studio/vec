@@ -166,7 +166,7 @@ export const buttonClassName = style({
       border: 'none',
       boxShadow: 'none',
       fontWeight: 'bold',
-      fontSize: '16px',
+      fontSize: '1.142rem',
       display: 'flex',
       alignItems: 'center',
       gap: '8px'

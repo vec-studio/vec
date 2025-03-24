@@ -58,7 +58,7 @@ export const listBoxItemClassName = style({
         height: '22px',
         borderRadius: '22px',
         boxSizing: 'border-box',
-        fontSize: '14px',
+        fontSize: '1rem',
         lineHeight: '1em',
         display: 'flex',
         alignItems: 'center',

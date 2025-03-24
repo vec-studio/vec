@@ -16,5 +16,5 @@ export const radioGroupClassName = style({
 })
 
 globalStyle(`${radioGroupClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

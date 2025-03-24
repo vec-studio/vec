@@ -26,7 +26,7 @@ export const tagClassName = style({
     '&[data-selected]': {
       borderColor: semanticVars.color.highlightBackground,
       background: semanticVars.color.highlightBackground,
-      color: semanticVars.color.highlightBackground
+      color: semanticVars.color.highlightForeground
     },
     '&[data-href]': {
       textDecoration: 'none',

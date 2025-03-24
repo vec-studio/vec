@@ -8,5 +8,5 @@ export const dateFieldClassName = style({
 })
 
 globalStyle(`${dateFieldClassName}[slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

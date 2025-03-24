@@ -16,5 +16,5 @@ export const textFieldClassName = style({
 })
 
 globalStyle(`${textFieldClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

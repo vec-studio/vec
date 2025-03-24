@@ -27,5 +27,5 @@ globalStyle(`${selectClassName} ${buttonClassName}[data-disabled] span[aria-hidd
 })
 
 globalStyle(`${selectClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

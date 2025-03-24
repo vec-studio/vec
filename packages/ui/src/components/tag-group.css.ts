@@ -10,10 +10,10 @@ export const tagGroupClassName = style({
 })
 
 globalStyle(`${tagGroupClassName} & [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })
 
 globalStyle(`${tagGroupClassName} & [slot=errorMessage]`, {
-  fontSize: '12px',
+  fontSize: '0.857rem',
   color: semanticVars.color.invalidColor
 })

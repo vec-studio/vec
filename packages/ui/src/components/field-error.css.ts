@@ -3,7 +3,7 @@ import { semanticVars } from '../theme.css'
 import { searchFieldClassName } from './search-field.css'
 
 export const fieldErrorClassName = style({
-  fontSize: '12px',
+  fontSize: '0.857rem',
   color: semanticVars.color.invalidColor,
 
   selectors: {

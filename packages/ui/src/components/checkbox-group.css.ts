@@ -9,5 +9,5 @@ export const checkboxGroupClassName = style({
 })
 
 export const description = globalStyle(`${checkboxGroupClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

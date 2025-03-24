@@ -12,6 +12,8 @@ import {
   Row,
   Table,
   TableHeader,
+  Tag,
+  TagGroup,
   ToggleButton,
   ToggleButtonGroup
 } from '../components'
@@ -94,6 +96,14 @@ export function Components() {
             </Row>
           </TableBody>
         </Table>
+      </Card>
+      <Card title="TagGroup">
+        <TagGroup selectionMode="multiple">
+          <Tag>Chocolate</Tag>
+          <Tag>Mint</Tag>
+          <Tag>Strawberry</Tag>
+          <Tag>Vanilla</Tag>
+        </TagGroup>
       </Card>
     </div>
   )

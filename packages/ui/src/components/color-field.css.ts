@@ -8,5 +8,5 @@ export const colorFieldClassName = style({
 })
 
 globalStyle(`${colorFieldClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

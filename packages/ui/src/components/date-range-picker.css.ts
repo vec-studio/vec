@@ -15,7 +15,7 @@ globalStyle(`${dateRangePickerClassName} [slot=end]`, {
 })
 
 globalStyle(`${dateRangePickerClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })
 
 globalStyle(`${dateRangePickerClassName}[data-invalid] [slot=end]:after`, {

@@ -3,6 +3,7 @@ import { Label } from './label'
 import { tagGroupClassName } from './tag-group.css'
 import { TagList, type TagListProps } from './tag-list'
 import { Text } from './text'
+import { cn } from './utils'
 
 export interface TagGroupProps<T>
   extends Omit<RACTagGroupProps, 'children'>,

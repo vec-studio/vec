@@ -6,5 +6,5 @@ export const comboBoxClassName = style({
 })
 
 globalStyle(`${comboBoxClassName} [slot=description]`, {
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

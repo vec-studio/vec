@@ -31,5 +31,5 @@ globalStyle(`${searchFieldClassName}[data-empty] button`, {
 
 globalStyle(`${searchFieldClassName} [slot=description]`, {
   gridArea: 'help',
-  fontSize: '12px'
+  fontSize: '0.857rem'
 })

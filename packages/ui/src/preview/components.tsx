@@ -5,6 +5,7 @@ import {
   GridListItem,
   ListBox,
   ListBoxItem,
+  Menu,
   MenuItem,
   ToggleButton,
   ToggleButtonGroup
@@ -50,6 +51,13 @@ export function Components() {
           <ListBoxItem>Strawberry</ListBoxItem>
           <ListBoxItem>Vanilla</ListBoxItem>
         </ListBox>
+      </Card>
+      <Card title="Menu">
+        <Menu label="Edit">
+          <MenuItem>Cut</MenuItem>
+          <MenuItem>Copy</MenuItem>
+          <MenuItem>Paste</MenuItem>
+        </Menu>
       </Card>
     </div>
   )

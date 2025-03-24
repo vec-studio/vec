@@ -2,12 +2,13 @@ import {
   Menu as RACMenu,
   MenuProps as RACMenuProps,
   MenuTrigger as RACMenuTrigger,
-  MenuTriggerProps as RACMenuTriggerProps
+  MenuTriggerProps as RACMenuTriggerProps,
+  Popover as RACPopover
 } from 'react-aria-components'
 import { Button } from './button'
 import { menuClassName } from './menu.css'
-import { Popover } from './popover'
 import { cn } from './utils'
+import { popoverClassName } from './popover.css'
 
 export interface MenuProps<T> extends RACMenuProps<T>, Omit<RACMenuTriggerProps, 'children'> {
   label?: string
@@ -17,11 +18,11 @@ export function Menu<T extends object>({ label, children, ...props }: MenuProps<
   return (
     <RACMenuTrigger {...props}>
       <Button>{label}</Button>
-      <Popover>
+      <RACPopover className={popoverClassName}>
         <RACMenu {...props} className={cn(props.className, menuClassName)}>
           {children}
         </RACMenu>
-      </Popover>
+      </RACPopover>
     </RACMenuTrigger>
   )
 }

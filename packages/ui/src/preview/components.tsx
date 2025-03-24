@@ -61,7 +61,7 @@ export function Components() {
           <MenuItem>Paste</MenuItem>
         </Menu>
       </Card>
-      <Card title="Table" style={{ width: '25rem' }}>
+      <Card title="Table" style={{ width: '26rem' }}>
         <Table aria-label="Files" selectionMode="multiple">
           <TableHeader>
             <Column isRowHeader>Name</Column>

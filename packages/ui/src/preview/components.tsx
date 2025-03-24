@@ -3,6 +3,7 @@ import {
   Autocomplete,
   Button,
   ColorArea,
+  ColorField,
   ColorThumb,
   Column,
   GridList,
@@ -131,6 +132,9 @@ export function Components() {
         <ColorArea>
           <ColorThumb />
         </ColorArea>
+      </Card>
+      <Card title="ColorField">
+        <ColorField label="Color" />
       </Card>
     </div>
   )

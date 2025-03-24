@@ -68,7 +68,7 @@ export const inputClassName = style({
       borderRadius: '6px',
       background: semanticVars.color.fieldBackground,
       fontSize: '1.143rem',
-      color: semanticVars.color.fieldBackground,
+      color: semanticVars.color.fieldTextColor,
       width: '100%',
       maxWidth: '12ch',
       boxSizing: 'border-box'

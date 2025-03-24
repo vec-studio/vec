@@ -1,6 +1,6 @@
 import { style } from '@vanilla-extract/css'
 
-export const previewClassName = style({
+export const rootClassName = style({
   margin: '1rem',
   fontFamily: 'system-ui',
   fontSize: '12px',

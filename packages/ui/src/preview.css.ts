@@ -5,7 +5,7 @@ export const previewClassName = style({
   display: 'grid',
   gap: '1rem',
   gridAutoFlow: 'row',
-  gridTemplateColumns: 'repeat(5, max-content)'
+  gridTemplateColumns: 'repeat(auto-fill, minmax(min-content, 20rem))'
 })
 
 export const previewCardClassName = style({

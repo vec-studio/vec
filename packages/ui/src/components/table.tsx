@@ -1,16 +1,15 @@
 import {
-  Column as AriaColumn,
-  Row as AriaRow,
-  Table as AriaTable,
-  TableHeader as AriaTableHeader,
-  Button,
-  Cell,
-  Collection,
+  Column as RACColumn,
+  Row as RACRow,
+  Table as RACTable,
+  TableHeader as RACTableHeader,
   type ColumnProps,
   type RowProps,
   type TableHeaderProps,
   type TableProps,
-  useTableOptions
+  useTableOptions,
+  Collection,
+  Cell
 } from 'react-aria-components'
 import { Checkbox } from './checkbox'
 import { checkboxClassName } from './checkbox.css'
@@ -22,14 +21,15 @@ import {
   tableRowClassName
 } from './table.css'
 import { cn } from './utils'
+import { Button } from './button'
 
 export function Table(props: TableProps) {
-  return <AriaTable {...props} className={cn(props.className, tableClassName)} />
+  return <RACTable {...props} className={cn(props.className, tableClassName)} />
 }
 
 export function Column(props: ColumnProps) {
   return (
-    <AriaColumn {...props} className={cn(props.className, tableColumnClassName)}>
+    <RACColumn {...props} className={cn(props.className, tableColumnClassName)}>
       {({ allowsSorting, sortDirection }) => (
         <>
           {props.children}
@@ -40,7 +40,7 @@ export function Column(props: ColumnProps) {
           )}
         </>
       )}
-    </AriaColumn>
+    </RACColumn>
   )
 }
 
@@ -49,16 +49,16 @@ export function TableHeader<T extends object>(props: TableHeaderProps<T>) {
   let { selectionBehavior, selectionMode, allowsDragging } = useTableOptions()
 
   return (
-    <AriaTableHeader className={cn(className, tableHeaderClassName)}>
+    <RACTableHeader className={cn(className, tableHeaderClassName)}>
       {/* Add extra columns for drag and drop and selection. */}
-      {allowsDragging && <AriaColumn />}
+      {allowsDragging && <RACColumn />}
       {selectionBehavior === 'toggle' && (
-        <AriaColumn className={tableColumnClassName}>
+        <RACColumn className={tableColumnClassName}>
           {selectionMode === 'multiple' && <Checkbox slot="selection" />}
-        </AriaColumn>
+        </RACColumn>
       )}
       <Collection items={columns}>{children}</Collection>
-    </AriaTableHeader>
+    </RACTableHeader>
   )
 }
 
@@ -67,7 +67,7 @@ export function Row<T extends object>(props: RowProps<T>) {
   let { selectionBehavior, allowsDragging } = useTableOptions()
 
   return (
-    <AriaRow id={id} {...otherProps} className={cn(props.className, tableRowClassName)}>
+    <RACRow id={id} {...otherProps} className={cn(props.className, tableRowClassName)}>
       {allowsDragging && (
         <Cell className={tableCellClassName}>
           <Button slot="drag">≡</Button>
@@ -79,6 +79,6 @@ export function Row<T extends object>(props: RowProps<T>) {
         </Cell>
       )}
       <Collection items={columns}>{children}</Collection>
-    </AriaRow>
+    </RACRow>
   )
 }

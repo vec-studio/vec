@@ -1,11 +1,15 @@
-import { type ReactNode } from 'react'
+import { type FunctionComponent, type HTMLAttributes, type ReactNode } from 'react'
 import { cardClassName, cardContentClassName, cardTitleClassName } from './card.css'
 
-export function Card(props: { title: string; children: ReactNode }) {
+export const Card: FunctionComponent<{ title: string; children: ReactNode } & HTMLAttributes<HTMLDivElement>> = ({
+  title,
+  children,
+  ...props
+}) => {
   return (
-    <div className={cardClassName}>
-      <div className={cardTitleClassName}>{props.title}</div>
-      <div className={cardContentClassName}>{props.children}</div>
+    <div {...props} className={cardClassName}>
+      <div className={cardTitleClassName}>{title}</div>
+      <div className={cardContentClassName}>{children}</div>
     </div>
   )
 }

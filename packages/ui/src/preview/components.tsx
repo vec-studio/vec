@@ -1,9 +1,10 @@
 import {
   Autocomplete,
   Button,
-  Checkbox,
   GridList,
   GridListItem,
+  ListBox,
+  ListBoxItem,
   MenuItem,
   ToggleButton,
   ToggleButtonGroup
@@ -36,8 +37,19 @@ export function Components() {
       </Card>
       <Card title="GridList">
         <GridList selectionMode="multiple">
-          <GridListItem textValue="42">42</GridListItem>
+          <GridListItem>Chocolate</GridListItem>
+          <GridListItem>Mint</GridListItem>
+          <GridListItem>Strawberry</GridListItem>
+          <GridListItem>Vanilla</GridListItem>
         </GridList>
+      </Card>
+      <Card title="ListBox">
+        <ListBox selectionMode="single">
+          <ListBoxItem>Chocolate</ListBoxItem>
+          <ListBoxItem>Mint</ListBoxItem>
+          <ListBoxItem>Strawberry</ListBoxItem>
+          <ListBoxItem>Vanilla</ListBoxItem>
+        </ListBox>
       </Card>
     </div>
   )

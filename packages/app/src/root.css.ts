@@ -1,10 +1,11 @@
 import { globalStyle } from '@vanilla-extract/css'
-import { themeVars } from '@vec/ui'
 
-globalStyle('body', {
-  background: themeVars.color.backgroundColor,
+globalStyle('html', {
   fontFamily: 'system-ui',
   fontSize: 14,
-  lineHeight: 1.5,
+  lineHeight: 1.5
+})
+
+globalStyle('body', {
   margin: 0
 })

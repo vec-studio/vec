@@ -4,6 +4,5 @@ export const previewClassName = style({
   margin: '1rem',
   fontFamily: 'system-ui',
   fontSize: '12px',
-  lineHeight: 1.5,
-  margin: 0
+  lineHeight: 1.5
 })

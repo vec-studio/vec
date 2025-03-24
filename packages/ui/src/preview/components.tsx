@@ -1,4 +1,13 @@
-import { Autocomplete, Button, MenuItem, ToggleButton, ToggleButtonGroup } from '../components'
+import {
+  Autocomplete,
+  Button,
+  Checkbox,
+  GridList,
+  GridListItem,
+  MenuItem,
+  ToggleButton,
+  ToggleButtonGroup
+} from '../components'
 import { Card } from './card'
 import { componentsClassName } from './components.css'
 
@@ -15,15 +24,20 @@ export function Components() {
       <Card title="Button">
         <Button>Press me</Button>
       </Card>
-      <Card title="Toggle Button">
+      <Card title="ToggleButton">
         <ToggleButton>Pin</ToggleButton>
       </Card>
-      <Card title="Toggle Button Group">
+      <Card title="ToggleButtonGroup">
         <ToggleButtonGroup>
           <ToggleButton id="left">Left</ToggleButton>
           <ToggleButton id="center">Center</ToggleButton>
           <ToggleButton id="right">Right</ToggleButton>
         </ToggleButtonGroup>
+      </Card>
+      <Card title="GridList">
+        <GridList selectionMode="multiple">
+          <GridListItem textValue="42">42</GridListItem>
+        </GridList>
       </Card>
     </div>
   )

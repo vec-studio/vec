@@ -29,6 +29,7 @@ import {
   TableHeader,
   Tag,
   TagGroup,
+  TimeField,
   ToggleButton,
   ToggleButtonGroup,
   Tree,
@@ -182,8 +183,11 @@ export function Components() {
       <Card title="DateRangePicker">
         <DateRangePicker label="Event date" />
       </Card>
-      <Card title="DateRangePicker">
+      <Card title="RangeCalendar">
         <RangeCalendar aria-label="Trip dates" />
+      </Card>
+      <Card title="TimeField">
+        <TimeField label="Event time" />
       </Card>
     </div>
   )

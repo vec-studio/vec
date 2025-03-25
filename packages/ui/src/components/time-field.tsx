@@ -10,6 +10,7 @@ import { FieldError } from './field-error'
 import { Label } from './label'
 import { Text } from './text'
 import { timeFieldClassName } from './time-filed.css'
+import { cn } from './utils'
 
 export interface TimeFieldProps<T extends TimeValue> extends RACTimeFieldProps<T> {
   label?: string

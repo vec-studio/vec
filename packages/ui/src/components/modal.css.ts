@@ -1,4 +1,5 @@
 import { createVar, keyframes, style } from '@vanilla-extract/css'
+import { semanticVars, themeVars } from '../theme.css'
 
 export const modalFade = keyframes({
   from: {
@@ -18,18 +19,18 @@ export const modalZoom = keyframes({
   }
 })
 
-export const modalOverlayVisualViewportHeightVar = createVar()
+export const modalOverlayHeightVar = createVar()
 
 export const modalOverlayClassName = style({
   vars: {
-    [modalOverlayVisualViewportHeightVar]: 'auto'
+    [modalOverlayHeightVar]: 'auto'
   },
 
   position: 'fixed',
   top: 0,
   left: 0,
   width: '100vw',
-  height: modalOverlayVisualViewportHeightVar,
+  height: modalOverlayHeightVar,
   background: 'rgba(0 0 0 / .5)',
   display: 'flex',
   alignItems: 'center',
@@ -49,9 +50,9 @@ export const modalOverlayClassName = style({
 export const modalClassName = style({
   boxShadow: '0 8px 20px rgba(0 0 0 / 0.1)',
   borderRadius: '6px',
-  background: 'var(--overlay-background)',
-  color: 'var(--text-color)',
-  border: '1px solid var(--gray-400)',
+  background: semanticVars.color.overlayBackground,
+  color: semanticVars.color.textColor,
+  border: `1px solid ${themeVars.color.gray400}`,
   outline: 'none',
   maxWidth: '300px',
 

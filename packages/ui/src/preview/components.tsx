@@ -1,4 +1,4 @@
-import { Cell, TableBody } from 'react-aria-components'
+import { Cell, DialogTrigger, TableBody } from 'react-aria-components'
 import {
   Autocomplete,
   Breadcrumb,
@@ -20,14 +20,19 @@ import {
   DateField,
   DatePicker,
   DateRangePicker,
+  Dialog,
   Disclosure,
   GridList,
   GridListItem,
+  Heading,
+  Input,
+  Label,
   Link,
   ListBox,
   ListBoxItem,
   Menu,
   MenuItem,
+  Modal,
   NumberField,
   Radio,
   RadioGroup,
@@ -269,6 +274,29 @@ export function Components() {
           <TabPanel id="MaR">Senatus Populusque Romanus.</TabPanel>
           <TabPanel id="Emp">Alea jacta est.</TabPanel>
         </Tabs>
+      </Card>
+      <Card title="Dialog">
+        <DialogTrigger>
+          <Button>Sign up</Button>
+          <Modal>
+            <Dialog>
+              <form>
+                <Heading slot="title">Sign up</Heading>
+                <TextField autoFocus>
+                  <Label>First Name</Label>
+                  <Input />
+                </TextField>
+                <TextField>
+                  <Label>Last Name</Label>
+                  <Input />
+                </TextField>
+                <Button slot="close" style={{ marginTop: 8 }}>
+                  Submit
+                </Button>
+              </form>
+            </Dialog>
+          </Modal>
+        </DialogTrigger>
       </Card>
     </div>
   )

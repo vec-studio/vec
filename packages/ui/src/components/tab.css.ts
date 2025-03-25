@@ -19,7 +19,7 @@ export const tabClassName = style({
 
   selectors: {
     [`${tabListClassName}[data-orientation=horizontal] &`]: {
-      borderBottom: `3px solid ${semanticVars.color.borderColor}`
+      borderBottom: `3px solid ${tabBorderColorVar}`
     },
     '&[data-hovered], &[data-focused]': {
       color: semanticVars.color.textColorHover

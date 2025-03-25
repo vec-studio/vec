@@ -25,6 +25,7 @@ import {
   ListBoxItem,
   Menu,
   MenuItem,
+  NumberField,
   RangeCalendar,
   Row,
   Table,
@@ -200,6 +201,9 @@ export function Components() {
           <Checkbox value="baseball">Baseball</Checkbox>
           <Checkbox value="basketball">Basketball</Checkbox>
         </CheckboxGroup>
+      </Card>
+      <Card title="NumberField">
+        <NumberField label="Cookies" />
       </Card>
     </div>
   )

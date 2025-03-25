@@ -18,7 +18,7 @@ export const dateSegmentClassName = style({
     },
     '&:focus': {
       color: semanticVars.color.highlightForeground,
-      background: semanticVars.color.highlightForeground,
+      background: semanticVars.color.highlightBackground,
       outline: 'none',
       borderRadius: '4px',
       caretColor: 'transparent'

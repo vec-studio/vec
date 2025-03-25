@@ -14,6 +14,7 @@ import {
   ColorWheel,
   ColorWheelTrack,
   Column,
+  DateField,
   GridList,
   GridListItem,
   ListBox,
@@ -168,6 +169,9 @@ export function Components() {
       </Card>
       <Card title="Calendar">
         <Calendar aria-label="Event date" />
+      </Card>
+      <Card title="DateField">
+        <DateField label="Event date" />
       </Card>
     </div>
   )

@@ -23,6 +23,7 @@ import {
   ListBoxItem,
   Menu,
   MenuItem,
+  RangeCalendar,
   Row,
   Table,
   TableHeader,
@@ -180,6 +181,9 @@ export function Components() {
       </Card>
       <Card title="DateRangePicker">
         <DateRangePicker label="Event date" />
+      </Card>
+      <Card title="DateRangePicker">
+        <RangeCalendar aria-label="Trip dates" />
       </Card>
     </div>
   )

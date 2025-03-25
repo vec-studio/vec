@@ -3,6 +3,8 @@ import {
   Autocomplete,
   Button,
   Calendar,
+  Checkbox,
+  CheckboxGroup,
   ColorArea,
   ColorField,
   ColorPicker,
@@ -188,6 +190,16 @@ export function Components() {
       </Card>
       <Card title="TimeField">
         <TimeField label="Event time" />
+      </Card>
+      <Card title="Checkbox">
+        <Checkbox>Unsubscribe</Checkbox>
+      </Card>
+      <Card title="CheckboxGroup">
+        <CheckboxGroup label="Favorite sports">
+          <Checkbox value="soccer">Soccer</Checkbox>
+          <Checkbox value="baseball">Baseball</Checkbox>
+          <Checkbox value="basketball">Basketball</Checkbox>
+        </CheckboxGroup>
       </Card>
     </div>
   )

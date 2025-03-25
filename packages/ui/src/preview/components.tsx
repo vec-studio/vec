@@ -15,6 +15,7 @@ import {
   ColorWheelTrack,
   Column,
   DateField,
+  DatePicker,
   GridList,
   GridListItem,
   ListBox,
@@ -172,6 +173,9 @@ export function Components() {
       </Card>
       <Card title="DateField">
         <DateField label="Event date" />
+      </Card>
+      <Card title="DatePicker">
+        <DatePicker label="Event date" />
       </Card>
     </div>
   )

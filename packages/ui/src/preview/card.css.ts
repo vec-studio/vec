@@ -2,12 +2,12 @@ import { globalStyle, style } from '@vanilla-extract/css'
 import { semanticVars, themeVars } from '../theme.css'
 
 export const cardClassName = style({
-  borderRadius: '.5rem',
+  border: `1px solid rgb(245, 245, 245)`,
+  borderRadius: '0.5rem',
   display: 'flex',
   flexDirection: 'column',
   minWidth: '15rem',
-  padding: '1rem',
-  backgroundColor: 'rgb(250, 250, 250)'
+  padding: '1rem'
 })
 
 export const cardTitleClassName = style({
@@ -17,9 +17,7 @@ export const cardTitleClassName = style({
 })
 
 export const cardContentClassName = style({
-  borderRadius: '0.285rem',
-  flex: 1,
-  padding: '1rem'
+  flex: 1
 })
 
 globalStyle(`${cardClassName} hr`, {

@@ -1,7 +1,7 @@
 import { ProgressBar as RACProgressBar, type ProgressBarProps as RACProgressBarProps } from 'react-aria-components'
 import { Label } from './label'
-import { cn } from './utils'
 import { progressBarClassName } from './progress-bar.css'
+import { cn } from './utils'
 
 export interface ProgressBarProps extends RACProgressBarProps {
   label?: string

@@ -37,6 +37,7 @@ import {
   Modal,
   NumberField,
   Popover,
+  ProgressBar,
   Radio,
   RadioGroup,
   RangeCalendar,
@@ -336,6 +337,9 @@ export function Components() {
       </Card>
       <Card title="Meter">
         <Meter label="Storage space" value={80} />
+      </Card>
+      <Card title="ProgressBar">
+        <ProgressBar label="Loading..." value={80} />
       </Card>
     </div>
   )

@@ -12,11 +12,11 @@ export const progressBarClassName = style({
   selectors: {}
 })
 
-globalStyle(`${progressBarClassName} value`, {
+globalStyle(`${progressBarClassName} .value`, {
   gridArea: 'value'
 })
 
-globalStyle(`${progressBarClassName} bar`, {
+globalStyle(`${progressBarClassName} .bar`, {
   gridArea: 'bar',
   boxShadow: `inset 0px 0px 0px 1px ${semanticVars.color.borderColor}`,
   forcedColorAdjust: 'none',
@@ -26,7 +26,7 @@ globalStyle(`${progressBarClassName} bar`, {
   willChange: 'transform'
 })
 
-globalStyle(`${progressBarClassName} fill`, {
+globalStyle(`${progressBarClassName} .fill`, {
   background: semanticVars.color.highlightBackground,
   height: '100%'
 })
@@ -40,7 +40,7 @@ const indeterminateKeyframes = keyframes({
   }
 })
 
-globalStyle(`${progressBarClassName}:not([aria-valuenow]) fill`, {
+globalStyle(`${progressBarClassName}:not([aria-valuenow]) .fill`, {
   width: '120px',
   borderRadius: 'inherit',
   animation: `${indeterminateKeyframes} 1.5s infinite ease-in-out`,

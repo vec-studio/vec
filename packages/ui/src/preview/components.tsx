@@ -292,7 +292,7 @@ export function Components() {
       </Card>
       <Card title="Popover">
         <DialogTrigger>
-          <Button aria-label="Help">!</Button>
+          <Button aria-label="Help">❕</Button>
           <Popover>
             <Heading slot="title">Help</Heading>
             <p>For help accessing your account, please contact support.</p>
@@ -301,7 +301,7 @@ export function Components() {
       </Card>
       <Card title="Tooltip">
         <TooltipTrigger>
-          <Button>Save</Button>
+          <Button>💾</Button>
           <Tooltip>Save</Tooltip>
         </TooltipTrigger>
       </Card>

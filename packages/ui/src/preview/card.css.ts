@@ -1,9 +1,10 @@
 import { style } from '@vanilla-extract/css'
 
 export const cardClassName = style({
-  padding: '1rem',
+  borderRadius: '.5rem',
   boxShadow: '0 0 .5rem #eee',
-  borderRadius: '.5rem'
+  padding: '1rem',
+  minWidth: '15rem'
 })
 
 export const cardTitleClassName = style({

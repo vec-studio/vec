@@ -280,14 +280,8 @@ export function Components() {
             <Dialog>
               <form>
                 <Heading slot="title">Sign up</Heading>
-                <TextField autoFocus>
-                  <Label>First Name</Label>
-                  <Input />
-                </TextField>
-                <TextField>
-                  <Label>Last Name</Label>
-                  <Input />
-                </TextField>
+                <TextField autoFocus label="First Name" />
+                <TextField label="Last Name" />
                 <Button slot="close" style={{ marginTop: 8 }}>
                   Submit
                 </Button>

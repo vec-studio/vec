@@ -2,6 +2,7 @@ import { Cell, TableBody } from 'react-aria-components'
 import {
   Autocomplete,
   Button,
+  Calendar,
   ColorArea,
   ColorField,
   ColorPicker,
@@ -164,6 +165,9 @@ export function Components() {
       </Card>
       <Card title="ColorWheel">
         <ColorWheel defaultValue="hsl(30, 100%, 50%)" />
+      </Card>
+      <Card title="Calendar">
+        <Calendar aria-label="Event date" />
       </Card>
     </div>
   )

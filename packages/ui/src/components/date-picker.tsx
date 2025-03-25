@@ -1,5 +1,6 @@
 import {
   type DateValue,
+  Popover,
   DatePicker as RACDatePicker,
   type DatePickerProps as RACDatePickerProps,
   type ValidationResult
@@ -16,7 +17,7 @@ import { FieldError } from './field-error'
 import { Group } from './group'
 import { Heading } from './heading'
 import { Label } from './label'
-import { Popover } from './popover'
+import { popoverClassName } from './popover.css'
 import { Text } from './text'
 import { cn } from './utils'
 
@@ -42,7 +43,7 @@ export function DatePicker<T extends DateValue>({
       </Group>
       {description && <Text slot="description">{description}</Text>}
       <FieldError>{errorMessage}</FieldError>
-      <Popover>
+      <Popover className={popoverClassName}>
         <Dialog>
           <Calendar firstDayOfWeek={firstDayOfWeek}>
             <header>

@@ -9,8 +9,8 @@ export const rangeCalendarClassName = style({
 
 globalStyle(`${rangeCalendarClassName} header`, {
   display: 'flex',
-  width: 'fit-content',
-  alignItems: 'center'
+  alignItems: 'center',
+  margin: '0 4px .5rem 4px'
 })
 
 globalStyle(`${rangeCalendarClassName} table`, {

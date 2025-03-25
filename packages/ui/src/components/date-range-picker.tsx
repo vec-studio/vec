@@ -1,24 +1,25 @@
 import {
+  Popover,
   DateRangePicker as RACDateRangePicker,
   DateRangePickerProps as RACDateRangePickerProps,
-  type DateValue,
-  ValidationResult
+  type ValidationResult,
+  type DateValue
 } from 'react-aria-components'
 import { Button } from './button'
 import { CalendarCell } from './calendar-cell'
 import { CalendarGrid } from './calendar-grid'
 import { DateInput } from './date-input'
+import { dateRangePickerClassName } from './date-range-picker.css'
 import { DateSegment } from './date-segment'
 import { Dialog } from './dialog'
 import { FieldError } from './field-error'
 import { Group } from './group'
 import { Heading } from './heading'
 import { Label } from './label'
-import { Popover } from './popover'
+import { popoverClassName } from './popover.css'
 import { RangeCalendar } from './range-calendar'
 import { Text } from './text'
 import { cn } from './utils'
-import { dateRangePickerClassName } from './date-range-picker.css'
 
 export interface DateRangePickerProps<T extends DateValue> extends RACDateRangePickerProps<T> {
   label?: string
@@ -44,7 +45,7 @@ export function DateRangePicker<T extends DateValue>({
       </Group>
       {description && <Text slot="description">{description}</Text>}
       <FieldError>{errorMessage}</FieldError>
-      <Popover>
+      <Popover className={popoverClassName}>
         <Dialog>
           <RangeCalendar firstDayOfWeek={firstDayOfWeek}>
             <header>

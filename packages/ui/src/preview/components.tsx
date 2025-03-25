@@ -16,6 +16,7 @@ import {
   Column,
   DateField,
   DatePicker,
+  DateRangePicker,
   GridList,
   GridListItem,
   ListBox,
@@ -176,6 +177,9 @@ export function Components() {
       </Card>
       <Card title="DatePicker">
         <DatePicker label="Event date" />
+      </Card>
+      <Card title="DateRangePicker">
+        <DateRangePicker label="Event date" />
       </Card>
     </div>
   )

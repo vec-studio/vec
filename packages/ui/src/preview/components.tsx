@@ -33,6 +33,7 @@ import {
   ListBoxItem,
   Menu,
   MenuItem,
+  Meter,
   Modal,
   NumberField,
   Popover,
@@ -332,6 +333,9 @@ export function Components() {
           <ListBoxItem>Strawberry</ListBoxItem>
           <ListBoxItem>Vanilla</ListBoxItem>
         </Select>
+      </Card>
+      <Card title="Meter">
+        <Meter label="Storage space" value={80} />
       </Card>
     </div>
   )

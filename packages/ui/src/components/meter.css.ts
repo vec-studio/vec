@@ -25,11 +25,11 @@ export const meterClassName = style({
   }
 })
 
-globalStyle(`${meterClassName} value`, {
+globalStyle(`${meterClassName} .value`, {
   gridArea: 'value'
 })
 
-globalStyle(`${meterClassName} bar`, {
+globalStyle(`${meterClassName} .bar`, {
   gridArea: 'bar',
   boxShadow: `inset 0px 0px 0px 1px ${semanticVars.color.borderColor}`,
   forcedColorAdjust: 'none',
@@ -38,7 +38,7 @@ globalStyle(`${meterClassName} bar`, {
   overflow: 'hidden'
 })
 
-globalStyle(`${meterClassName} fill`, {
+globalStyle(`${meterClassName} .fill`, {
   background: meterFillColorVar,
   height: '100%'
 })

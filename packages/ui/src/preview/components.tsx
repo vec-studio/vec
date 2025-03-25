@@ -354,7 +354,7 @@ export function Components() {
           </Group>
         </RACTextField>
       </Card>
-      <Card title="Toolbar">
+      <Card title="Toolbar" style={{ width: '32rem' }}>
         <Toolbar aria-label="Text formatting">
           <Group aria-label="Style">
             <ToggleButton aria-label="Bold">

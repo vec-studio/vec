@@ -49,7 +49,7 @@ export function pickLanguage(supportedLanguages, acceptLanguage, options) {
     }
   })
 
-  for (var i = 0; i < acceptLanguage.length; i++) {
+  for (let i = 0; i < acceptLanguage.length; i++) {
     const lang = acceptLanguage[i]
     const langCode = lang.code.toLowerCase()
     const langRegion = lang.region ? lang.region.toLowerCase() : lang.region

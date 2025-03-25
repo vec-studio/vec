@@ -1,4 +1,4 @@
-import { Cell, DialogTrigger, TableBody, TooltipTrigger, TextField as RACTextField } from 'react-aria-components'
+import { Cell, DialogTrigger, TextField as RACTextField, TableBody, TooltipTrigger } from 'react-aria-components'
 import {
   Autocomplete,
   Breadcrumb,
@@ -45,6 +45,7 @@ import {
   Row,
   SearchField,
   Select,
+  Separator,
   Slider,
   Switch,
   Tab,
@@ -60,6 +61,7 @@ import {
   TimeField,
   ToggleButton,
   ToggleButtonGroup,
+  Toolbar,
   Tooltip,
   Tree,
   TreeItem
@@ -344,13 +346,36 @@ export function Components() {
         <ProgressBar label="Loading..." value={80} />
       </Card>
       <Card title="Group">
-        <RACTextField>
+        <RACTextField className={textFieldClassName}>
           <Label>Email</Label>
           <Group>
             <Input />
             <Button aria-label="Add email">+</Button>
           </Group>
         </RACTextField>
+      </Card>
+      <Card title="Toolbar">
+        <Toolbar aria-label="Text formatting">
+          <Group aria-label="Style">
+            <ToggleButton aria-label="Bold">
+              <b>B</b>
+            </ToggleButton>
+            <ToggleButton aria-label="Italic">
+              <i>I</i>
+            </ToggleButton>
+            <ToggleButton aria-label="Underline">
+              <u>U</u>
+            </ToggleButton>
+          </Group>
+          <Separator orientation="vertical" />
+          <Group aria-label="Clipboard">
+            <Button>Copy</Button>
+            <Button>Paste</Button>
+            <Button>Cut</Button>
+          </Group>
+          <Separator orientation="vertical" />
+          <Checkbox>Night Mode</Checkbox>
+        </Toolbar>
       </Card>
     </div>
   )

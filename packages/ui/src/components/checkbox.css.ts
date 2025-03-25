@@ -6,14 +6,12 @@ export const checkboxBackgroundColorVar = createVar()
 export const checkboxCheckmarkColorVar = createVar()
 export const checkboxSelectedColorPressedVar = createVar()
 export const checkboxSelectedColorVar = createVar()
-export const checkboxSheckmarkColorVar = createVar()
-export const checkboxSackgroundColorVar = createVar()
 
 export const checkboxClassName = style({
   vars: {
-    [checkboxCheckmarkColorVar]: semanticVars.color.highlightBackground,
-    [checkboxSelectedColorPressedVar]: semanticVars.color.highlightForegroundPressed,
-    [checkboxSelectedColorVar]: semanticVars.color.highlightForeground
+    [checkboxSelectedColorVar]: semanticVars.color.highlightBackground,
+    [checkboxSelectedColorPressedVar]: semanticVars.color.highlightBackgroundPressed,
+    [checkboxCheckmarkColorVar]: semanticVars.color.highlightForeground
   },
 
   alignItems: 'center',

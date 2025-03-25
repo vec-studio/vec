@@ -14,6 +14,8 @@ import { numberFieldClassName } from './number-field.css'
 import { groupClassName } from './group.css'
 import { treeClassName } from './tree.css'
 import { treeItemClassName, treeItemPaddingVar } from './tree-item.css'
+import { toolbarClassName } from './toolbar.css'
+import { textFieldClassName } from './text-field.css'
 
 export const buttonHighlightHoverVar = createVar()
 export const buttonHighlightPressedVar = createVar()
@@ -239,7 +241,7 @@ export const buttonClassName = style({
       visibility: 'visible'
     },
     // group
-    [`${groupClassName} &`]: {
+    [`${textFieldClassName} ${groupClassName} &`]: {
       borderWidth: '0 0 0 1px',
       borderRadius: '0 6px 6px 0',
       alignSelf: 'stretch',

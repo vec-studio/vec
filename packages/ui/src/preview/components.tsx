@@ -249,6 +249,11 @@ export function Components() {
       <Card title="Disclosure">
         <Disclosure title="Manage your account">Details on managing your account</Disclosure>
       </Card>
+      <Card title="Link">
+        <Link href="https://www.imdb.com/title/tt6348138/" target="_blank">
+          The missing link
+        </Link>
+      </Card>
     </div>
   )
 }

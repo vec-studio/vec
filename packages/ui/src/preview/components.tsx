@@ -1,4 +1,4 @@
-import { Cell, DialogTrigger, TableBody } from 'react-aria-components'
+import { Cell, DialogTrigger, TableBody, TooltipTrigger } from 'react-aria-components'
 import {
   Autocomplete,
   Breadcrumb,
@@ -54,6 +54,7 @@ import {
   TimeField,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
   Tree,
   TreeItem
 } from '../components'
@@ -307,6 +308,12 @@ export function Components() {
             <p>For help accessing your account, please contact support.</p>
           </Popover>
         </DialogTrigger>
+      </Card>
+      <Card title="Tooltip">
+        <TooltipTrigger>
+          <Button>Save</Button>
+          <Tooltip>Save</Tooltip>
+        </TooltipTrigger>
       </Card>
     </div>
   )

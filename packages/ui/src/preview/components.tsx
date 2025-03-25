@@ -34,6 +34,7 @@ import {
   MenuItem,
   Modal,
   NumberField,
+  Popover,
   Radio,
   RadioGroup,
   RangeCalendar,
@@ -296,6 +297,15 @@ export function Components() {
               </form>
             </Dialog>
           </Modal>
+        </DialogTrigger>
+      </Card>
+      <Card title="Popover">
+        <DialogTrigger>
+          <Button aria-label="Help">!</Button>
+          <Popover>
+            <Heading slot="title">Help</Heading>
+            <p>For help accessing your account, please contact support.</p>
+          </Popover>
         </DialogTrigger>
       </Card>
     </div>

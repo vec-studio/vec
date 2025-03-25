@@ -26,6 +26,8 @@ import {
   Menu,
   MenuItem,
   NumberField,
+  Radio,
+  RadioGroup,
   RangeCalendar,
   Row,
   Table,
@@ -204,6 +206,13 @@ export function Components() {
       </Card>
       <Card title="NumberField">
         <NumberField label="Cookies" />
+      </Card>
+      <Card title="NumberField">
+        <RadioGroup label="Favorite sport">
+          <Radio value="soccer">Soccer</Radio>
+          <Radio value="baseball">Baseball</Radio>
+          <Radio value="basketball">Basketball</Radio>
+        </RadioGroup>
       </Card>
     </div>
   )

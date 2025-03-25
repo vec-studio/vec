@@ -1,10 +1,15 @@
-import { Select as RACSelect, type SelectProps as RACSelectProps, type ValidationResult } from 'react-aria-components'
+import {
+  Popover,
+  Select as RACSelect,
+  type SelectProps as RACSelectProps,
+  type ValidationResult
+} from 'react-aria-components'
 import { Button } from './button'
 import { FieldError } from './field-error'
 import { Label } from './label'
 import { ListBox } from './list-box'
-import { Popover } from './popover'
 import { SelectValue } from './select-value'
+import { selectClassName } from './select.css'
 import { Text } from './text'
 import { cn } from './utils'
 
@@ -25,7 +30,7 @@ export function Select<T extends object>({
   ...props
 }: SelectProps<T>) {
   return (
-    <RACSelect {...props} className={cn(props.className, '')}>
+    <RACSelect {...props} className={cn(props.className, selectClassName)}>
       <Label>{label}</Label>
       <Button>
         <SelectValue />

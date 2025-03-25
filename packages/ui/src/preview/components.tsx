@@ -41,6 +41,7 @@ import {
   RangeCalendar,
   Row,
   SearchField,
+  Select,
   Slider,
   Switch,
   Tab,
@@ -323,6 +324,14 @@ export function Components() {
           <ListBoxItem>Strawberry</ListBoxItem>
           <ListBoxItem>Vanilla</ListBoxItem>
         </ComboBox>
+      </Card>
+      <Card title="Select">
+        <Select label="Ice cream flavor">
+          <ListBoxItem>Chocolate</ListBoxItem>
+          <ListBoxItem>Mint</ListBoxItem>
+          <ListBoxItem>Strawberry</ListBoxItem>
+          <ListBoxItem>Vanilla</ListBoxItem>
+        </Select>
       </Card>
     </div>
   )

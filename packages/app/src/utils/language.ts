@@ -1,6 +1,6 @@
 // https://github.com/opentable/accept-language-parser/blob/master/index.js
 
-export function parseLanguage(al) {
+export function parse(al) {
   const regex = /((([a-zA-Z]+(-[a-zA-Z0-9]+){0,2})|\*)(;q=[0-1](\.[0-9]+)?)?)*/g
 
   let strings = (al || '').match(regex)
@@ -29,7 +29,7 @@ export function parseLanguage(al) {
   return strings
 }
 
-export function pickLanguage(supportedLanguages, acceptLanguage, options) {
+export function pick(supportedLanguages, acceptLanguage, options) {
   options = options ?? {}
 
   if (!supportedLanguages || !supportedLanguages.length || !acceptLanguage) return null

@@ -1,11 +1,15 @@
-import { ComboBox as RACComboBox, ComboBoxProps as RACComboBoxProps, ValidationResult } from 'react-aria-components'
+import {
+  Popover,
+  ComboBox as RACComboBox,
+  ComboBoxProps as RACComboBoxProps,
+  ValidationResult
+} from 'react-aria-components'
 import { Button } from './button'
 import { comboBoxClassName } from './combo-box.css'
 import { FieldError } from './field-error'
 import { Input } from './input'
 import { Label } from './label'
 import { ListBox } from './list-box'
-import { Popover } from './popover'
 import { Text } from './text'
 import { cn } from './utils'
 

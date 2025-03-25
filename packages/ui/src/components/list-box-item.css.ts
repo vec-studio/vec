@@ -21,7 +21,7 @@ export const listBoxItemClassName = style({
       outline: `2px solid ${semanticVars.color.focusRingColor}`,
       outlineOffset: '-2px'
     },
-    '&[data-selected]': {
+    '&[data-selected], &[data-focused]': {
       background: semanticVars.color.highlightBackground,
       color: semanticVars.color.highlightForeground
     },

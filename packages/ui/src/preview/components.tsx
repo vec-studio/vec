@@ -17,6 +17,7 @@ import {
   ColorThumb,
   ColorWheel,
   Column,
+  ComboBox,
   DateField,
   DatePicker,
   DateRangePicker,
@@ -151,18 +152,6 @@ export function Components() {
             <TreeItem title="Image 2" />
           </TreeItem>
         </Tree>
-      </Card>
-      <Card title="Autocomplete">
-        <Autocomplete label="Commands" placeholder="Search commands...">
-          <MenuItem>Create new file...</MenuItem>
-          <MenuItem>Create new folder...</MenuItem>
-          <MenuItem>Assign to...</MenuItem>
-          <MenuItem>Assign to me</MenuItem>
-          <MenuItem>Change status...</MenuItem>
-          <MenuItem>Change priority...</MenuItem>
-          <MenuItem>Add label...</MenuItem>
-          <MenuItem>Remove label...</MenuItem>
-        </Autocomplete>
       </Card>
       <Card title="ColorArea">
         <ColorArea>
@@ -314,6 +303,26 @@ export function Components() {
           <Button>Save</Button>
           <Tooltip>Save</Tooltip>
         </TooltipTrigger>
+      </Card>
+      <Card title="Autocomplete">
+        <Autocomplete label="Commands" placeholder="Search commands...">
+          <MenuItem>Create new file...</MenuItem>
+          <MenuItem>Create new folder...</MenuItem>
+          <MenuItem>Assign to...</MenuItem>
+          <MenuItem>Assign to me</MenuItem>
+          <MenuItem>Change status...</MenuItem>
+          <MenuItem>Change priority...</MenuItem>
+          <MenuItem>Add label...</MenuItem>
+          <MenuItem>Remove label...</MenuItem>
+        </Autocomplete>
+      </Card>
+      <Card title="ComboBox">
+        <ComboBox label="Ice cream flavor">
+          <ListBoxItem>Chocolate</ListBoxItem>
+          <ListBoxItem>Mint</ListBoxItem>
+          <ListBoxItem>Strawberry</ListBoxItem>
+          <ListBoxItem>Vanilla</ListBoxItem>
+        </ComboBox>
       </Card>
     </div>
   )

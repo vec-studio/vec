@@ -1,6 +1,8 @@
 import { Cell, TableBody } from 'react-aria-components'
 import {
   Autocomplete,
+  Breadcrumb,
+  Breadcrumbs,
   Button,
   Calendar,
   Checkbox,
@@ -14,13 +16,13 @@ import {
   ColorSwatchPickerItem,
   ColorThumb,
   ColorWheel,
-  ColorWheelTrack,
   Column,
   DateField,
   DatePicker,
   DateRangePicker,
   GridList,
   GridListItem,
+  Link,
   ListBox,
   ListBoxItem,
   Menu,
@@ -30,10 +32,14 @@ import {
   RadioGroup,
   RangeCalendar,
   Row,
+  SearchField,
+  Slider,
+  Switch,
   Table,
   TableHeader,
   Tag,
   TagGroup,
+  TextField,
   TimeField,
   ToggleButton,
   ToggleButtonGroup,
@@ -207,12 +213,37 @@ export function Components() {
       <Card title="NumberField">
         <NumberField label="Cookies" />
       </Card>
-      <Card title="NumberField">
+      <Card title="RadioGroup">
         <RadioGroup label="Favorite sport">
           <Radio value="soccer">Soccer</Radio>
           <Radio value="baseball">Baseball</Radio>
           <Radio value="basketball">Basketball</Radio>
         </RadioGroup>
+      </Card>
+      <Card title="SearchField">
+        <SearchField label="Search" />
+      </Card>
+      <Card title="Slider">
+        <Slider label="Range" defaultValue={[30, 60]} thumbLabels={['start', 'end']} />
+      </Card>
+      <Card title="Switch">
+        <Switch>Wi-Fi</Switch>
+      </Card>
+      <Card title="TextField">
+        <TextField label="Name" />
+      </Card>
+      <Card title="Breadcrumbs">
+        <Breadcrumbs>
+          <Breadcrumb>
+            <Link href="/">Home</Link>
+          </Breadcrumb>
+          <Breadcrumb>
+            <Link href="/react-aria/">React Aria</Link>
+          </Breadcrumb>
+          <Breadcrumb>
+            <Link>Breadcrumbs</Link>
+          </Breadcrumb>
+        </Breadcrumbs>
       </Card>
     </div>
   )

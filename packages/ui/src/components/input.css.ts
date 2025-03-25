@@ -132,6 +132,16 @@ export const inputClassName = style({
     [`${numberFieldClassName} &[data-disabled]`]: {
       borderColor: semanticVars.color.borderColorDisabled,
       color: semanticVars.color.textColorDisabled
+    },
+    // group
+    [`${groupClassName} &`]: {
+      color: semanticVars.color.textColor,
+      background: '0 0',
+      border: 'none',
+      outline: 'none',
+      margin: '0',
+      padding: '.286rem',
+      fontSize: '1rem'
     }
   }
 })

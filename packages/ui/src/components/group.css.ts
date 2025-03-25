@@ -6,6 +6,15 @@ import { numberFieldClassName } from './number-field.css'
 import { toolbarClassName } from './toolbar.css'
 
 export const groupClassName = style({
+  border: `1px solid ${semanticVars.color.borderColor}`,
+  background: semanticVars.color.fieldBackground,
+  borderRadius: '6px',
+  alignItems: 'center',
+  width: 'fit-content',
+  transition: 'all .2s',
+  display: 'flex',
+  overflow: 'hidden',
+
   selectors: {
     // date picker
     [`${datePickerClassName} &`]: {

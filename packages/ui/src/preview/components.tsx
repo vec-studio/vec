@@ -1,4 +1,4 @@
-import { Cell, DialogTrigger, TableBody, TooltipTrigger } from 'react-aria-components'
+import { Cell, DialogTrigger, TableBody, TooltipTrigger, TextField as RACTextField } from 'react-aria-components'
 import {
   Autocomplete,
   Breadcrumb,
@@ -25,6 +25,7 @@ import {
   Disclosure,
   GridList,
   GridListItem,
+  Group,
   Heading,
   Input,
   Label,
@@ -55,6 +56,7 @@ import {
   Tag,
   TagGroup,
   TextField,
+  textFieldClassName,
   TimeField,
   ToggleButton,
   ToggleButtonGroup,
@@ -340,6 +342,15 @@ export function Components() {
       </Card>
       <Card title="ProgressBar">
         <ProgressBar label="Loading..." value={80} />
+      </Card>
+      <Card title="Group">
+        <RACTextField>
+          <Label>Email</Label>
+          <Group>
+            <Input />
+            <Button aria-label="Add email">+</Button>
+          </Group>
+        </RACTextField>
       </Card>
     </div>
   )

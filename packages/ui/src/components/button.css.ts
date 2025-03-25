@@ -237,6 +237,14 @@ export const buttonClassName = style({
     },
     [`${treeClassName} ${treeItemClassName}[data-has-child-items] &[slot=chevron]`]: {
       visibility: 'visible'
+    },
+    // group
+    [`${groupClassName} &`]: {
+      borderWidth: '0 0 0 1px',
+      borderRadius: '0 6px 6px 0',
+      alignSelf: 'stretch',
+      padding: '0 6px',
+      fontSize: '1.5rem'
     }
   }
 })
@@ -246,7 +254,7 @@ export const toggleAnimation = keyframes({
   to: { opacity: 1 }
 })
 
-globalStyle(`${selectClassName} ${buttonClassName}[data-disabled] span[aria-hidden]`, {
+globalStyle(`${selectClassName} ${buttonClassName}[dataDisabled] span[aria-hidden]`, {
   background: semanticVars.color.borderColorDisabled,
   color: semanticVars.color.textColorDisabled
 })

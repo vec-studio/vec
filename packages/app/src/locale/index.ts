@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
-import { getEvent, getWebRequest } from '@tanstack/react-start/server'
-import acceptLanguageParser from 'accept-language-parser'
+import { getWebRequest } from '@tanstack/react-start/server'
 import { contextMiddleware } from 'src/middleware'
+import { pickLanguage } from 'src/utils'
 
 const supportedLanguages = ['en', 'zh']
 const defaultLangauge = supportedLanguages[0]
@@ -11,7 +11,7 @@ export const resolveLocale = createServerFn({ method: 'GET' })
   .handler(() => {
     const request = getWebRequest()!
     const accpetLanguage = request.headers.get('accept-language') ?? defaultLangauge
-    const locale = acceptLanguageParser.pick(supportedLanguages, accpetLanguage) ?? defaultLangauge
+    const locale = pickLanguage(supportedLanguages, accpetLanguage) ?? defaultLangauge
     return locale
   })
 

@@ -16,7 +16,6 @@
     "@tanstack/virtual-file-routes": "^1.99.0",
     "@vanilla-extract/dynamic": "^2.1.2",
     "@vec/ui": "*",
-    "accept-language-parser": "^1.5.0",
     "consola": "^3.4.0",
     "kysely": "^0.27.6",
     "lodash": "^4.17.21",
@@ -32,7 +31,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/accept-language-parser": "^1.5.6",
     "@types/lodash": "^4.17.14",
     "@types/node": "^22.10.10",
     "@types/react": "^18.3.18",

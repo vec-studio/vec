@@ -1,7 +1,9 @@
 import { Disclosure as RACDisclosure, DisclosureProps as RACDisclosureProps } from 'react-aria-components'
 import { Button } from './button'
 import { DisclosurePanel } from './disclosure-panel'
+import { disclosureClassName } from './disclosure.css'
 import { Heading } from './heading'
+import { cn } from './utils'
 
 export interface DisclosureProps extends Omit<RACDisclosureProps, 'children'> {
   title?: string
@@ -10,7 +12,7 @@ export interface DisclosureProps extends Omit<RACDisclosureProps, 'children'> {
 
 export function Disclosure({ title, children, ...props }: DisclosureProps) {
   return (
-    <RACDisclosure {...props}>
+    <RACDisclosure {...props} className={cn(props.className, disclosureClassName)}>
       <Heading>
         <Button slot="trigger">
           <svg viewBox="0 0 24 24">

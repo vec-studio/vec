@@ -20,6 +20,7 @@ import {
   DateField,
   DatePicker,
   DateRangePicker,
+  Disclosure,
   GridList,
   GridListItem,
   Link,
@@ -244,6 +245,9 @@ export function Components() {
             <Link>Breadcrumbs</Link>
           </Breadcrumb>
         </Breadcrumbs>
+      </Card>
+      <Card title="Disclosure">
+        <Disclosure title="Manage your account">Details on managing your account</Disclosure>
       </Card>
     </div>
   )

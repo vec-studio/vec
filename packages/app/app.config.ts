@@ -10,7 +10,12 @@ export default defineConfig({
         public: fileURLToPath(new URL('public', import.meta.url))
       }
     },
-    plugins: [vanillaExtractPlugin()]
+    plugins: [vanillaExtractPlugin()],
+    server: {
+      hmr: {
+        clientPort: 5173
+      }
+    }
   },
   tsr: {
     appDirectory: './src',

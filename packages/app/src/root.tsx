@@ -2,7 +2,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { setCookie } from '@tanstack/react-start/server'
-import { Provider as JotaiProvider } from 'jotai/react'
 import { IntlProvider } from 'use-intl'
 import { getMessages, resolveLocale } from './locale'
 import { contextMiddleware } from './middleware'
@@ -53,13 +52,11 @@ export const Route = createRootRoute({
           <HeadContent />
         </head>
         <body>
-          <JotaiProvider>
-            <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
-              <QueryClientProvider client={queryClient}>
-                <Outlet />
-              </QueryClientProvider>
-            </IntlProvider>
-          </JotaiProvider>
+          <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
+            <QueryClientProvider client={queryClient}>
+              <Outlet />
+            </QueryClientProvider>
+          </IntlProvider>
           <Scripts />
         </body>
       </html>

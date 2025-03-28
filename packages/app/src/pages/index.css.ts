@@ -1,5 +1,3 @@
 import { style } from '@vanilla-extract/css'
 
-export const indexClassName = style({
-  selectors: {}
-})
+export const indexClassName = style({})

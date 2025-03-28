@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "@vec/app",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "prestart": "vinxi build",
@@ -25,10 +26,10 @@
     "lodash": "^4.17.21",
     "lucide-react": "^0.474.0",
     "nanoid": "^5.0.7",
-    "react": "^18.3.1",
+    "react": "^19.0.0",
     "react-aria": "^3.37.0",
     "react-aria-components": "^1.7.0",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.0.0",
     "react-robot": "^1.2.0",
     "robot3": "^1.1.0",
     "use-intl": "^3.26.3",
@@ -37,8 +38,8 @@
   "devDependencies": {
     "@types/lodash": "^4.17.14",
     "@types/node": "^22.10.10",
-    "@types/react": "^18.3.18",
-    "@types/react-dom": "^18.2.21",
+    "@types/react": "^18.3.20",
+    "@types/react-dom": "^18.3.5",
     "@vanilla-extract/css": "^1.17.1",
     "@vanilla-extract/css-utils": "^0.1.4",
     "@vanilla-extract/recipes": "^0.5.5",

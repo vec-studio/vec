@@ -7,7 +7,7 @@ async function loadMaxGraph() {
   return Graph
 }
 
-export default function MaxGraph() {
+export function MaxGraph() {
   const Graph = use(loadMaxGraph())
   const maxGraphContainerRef = useRef<HTMLDivElement>(null)
 

@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-export const cytoscapeClassName = style({
+export const maxGraphClassName = style({
   height: '100%'
 })

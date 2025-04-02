@@ -8,7 +8,8 @@ export default function MaxGraph() {
 
   useEffect(() => {
     import('@maxgraph/core').then(c => {
-      maxGraphRef.current = new c.Graph(maxGraphContainerRef.current!)
+      const graph = new c.Graph(maxGraphContainerRef.current!)
+      maxGraphRef.current = graph
     })
   }, [])
 

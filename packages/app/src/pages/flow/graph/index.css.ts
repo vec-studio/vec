@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
 
-export const maxGraphClassName = style({
+export const graphClassName = style({
   height: '100%'
 })

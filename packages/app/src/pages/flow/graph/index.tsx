@@ -1,31 +1,31 @@
 import { Suspense, use, useEffect, useRef } from 'react'
 import { graphClassName } from './index.css'
 
-async function loadModule() {
+async function loadCytoscape() {
   if (typeof window === 'undefined') return null
-  // const module = await import('')
-  // return module
+  const cytoscape = (await import('cytoscape')).default
+  return cytoscape
 }
 
-function GraphComponent(props: { module: ReturnType<typeof loadModule> }) {
-  const module = use(props.module)
+function CytoscapeComponent(props: { promise: ReturnType<typeof loadCytoscape> }) {
+  const cytoscape = use(props.promise)
   const graphContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    if (!module) return
-    graphContainerRef.current
-  }, [module])
+    if (!cytoscape) return
+    cytoscape({ container: graphContainerRef.current })
+  }, [cytoscape])
 
   return <div ref={graphContainerRef} className={graphClassName}></div>
 }
 
-function GraphSuepense() {
-  const module = loadModule()
+function CytoscapeSuspense() {
+  const cytoscape = loadCytoscape()
   return (
     <Suspense>
-      <GraphComponent module={module} />
+      <CytoscapeComponent promise={cytoscape} />
     </Suspense>
   )
 }
 
-export { GraphSuepense as Graph }
+export { CytoscapeSuspense as Graph }

@@ -1,5 +1,5 @@
 import { use, useEffect, useRef } from 'react'
-import { maxGraphClassName } from './max-graph.css'
+import { maxGraphClassName } from './index.css'
 
 async function loadMaxGraph() {
   if (typeof window === 'undefined') return null

@@ -14,7 +14,6 @@ import { numberFieldClassName } from './number-field.css'
 import { groupClassName } from './group.css'
 import { treeClassName } from './tree.css'
 import { treeItemClassName, treeItemPaddingVar } from './tree-item.css'
-import { toolbarClassName } from './toolbar.css'
 import { textFieldClassName } from './text-field.css'
 
 export const buttonHighlightHoverVar = createVar()
@@ -116,16 +115,16 @@ export const buttonClassName = style({
     // date picker
     [`${datePickerClassName} &`]: {
       background: semanticVars.color.highlightBackground,
-      color: semanticVars.color.highlightForeground,
-      border: `2px solid ${semanticVars.color.fieldBackground}`,
-      forcedColorAdjust: 'none',
+      border: 'none',
       borderRadius: '4px',
-      marginLeft: '-1.929rem',
-      width: '1.429rem',
-      height: '1.429rem',
-      padding: '0',
+      boxSizing: 'content-box',
+      color: semanticVars.color.highlightForeground,
       fontSize: '0.857rem',
-      boxSizing: 'content-box'
+      forcedColorAdjust: 'none',
+      height: '1.429rem',
+      marginLeft: '-1.929rem',
+      padding: '0',
+      width: '1.429rem'
     },
     [`${datePickerClassName} &[data-pressed]`]: {
       boxShadow: 'none',
@@ -144,19 +143,19 @@ export const buttonClassName = style({
     // date range picker
     [`${dateRangePickerClassName} &`]: {
       background: semanticVars.color.highlightBackground,
-      color: semanticVars.color.highlightForeground,
-      border: `2px solid ${semanticVars.color.fieldBackground}`,
-      forcedColorAdjust: 'none',
+      border: 'none',
       borderRadius: '4px',
-      marginLeft: 'auto',
-      width: '1.429rem',
-      height: '1.429rem',
-      padding: '0',
-      fontSize: '0.857rem',
       boxSizing: 'content-box',
+      color: semanticVars.color.highlightForeground,
       flexShrink: 0,
+      fontSize: '0.857rem',
+      forcedColorAdjust: 'none',
+      height: '1.429rem',
+      marginLeft: 'auto',
+      padding: '0',
       position: 'sticky',
-      right: 0
+      right: 0,
+      width: '1.429rem'
     },
     [`${dateRangePickerClassName} &[data-focus-visible]`]: {
       outline: `2px solid ${semanticVars.color.focusRingColor}`,

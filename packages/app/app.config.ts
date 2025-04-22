@@ -17,11 +17,6 @@ export default defineConfig({
         public: fileURLToPath(new URL('public', import.meta.url)),
         src: fileURLToPath(new URL('src', import.meta.url))
       }
-    },
-    server: {
-      hmr: {
-        clientPort: process.env.PORT
-      }
     }
   }
 })

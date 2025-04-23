@@ -1,5 +1,4 @@
 import { defineConfig } from '@tanstack/react-start/config'
-import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin'
 import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
@@ -11,7 +10,6 @@ export default defineConfig({
     virtualRouteConfig: './src/routes.ts'
   },
   vite: {
-    plugins: [vanillaExtractPlugin()],
     resolve: {
       alias: {
         public: fileURLToPath(new URL('public', import.meta.url)),

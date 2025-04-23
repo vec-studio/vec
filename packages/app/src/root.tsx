@@ -5,7 +5,6 @@ import { setCookie } from '@tanstack/react-start/server'
 import { IntlProvider } from 'use-intl'
 import { getMessages, resolveLocale } from './locale'
 import { contextMiddleware } from './middleware'
-import './root.css'
 
 const queryClient = new QueryClient()
 

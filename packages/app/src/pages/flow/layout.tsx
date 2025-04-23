@@ -1,12 +1,9 @@
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import { layoutClassName } from './layout.css'
+
+function component() {
+  return <Outlet />
+}
 
 export const Route = createFileRoute('/_layout/flow/_layout')({
-  component() {
-    return (
-      <div className={layoutClassName}>
-        <Outlet />
-      </div>
-    )
-  }
+  component
 })

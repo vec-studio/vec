@@ -1,31 +1,36 @@
+import { View } from '@adobe/react-spectrum'
+import { type Graph } from '@maxgraph/core'
+import { type DOMRefValue } from '@react-types/shared'
 import { Suspense, use, useEffect, useRef } from 'react'
-import { graphClassName } from './index.css'
 
-async function loadCytoscape() {
+async function loadModule() {
   if (typeof window === 'undefined') return null
-  const cytoscape = (await import('cytoscape')).default
-  return cytoscape
+  const module = await import('@maxgraph/core')
+  return module
 }
 
-function CytoscapeComponent(props: { promise: ReturnType<typeof loadCytoscape> }) {
-  const cytoscape = use(props.promise)
-  const graphContainerRef = useRef<HTMLDivElement>(null)
+function GraphComponent(props: { module: ReturnType<typeof loadModule> }) {
+  const module = use(props.module)
+  const containerRef = useRef<DOMRefValue<HTMLElement>>(null)
+  const graphRef = useRef<Graph>(null)
 
   useEffect(() => {
-    if (!cytoscape) return
-    cytoscape({ container: graphContainerRef.current })
-  }, [cytoscape])
+    if (!module) return
+    const el = containerRef.current!.UNSAFE_getDOMNode()!
+    const { Graph } = module
+    graphRef.current = new Graph(el)
+  }, [module])
 
-  return <div ref={graphContainerRef} className={graphClassName}></div>
+  return <View ref={containerRef}></View>
 }
 
-function CytoscapeSuspense() {
-  const cytoscape = loadCytoscape()
+function GraphComponentSuspense() {
+  const module = loadModule()
   return (
     <Suspense>
-      <CytoscapeComponent promise={cytoscape} />
+      <GraphComponent module={module} />
     </Suspense>
   )
 }
 
-export { CytoscapeSuspense as Graph }
+export { GraphComponentSuspense as Graph }

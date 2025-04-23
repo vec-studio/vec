@@ -8,8 +8,10 @@
     "start": "vinxi start"
   },
   "dependencies": {
+    "@adobe/react-spectrum": "^3.41.0",
     "@casl/ability": "6.7.3",
     "@casl/react": "5.0.0",
+    "@maxgraph/core": "0.16.0",
     "@openauthjs/openauth": "0.4.3",
     "@tanstack/react-form": "1.1.2",
     "@tanstack/react-query": "5.66.9",
@@ -18,11 +20,7 @@
     "@tanstack/react-store": "0.7.0",
     "@tanstack/react-table": "8.21.2",
     "@tanstack/virtual-file-routes": "1.114.29",
-    "@vanilla-extract/dynamic": "2.1.2",
-    "@vec/ui": "*",
-    "clsx": "2.1.1",
     "consola": "3.4.0",
-    "cytoscape": "3.31.2",
     "kysely": "0.27.6",
     "lodash": "4.17.21",
     "lucide-react": "0.474.0",
@@ -33,6 +31,7 @@
     "react-dom": "19.0.0",
     "react-robot": "1.2.0",
     "robot3": "1.1.0",
+    "tabulator-tables": "6.3.1",
     "use-intl": "3.26.3",
     "zod": "3.23.8"
   },
@@ -41,10 +40,7 @@
     "@types/node": "22.10.10",
     "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
-    "@vanilla-extract/css": "1.17.1",
-    "@vanilla-extract/css-utils": "0.1.4",
-    "@vanilla-extract/recipes": "0.5.5",
-    "@vanilla-extract/vite-plugin": "5.0.1",
+    "@types/tabulator-tables": "^6.2.6",
     "typescript": "5.7.3",
     "vinxi": "0.5.3"
   }

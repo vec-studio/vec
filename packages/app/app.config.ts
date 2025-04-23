@@ -8,7 +8,7 @@ export default defineConfig({
     autoCodeSplitting: true,
     routesDirectory: './src',
     target: 'react',
-    virtualRouteConfig: './routes.ts'
+    virtualRouteConfig: './src/routes.ts'
   },
   vite: {
     plugins: [vanillaExtractPlugin()],
@@ -17,6 +17,9 @@ export default defineConfig({
         public: fileURLToPath(new URL('public', import.meta.url)),
         src: fileURLToPath(new URL('src', import.meta.url))
       }
+    },
+    ssr: {
+      noExternal: ['@adobe/react-spectrum', '@react-spectrum/*', '@spectrum-icons/*']
     }
   }
 })

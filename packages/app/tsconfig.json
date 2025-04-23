@@ -17,6 +17,6 @@
     "strictNullChecks": true,
     "target": "esnext"
   },
-  "files": ["app.config.ts", "routes.ts"],
+  "files": ["app.config.ts"],
   "include": ["src/**/*"]
 }

@@ -24,6 +24,28 @@ const initLocale = createServerFn()
     return { locale, messages, timeZone }
   })
 
+function component() {
+  const { locale, messages, timeZone } = Route.useLoaderData()
+  const style = `body { margin: 0; }`
+
+  return (
+    <html lang={locale}>
+      <head>
+        <HeadContent />
+        <style>{style}</style>
+      </head>
+      <body>
+        <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
+          <QueryClientProvider client={queryClient}>
+            <Outlet />
+          </QueryClientProvider>
+        </IntlProvider>
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -42,23 +64,5 @@ export const Route = createRootRoute({
   async loader() {
     return await initLocale()
   },
-  component() {
-    const { locale, messages, timeZone } = Route.useLoaderData()
-
-    return (
-      <html lang={locale}>
-        <head>
-          <HeadContent />
-        </head>
-        <body>
-          <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
-            <QueryClientProvider client={queryClient}>
-              <Outlet />
-            </QueryClientProvider>
-          </IntlProvider>
-          <Scripts />
-        </body>
-      </html>
-    )
-  }
+  component
 })

@@ -2,9 +2,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { setCookie } from '@tanstack/react-start/server'
+import { getMessages, resolveLocale } from 'src/locale'
+import { contextMiddleware } from 'src/middleware'
 import { IntlProvider } from 'use-intl'
-import { getMessages, resolveLocale } from './locale'
-import { contextMiddleware } from './middleware'
 
 const queryClient = new QueryClient()
 

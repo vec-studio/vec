@@ -10,3 +10,4 @@
 !app.config.ts
 !package.json
 !tsconfig.json
+!tsr.config.json

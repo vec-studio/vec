@@ -1,9 +1,9 @@
 import { index, layout, rootRoute, route } from '@tanstack/virtual-file-routes'
 
 export const routes = rootRoute('root.tsx', [
-  layout('pages/layout.tsx', [
-    index('pages/index.tsx'),
-    route('flow', [layout('pages/flow/layout.tsx', [index('pages/flow/index.tsx')])]),
-    route('table', [layout('pages/table/layout.tsx', [index('pages/table/index.tsx')])])
+  layout('layout.tsx', [
+    index('index.tsx'),
+    route('flow', [layout('flow/layout.tsx', [index('flow/index.tsx')])]),
+    route('table', [layout('table/layout.tsx', [index('table/index.tsx')])])
   ])
 ])

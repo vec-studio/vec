@@ -2,6 +2,13 @@ import { defineConfig } from '@tanstack/react-start/config'
 import { fileURLToPath } from 'node:url'
 
 export default defineConfig({
+  tsr: {
+    appDirectory: './src',
+    autoCodeSplitting: true,
+    routesDirectory: './src/routes',
+    target: 'react',
+    virtualRouteConfig: './src/routes.ts'
+  },
   vite: {
     resolve: {
       alias: {

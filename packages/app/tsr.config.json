@@ -1,7 +1,0 @@
-{
-  "appDirectory": "./src",
-  "autoCodeSplitting": true,
-  "routesDirectory": "./src/routes",
-  "target": "react",
-  "virtualRouteConfig": "./src/routes.ts"
-}

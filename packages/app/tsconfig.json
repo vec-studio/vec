@@ -16,6 +16,6 @@
     "strictNullChecks": true,
     "target": "esnext"
   },
-  "files": ["app.config.ts"],
+  "files": ["vite.config.ts"],
   "include": ["src/**/*"]
 }

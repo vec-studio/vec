@@ -3,7 +3,16 @@ import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [tanstackStart()],
+  plugins: [
+    tanstackStart({
+      tsr: {
+        routesDirectory: './src/routes',
+        verboseFileRoutes: true,
+        virtualRouteConfig: './src/routes.ts',
+        target: 'react'
+      }
+    })
+  ],
   resolve: {
     alias: {
       public: fileURLToPath(new URL('public', import.meta.url)),

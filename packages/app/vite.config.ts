@@ -7,7 +7,6 @@ export default defineConfig({
     tanstackStart({
       tsr: {
         routesDirectory: './src/routes',
-        verboseFileRoutes: true,
         virtualRouteConfig: './src/routes.ts',
         target: 'react'
       }

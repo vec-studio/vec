@@ -4,9 +4,8 @@ import { type Mutators } from '@vec/zero/mutators'
 import { type Schema } from '@vec/zero/schema'
 import { WithIntl } from 'src/components/with-intl'
 import { WithQuery } from 'src/components/with-query'
-import { WithSession } from 'src/components/with-session'
+import { WithSession, type SessionContextType } from 'src/components/with-session'
 import { WithZero } from 'src/components/with-zero'
-import { type SessionContextType } from '../components/with-session'
 
 export interface RouterContext {
   zero: Zero<Schema, Mutators>

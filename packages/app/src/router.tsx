@@ -2,11 +2,11 @@ import { type Zero } from '@rocicorp/zero'
 import { createRouter as createTanStackRouter } from '@tanstack/react-router'
 import { type Mutators } from '@vec/zero/mutators'
 import { type Schema } from '@vec/zero/schema'
-import { ErrorComponent } from 'src/components/error'
-import { NotFoundComponent } from 'src/components/not-found'
-import { type SessionContextType } from 'src/components/with-session'
-import { routeTree } from 'src/routeTree.gen'
-import { type RouterContext } from 'src/routes/root'
+import { ErrorComponent } from './components/error'
+import { NotFoundComponent } from './components/not-found'
+import { type SessionContextType } from './components/with-session'
+import { routeTree } from './routeTree.gen'
+import { type RouterContext } from './routes/root'
 
 declare module '@tanstack/react-router' {
   interface Register {

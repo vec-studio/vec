@@ -1,6 +1,6 @@
 import { createMiddleware } from '@tanstack/react-start'
 
-export const contextMiddleware = createMiddleware().server(async ({ next, context = {} }) => {
+export const contextMiddleware = createMiddleware({ type: 'function' }).server(async ({ next, context = {} }) => {
   return next({
     context: {
       ...context

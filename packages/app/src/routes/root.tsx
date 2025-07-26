@@ -1,52 +1,44 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { setCookie } from '@tanstack/react-start/server'
-import { getMessages, resolveLocale } from 'src/locale'
-import { contextMiddleware } from 'src/middleware'
-import { IntlProvider } from 'use-intl'
+import { type Zero } from '@rocicorp/zero'
+import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { type Mutators } from '@vec/zero/mutators'
+import { type Schema } from '@vec/zero/schema'
+import { WithIntl } from 'src/components/with-intl'
+import { WithQuery } from 'src/components/with-query'
+import { WithSession } from 'src/components/with-session'
+import { WithZero } from 'src/components/with-zero'
+import { type SessionContextType } from '../components/with-session'
 
-const queryClient = new QueryClient()
-
-const initLocale = createServerFn()
-  .middleware([contextMiddleware])
-  .handler(async ctx => {
-    const locale = await resolveLocale()
-    const messages = await getMessages({ data: locale })
-    const timeZone = 'UTC'
-
-    setCookie('lng', locale, {
-      path: '/',
-      sameSite: 'lax',
-      httpOnly: true
-    })
-
-    return { locale, messages, timeZone }
-  })
+export interface RouterContext {
+  zero: Zero<Schema, Mutators>
+  session: SessionContextType
+}
 
 function component() {
-  const { locale, messages, timeZone } = Route.useLoaderData()
   const style = `body { margin: 0; }`
 
   return (
-    <html lang={locale}>
+    <html>
       <head>
         <HeadContent />
         <style>{style}</style>
       </head>
       <body>
-        <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
-          <QueryClientProvider client={queryClient}>
-            <Outlet />
-          </QueryClientProvider>
-        </IntlProvider>
+        <WithSession>
+          <WithIntl>
+            <WithQuery>
+              <WithZero>
+                <Outlet />
+              </WithZero>
+            </WithQuery>
+          </WithIntl>
+        </WithSession>
         <Scripts />
       </body>
     </html>
   )
 }
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<RouterContext>()({
   head: () => ({
     meta: [
       {
@@ -61,8 +53,6 @@ export const Route = createRootRoute({
       }
     ]
   }),
-  async loader() {
-    return await initLocale()
-  },
+  async loader() {},
   component
 })

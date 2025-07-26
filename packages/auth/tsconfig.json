@@ -4,15 +4,12 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["esnext"],
     "module": "esnext",
     "moduleResolution": "bundler",
     "noEmit": true,
     "paths": {
-      "@vec/auth": ["../auth/src"],
-      "@vec/db": ["../db/src"],
-      "@vec/zero": ["../zero/src"]
+      "@vec/db": ["../db/src"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

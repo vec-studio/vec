@@ -19,9 +19,9 @@ export default defineConfig({
     alias: {
       public: fileURLToPath(new URL('public', import.meta.url)),
       src: fileURLToPath(new URL('src', import.meta.url)),
-      '@vec/auth': fileURLToPath(new URL('../auth/src/index.ts', import.meta.url)),
-      '@vec/db': fileURLToPath(new URL('../db/src/index.ts', import.meta.url)),
-      '@vec/zero': fileURLToPath(new URL('../zero/src/index.ts', import.meta.url))
+      '@vec/auth': fileURLToPath(new URL('../auth/src', import.meta.url)),
+      '@vec/db': fileURLToPath(new URL('../db/src', import.meta.url)),
+      '@vec/zero': fileURLToPath(new URL('../zero/src', import.meta.url))
     }
   },
   ssr: {

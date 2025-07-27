@@ -12,6 +12,7 @@
     "paths": {
       "@vec/auth": ["../auth/src"],
       "@vec/db": ["../db/src"],
+      "@vec/form": ["../form/src"],
       "@vec/zero": ["../zero/src"]
     },
     "resolveJsonModule": true,

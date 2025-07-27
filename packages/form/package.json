@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@vec/jsonforms-rac-renderer",
+  "name": "@vec/form",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

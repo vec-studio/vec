@@ -24,7 +24,7 @@
     "@tanstack/virtual-file-routes": "^1.121.21",
     "@vec/auth": "*",
     "@vec/db": "*",
-    "@vec/jsonforms-rac-renderer": "*",
+    "@vec/form": "*",
     "@vec/zero": "*",
     "@visx/visx": "^3.12.0",
     "@xyflow/react": "^12.8.2",

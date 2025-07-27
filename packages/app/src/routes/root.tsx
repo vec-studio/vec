@@ -23,17 +23,17 @@ function component() {
         <style>{style}</style>
       </head>
       <body>
-        <WithSession>
-          <WithCookie>
-            <WithIntl>
-              <WithQuery>
+        <WithCookie>
+          <WithSession>
+            <WithQuery>
+              <WithIntl>
                 <WithZero>
                   <Outlet />
                 </WithZero>
-              </WithQuery>
-            </WithIntl>
-          </WithCookie>
-        </WithSession>
+              </WithIntl>
+            </WithQuery>
+          </WithSession>
+        </WithCookie>
         <Scripts />
       </body>
     </html>

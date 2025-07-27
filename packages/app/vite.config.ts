@@ -21,6 +21,7 @@ export default defineConfig({
       src: fileURLToPath(new URL('src', import.meta.url)),
       '@vec/auth': fileURLToPath(new URL('../auth/src', import.meta.url)),
       '@vec/db': fileURLToPath(new URL('../db/src', import.meta.url)),
+      '@vec/form': fileURLToPath(new URL('../form/src', import.meta.url)),
       '@vec/zero': fileURLToPath(new URL('../zero/src', import.meta.url))
     }
   },

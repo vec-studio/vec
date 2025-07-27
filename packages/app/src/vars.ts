@@ -1,9 +1,10 @@
 import z from 'zod'
 
 const envSchema = z.object({
-  ZERO_URL: z.url()
+  VITE_CONSOLA_LEVEL: z.string(),
+  VITE_ZERO_URL: z.url()
 })
 
-export const env = envSchema.parse(process.env)
+export const env = envSchema.parse(import.meta.env)
 
-export const vars = { zeroURL: env.ZERO_URL }
+export const vars = { consolaLevel: env.VITE_CONSOLA_LEVEL, zeroURL: env.VITE_ZERO_URL }

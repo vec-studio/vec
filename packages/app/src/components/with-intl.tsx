@@ -1,11 +1,12 @@
-import { createServerFn } from '@tanstack/react-start'
+import { useQuery } from '@tanstack/react-query'
+import { createServerFn, useServerFn } from '@tanstack/react-start'
 import { setCookie } from '@tanstack/react-start/server'
-import { PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 import { getMessages, resolveLocale } from 'src/locale'
 import { contextMiddleware } from 'src/middleware'
 import { IntlProvider } from 'use-intl'
 
-const initLocale = createServerFn()
+const serverInitLocale = createServerFn()
   .middleware([contextMiddleware])
   .handler(async ctx => {
     const locale = await resolveLocale()
@@ -21,12 +22,11 @@ const initLocale = createServerFn()
     return { locale, messages, timeZone }
   })
 
-export async function WithIntl(props: PropsWithChildren) {
-  const { locale, messages, timeZone } = await initLocale()
+export function WithIntl(props: PropsWithChildren) {
+  const initLocale = useServerFn(serverInitLocale)
+  const query = useQuery({ queryKey: ['initLocale'], queryFn: () => initLocale() })
 
-  return (
-    <IntlProvider locale={locale} messages={messages} timeZone={timeZone}>
-      {props.children}
-    </IntlProvider>
-  )
+  if (query.isError) return null
+  if (query.isPending) return null
+  return <IntlProvider {...query.data}>{props.children}</IntlProvider>
 }

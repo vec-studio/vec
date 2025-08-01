@@ -1,22 +1,17 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ReactFlow, addEdge, applyEdgeChanges, applyNodeChanges } from '@xyflow/react'
+import { ReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { type Connection, type EdgeBase, type EdgeChange, type NodeBase, type NodeChange } from '@xyflow/system'
-import { useCallback, useState } from 'react'
+import { type EdgeBase, type NodeBase } from '@xyflow/system'
+import { useState } from 'react'
+import * as hooks from 'src/hooks'
 
 function component() {
   const [nodes, setNodes] = useState<NodeBase[]>([])
   const [edges, setEdges] = useState<EdgeBase[]>([])
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes(nodesSnapshot => applyNodeChanges(changes, nodesSnapshot)),
-    []
-  )
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange[]) => setEdges(edgesSnapshot => applyEdgeChanges(changes, edgesSnapshot)),
-    []
-  )
-  const onConnect = useCallback((params: Connection) => setEdges(edgesSnapshot => addEdge(params, edgesSnapshot)), [])
+  const onNodesChange = hooks.flow.useOnNodesChange(setNodes)
+  const onEdgesChange = hooks.flow.useOnEdgesChange(setEdges)
+  const onConnect = hooks.flow.useOnConnect(setEdges)
 
   return (
     <ReactFlow

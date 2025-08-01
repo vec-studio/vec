@@ -9,9 +9,6 @@ export default defineConfig({
         routesDirectory: './src/routes',
         virtualRouteConfig: './src/routes.ts',
         target: 'react'
-      },
-      spa: {
-        enabled: true
       }
     })
   ],

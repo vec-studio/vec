@@ -30,7 +30,8 @@ export function createRouter() {
     defaultPreloadGcTime: 0,
     defaultNotFoundComponent: () => <NotFoundComponent />,
     routeTree,
-    scrollRestoration: true
+    scrollRestoration: true,
+    defaultSsr: false
   })
 
   return router

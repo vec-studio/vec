@@ -1,9 +1,9 @@
 import z from 'zod'
 
 const envSchema = z.object({
-  PG_URL: z.url()
+  DB_URL: z.string().nonempty().default(':memory:')
 })
 
 export const env = envSchema.parse(process.env)
 
-export const vars = { pgURL: env.PG_URL }
+export const vars = { dbURL: env.DB_URL }

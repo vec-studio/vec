@@ -1,12 +1,15 @@
-import { pgTable, text, timestamp } from 'drizzle-orm/pg-core'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
+import { nanoid } from 'nanoid'
 import { user } from './user'
 
-export const session = pgTable('session', {
-  id: text('id').primaryKey(),
-  expiresAt: timestamp('expires_at').notNull(),
+export const session = sqliteTable('session', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
   token: text('token').notNull().unique(),
-  createdAt: timestamp('created_at').notNull(),
-  updatedAt: timestamp('updated_at').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
   ipAddress: text('ip_address'),
   userAgent: text('user_agent'),
   userId: text('user_id')
@@ -14,8 +17,10 @@ export const session = pgTable('session', {
     .references(() => user.id, { onDelete: 'cascade' })
 })
 
-export const account = pgTable('account', {
-  id: text('id').primaryKey(),
+export const account = sqliteTable('account', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
   accountId: text('account_id').notNull(),
   providerId: text('provider_id').notNull(),
   userId: text('user_id')
@@ -24,26 +29,30 @@ export const account = pgTable('account', {
   accessToken: text('access_token'),
   refreshToken: text('refresh_token'),
   idToken: text('id_token'),
-  accessTokenExpiresAt: timestamp('access_token_expires_at'),
-  refreshTokenExpiresAt: timestamp('refresh_token_expires_at'),
+  accessTokenExpiresAt: integer('access_token_expires_at', { mode: 'timestamp' }),
+  refreshTokenExpiresAt: integer('refresh_token_expires_at', { mode: 'timestamp' }),
   scope: text('scope'),
   password: text('password'),
-  createdAt: timestamp('created_at').notNull(),
-  updatedAt: timestamp('updated_at').notNull()
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
 })
 
-export const verification = pgTable('verification', {
-  id: text('id').primaryKey(),
+export const verification = sqliteTable('verification', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
-  expiresAt: timestamp('expires_at').notNull(),
-  createdAt: timestamp('created_at').$defaultFn(() => new Date()),
-  updatedAt: timestamp('updated_at').$defaultFn(() => new Date())
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date())
 })
 
-export const jwks = pgTable('jwks', {
-  id: text('id').primaryKey(),
+export const jwks = sqliteTable('jwks', {
+  id: text('id')
+    .primaryKey()
+    .$defaultFn(() => nanoid()),
   publicKey: text('public_key').notNull(),
   privateKey: text('private_key').notNull(),
-  createdAt: timestamp('created_at').notNull()
+  createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
 })

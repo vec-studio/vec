@@ -8,10 +8,10 @@
     "./schema": "./src/schema/index.ts"
   },
   "dependencies": {
+    "@libsql/client": "^0.15.10",
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.3",
     "nanoid": "^5.1.5",
-    "postgres": "^3.4.7",
     "zod": "^4.0.5"
   },
   "devDependencies": {

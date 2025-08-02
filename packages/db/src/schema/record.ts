@@ -1,9 +1,9 @@
-import { json, pgTable, text } from 'drizzle-orm/pg-core'
+import { sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { nanoid } from 'nanoid'
 
-export const record = pgTable('record', {
+export const record = sqliteTable('record', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  value: json('value')
+  value: text('value', { mode: 'json' })
 })

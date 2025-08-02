@@ -14,8 +14,7 @@ export function createRouter() {
     defaultErrorComponent: ErrorComponent,
     defaultNotFoundComponent: () => <NotFoundComponent />,
     routeTree,
-    scrollRestoration: true,
-    defaultSsr: false
+    scrollRestoration: true
   })
 
   return router

@@ -11,6 +11,9 @@ export default defineConfig({
         virtualRouteConfig: './src/routes.ts',
         target: 'react'
       },
+      spa: {
+        enabled: true
+      },
       customViteReactPlugin: true
     }),
     viteReact()

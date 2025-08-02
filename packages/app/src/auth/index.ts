@@ -1,9 +1,9 @@
-import { db } from '@vec/db'
-import * as schema from '@vec/db/schema'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { bearer } from 'better-auth/plugins'
-import { vars } from './vars'
+import { db } from 'src/db'
+import * as schema from 'src/db/schema'
+import { vars } from 'src/vars'
 
 export const auth = betterAuth({
   secret: vars.betterAuthSecret,

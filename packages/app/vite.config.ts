@@ -21,10 +21,7 @@ export default defineConfig({
   resolve: {
     alias: {
       public: fileURLToPath(new URL('public', import.meta.url)),
-      src: fileURLToPath(new URL('src', import.meta.url)),
-      '@vec/auth': fileURLToPath(new URL('../auth/src', import.meta.url)),
-      '@vec/db': fileURLToPath(new URL('../db/src', import.meta.url)),
-      '@vec/form': fileURLToPath(new URL('../form/src', import.meta.url))
+      src: fileURLToPath(new URL('src', import.meta.url))
     }
   },
   ssr: {

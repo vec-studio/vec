@@ -1,4 +1,4 @@
-import { createRootRouteWithContext, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
+import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { WithIntl } from 'src/components/with-intl'
 import { WithQuery } from 'src/components/with-query'
 
@@ -23,7 +23,7 @@ function component() {
   )
 }
 
-export const Route = createRootRouteWithContext()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       {

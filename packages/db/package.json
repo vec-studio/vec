@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.15.10",
+    "dotenv": "^17.2.1",
     "drizzle-kit": "^0.31.4",
     "drizzle-orm": "^0.44.3",
     "nanoid": "^5.1.5",

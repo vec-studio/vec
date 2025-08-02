@@ -4,7 +4,6 @@
 
 !src
 
-!.env.template
 !README.md
 !package.json
 !tsconfig.json

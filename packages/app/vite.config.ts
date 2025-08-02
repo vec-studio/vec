@@ -1,4 +1,5 @@
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import viteReact from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 
@@ -9,8 +10,10 @@ export default defineConfig({
         routesDirectory: './src/routes',
         virtualRouteConfig: './src/routes.ts',
         target: 'react'
-      }
-    })
+      },
+      customViteReactPlugin: true
+    }),
+    viteReact()
   ],
   resolve: {
     alias: {

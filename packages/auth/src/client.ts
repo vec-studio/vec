@@ -1,6 +1,6 @@
-import { jwt } from 'better-auth/plugins'
 import { createAuthClient } from 'better-auth/react'
+import { vars } from './vars'
 
 export const authClient = createAuthClient({
-  plugins: []
+  baseURL: vars.betterAuthURL
 })

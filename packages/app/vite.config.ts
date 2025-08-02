@@ -6,15 +6,15 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [
     tanstackStart({
+      customViteReactPlugin: true,
+      spa: {
+        enabled: true
+      },
       tsr: {
         routesDirectory: './src/routes',
         virtualRouteConfig: './src/routes.ts',
         target: 'react'
-      },
-      spa: {
-        enabled: true
-      },
-      customViteReactPlugin: true
+      }
     }),
     viteReact()
   ],

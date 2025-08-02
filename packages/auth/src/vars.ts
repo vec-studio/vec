@@ -5,7 +5,7 @@ const envSchema = z.object({
   BETTER_AUTH_SECRET: z.string().nonempty()
 })
 
-export const env = envSchema.parse(process.env)
+export const env = envSchema.parse(import.meta.env)
 
 export const vars = {
   betterAuthURL: env.BETTER_AUTH_URL,

@@ -1,38 +1,49 @@
-import { eq, useLiveQuery } from '@tanstack/react-db'
+import { Item, Menu } from '@adobe/react-spectrum'
 import { createFileRoute } from '@tanstack/react-router'
 import { ReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { type EdgeBase, type NodeBase } from '@xyflow/system'
-import { useState } from 'react'
+import { type MouseEvent, useCallback, useRef, useState } from 'react'
 import * as hooks from 'src/hooks'
-import * as schema from 'src/schema'
-import { flowNodesEdgesCollection } from 'src/state/flow'
+import { useTranslations } from 'use-intl'
 
 function component() {
   const params = Route.useParams()
+  const t = useTranslations()
 
-  const [nodes, setNodes] = useState<NodeBase[]>([])
-  const [edges, setEdges] = useState<EdgeBase[]>([])
+  const ref = useRef<HTMLDivElement>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const onPaneClick = useCallback(() => {
+    setIsMenuOpen(false)
+  }, [])
+  const onContextMenu = useCallback((e: MouseEvent) => {
+    e.preventDefault()
+    setIsMenuOpen(true)
+  }, [])
 
-  const { data } = useLiveQuery(q =>
-    q
-      .from({ flowNodesEdges: flowNodesEdgesCollection })
-      .where(({ flowNodesEdges }) => eq(flowNodesEdges.flow.id, params.id))
-  )
-
-  const onNodesChange = hooks.flow.useOnNodesChange(setNodes)
-  const onEdgesChange = hooks.flow.useOnEdgesChange(setEdges)
-  const onConnect = hooks.flow.useOnConnect(setEdges)
+  const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
+  const onNodesChange = hooks.flow.useOnNodesChange()
+  const onEdgesChange = hooks.flow.useOnEdgesChange()
+  const onConnect = hooks.flow.useOnConnect()
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-    />
+    <>
+      <ReactFlow
+        ref={ref}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onPaneClick={onPaneClick}
+        onContextMenu={onContextMenu}
+        fitView
+      />
+      {isMenuOpen && (
+        <Menu>
+          <Item key="add">{t('flow.context-menu.add')}</Item>
+        </Menu>
+      )}
+    </>
   )
 }
 

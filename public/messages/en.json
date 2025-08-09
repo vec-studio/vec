@@ -1,5 +1,8 @@
 {
   "flow": {
-    "new": "New"
+    "new": "New",
+    "context-menu": {
+      "add": "Add"
+    }
   }
 }

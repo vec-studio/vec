@@ -1,31 +1,27 @@
-import { useLiveQuery } from '@tanstack/react-db'
+import { Grid, View } from '@adobe/react-spectrum'
 import { createFileRoute } from '@tanstack/react-router'
-import { ReactFlow } from '@xyflow/react'
-import '@xyflow/react/dist/style.css'
-import { type EdgeBase, type NodeBase } from '@xyflow/system'
+import { useIsFirstRender } from '@uidotdev/usehooks'
+import { nanoid } from 'nanoid'
 import { useState } from 'react'
-import * as hooks from 'src/hooks'
+import { ButtonLink } from 'src/components'
 import { flowCollection } from 'src/state/flow'
+import { useTranslations } from 'use-intl'
 
 function component() {
-  const [nodes, setNodes] = useState<NodeBase[]>([])
-  const [edges, setEdges] = useState<EdgeBase[]>([])
+  const t = useTranslations()
+  const [id] = useState(nanoid())
+  const isFirstRender = useIsFirstRender()
 
-  const { data } = useLiveQuery(q => q.from({ flow: flowCollection }))
-
-  const onNodesChange = hooks.flow.useOnNodesChange(setNodes)
-  const onEdgesChange = hooks.flow.useOnEdgesChange(setEdges)
-  const onConnect = hooks.flow.useOnConnect(setEdges)
+  if (isFirstRender) flowCollection.insert({ id })
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      fitView
-    />
+    <Grid>
+      <View>
+        <ButtonLink to={`/flow/$id`} params={{ id }} variant="secondary">
+          {t('flow.new')}
+        </ButtonLink>
+      </View>
+    </Grid>
   )
 }
 

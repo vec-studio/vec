@@ -24,6 +24,7 @@
     "@tanstack/react-start": "1.130.15",
     "@tanstack/react-table": "8.21.3",
     "@tanstack/virtual-file-routes": "1.129.7",
+    "@uidotdev/usehooks": "2.4.1",
     "@visx/visx": "3.12.0",
     "@xyflow/react": "12.8.2",
     "better-auth": "1.3.4",

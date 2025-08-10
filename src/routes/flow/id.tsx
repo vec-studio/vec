@@ -28,9 +28,9 @@ function component() {
   const onClose = onPaneClick
 
   const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
-  const onNodesChange = hooks.flow.useOnNodesChange()
-  const onEdgesChange = hooks.flow.useOnEdgesChange()
-  const onConnect = hooks.flow.useOnConnect()
+  const onNodesChange = hooks.flow.useOnNodesChange(nodes)
+  const onEdgesChange = hooks.flow.useOnEdgesChange(edges)
+  const onConnect = hooks.flow.useOnConnect(edges)
 
   return (
     <>

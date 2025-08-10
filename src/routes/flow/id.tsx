@@ -1,9 +1,8 @@
-import { Item, Menu } from '@adobe/react-spectrum'
 import { createFileRoute } from '@tanstack/react-router'
 import { ReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
-import { Popover } from 'react-aria-components'
+import { Popover, MenuItem, Menu } from 'react-aria-components'
 import * as hooks from 'src/hooks'
 import { useTranslations } from 'use-intl'
 
@@ -58,7 +57,7 @@ function component() {
         triggerRef={ref}
       >
         <Menu aria-label="menu" onClose={onClose}>
-          <Item key="add">{t('flow.context-menu.add')}</Item>
+          <MenuItem key="add">{t('flow.context-menu.add')}</MenuItem>
         </Menu>
       </Popover>
     </>

@@ -16,6 +16,7 @@
     "@jsonforms/core": "3.6.0",
     "@jsonforms/react": "3.6.0",
     "@libsql/client": "0.15.10",
+    "@react-aria/example-theme": "1.0.5",
     "@tanstack/query-db-collection": "0.1.2",
     "@tanstack/react-db": "0.1.0",
     "@tanstack/react-form": "1.15.2",

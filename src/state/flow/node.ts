@@ -7,6 +7,6 @@ export const flowNodeCollection = createCollection(
     id: 'flow-node',
     storageKey: 'vec-collection-flow-node',
     getKey: item => item.id,
-    schema: z.object({ id: z.string().nonempty(), data: z.custom<NodeBase>() })
+    schema: z.object({ id: z.string().nonempty(), data: z.custom<NodeBase>(), flowId: z.string().nonempty() })
   })
 )

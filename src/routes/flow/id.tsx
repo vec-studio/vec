@@ -1,12 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { ReactFlow } from '@xyflow/react'
+import { ReactFlow, ReactFlowProvider, useReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import { nanoid } from 'nanoid'
 import { type MouseEventHandler, useRef, useState } from 'react'
-import { Popover, MenuItem, Menu } from 'react-aria-components'
+import { Menu, MenuItem, Popover } from 'react-aria-components'
 import * as hooks from 'src/hooks'
 import { useTranslations } from 'use-intl'
 
-function component() {
+function Flow() {
   const params = Route.useParams()
   const t = useTranslations()
 
@@ -27,10 +28,26 @@ function component() {
   const onOpenChange = onPaneClick
   const onClose = onPaneClick
 
+  const { screenToFlowPosition } = useReactFlow()
   const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
-  const onNodesChange = hooks.flow.useOnNodesChange(nodes)
-  const onEdgesChange = hooks.flow.useOnEdgesChange(edges)
-  const onConnect = hooks.flow.useOnConnect(edges)
+  const onNodesChange = hooks.flow.useOnNodesChange()
+  const onEdgesChange = hooks.flow.useOnEdgesChange()
+  const onConnect = hooks.flow.useOnConnect()
+  const addNode = hooks.flow.useAddNode()
+
+  const onClickAddNode: MouseEventHandler = e => {
+    const id = nanoid()
+    const node = {
+      id,
+      position: screenToFlowPosition({
+        x: e.clientX,
+        y: e.clientY
+      }),
+      data: { label: `Node ${id}` },
+      origin: [0.5, 0.0] as any
+    }
+    addNode(params.id, node)
+  }
 
   return (
     <>
@@ -57,10 +74,20 @@ function component() {
         triggerRef={ref}
       >
         <Menu aria-label="menu" onClose={onClose}>
-          <MenuItem key="add">{t('flow.context-menu.add')}</MenuItem>
+          <MenuItem key="add" onClick={onClickAddNode}>
+            {t('flow.context-menu.add')}
+          </MenuItem>
         </Menu>
       </Popover>
     </>
+  )
+}
+
+function component() {
+  return (
+    <ReactFlowProvider>
+      <Flow />
+    </ReactFlowProvider>
   )
 }
 

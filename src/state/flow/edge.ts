@@ -7,6 +7,6 @@ export const flowEdgeCollection = createCollection(
     id: 'flow-edge',
     storageKey: 'vec-collection-flow-edge',
     getKey: item => item.id,
-    schema: z.object({ id: z.string().nonempty(), data: z.custom<EdgeBase>() })
+    schema: z.object({ id: z.string().nonempty(), data: z.custom<EdgeBase>(), flowId: z.string().nonempty() })
   })
 )

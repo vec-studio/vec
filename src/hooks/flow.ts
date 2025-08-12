@@ -60,3 +60,39 @@ export function useOnEdgesChange(flowId: schema.Flow['id']) {
 
   return onEdgesChange
 }
+
+export function useOnConnect(flowId: schema.Flow['id']) {
+  const edges = useEdges()
+
+  const onConnect = useCallback(
+    (params: Connection) => async () => {
+      const updateEdges = addEdge(params, edges)
+      const updateEdgeIds = updateEdges.map(v => v.id)
+
+      const tx = flowEdgeCollection.update(updateEdgeIds, prevEdges => {
+        prevEdges.forEach((node, index) => {
+          node = lodash.merge({}, node, { flowId, data: updateEdges[index] })
+        })
+      })
+
+      await tx.isPersisted.promise
+    },
+    [edges]
+  )
+
+  return onConnect
+}
+
+export function useAddNode(flowId: schema.Flow['id']) {
+  const { addNodes } = useReactFlow()
+
+  const addNode = useCallback(async (node: NodeBase) => {
+    addNodes(node)
+
+    const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
+
+    await tx.isPersisted.promise
+  }, [])
+
+  return addNode
+}

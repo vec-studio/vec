@@ -10,7 +10,6 @@ import { useTranslations } from 'use-intl'
 function Flow() {
   const params = Route.useParams()
   const t = useTranslations()
-  const { addNodes } = useReactFlow()
 
   const ref = useRef<HTMLDivElement>(null)
   const [menuPosition, setMenuPosition] = useState<{
@@ -33,6 +32,8 @@ function Flow() {
   const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
   const onNodesChange = hooks.flow.useOnNodesChange(params.id)
   const onEdgesChange = hooks.flow.useOnEdgesChange(params.id)
+  const onConnect = hooks.flow.useOnConnect(params.id)
+  const addNode = hooks.flow.useAddNode(params.id)
 
   const onClickAddNode: MouseEventHandler = e => {
     const id = nanoid()
@@ -45,7 +46,7 @@ function Flow() {
       data: { label: `Node ${id}` },
       origin: [0.5, 0.0] as any
     }
-    addNodes(node)
+    addNode(node)
   }
 
   return (
@@ -55,6 +56,7 @@ function Flow() {
         edges={edges}
         fitView
         nodes={nodes}
+        onConnect={onConnect}
         onContextMenu={onContextMenu}
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}

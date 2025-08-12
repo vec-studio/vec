@@ -11,8 +11,8 @@ export function useNodesEdges(flowId: schema.Flow['id']) {
     q.from({ flowNodesEdges: flowNodeEdgeCollection }).where(({ flowNodesEdges }) => eq(flowNodesEdges.flow.id, flowId))
   )
 
-  const nodes = useMemo(() => data.map(v => v.node.data), data)
-  const edges = useMemo(() => data.map(v => v.edge.data), data)
+  const nodes = useMemo(() => data.filter(v => v.node).map(v => v.node!.data), [data])
+  const edges = useMemo(() => data.filter(v => v.edge).map(v => v.edge!.data), [data])
 
   return { nodes, edges }
 }

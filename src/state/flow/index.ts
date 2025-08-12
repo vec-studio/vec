@@ -15,8 +15,8 @@ export const flowCollection = createCollection(
 export const flowNodeEdgeCollection = createLiveQueryCollection(q =>
   q
     .from({ flow: flowCollection })
-    .innerJoin({ node: flowNodeCollection }, ({ flow, node }) => eq(flow.id, node.flowId))
-    .innerJoin({ edge: flowEdgeCollection }, ({ flow, edge }) => eq(flow.id, edge.flowId))
+    .leftJoin({ node: flowNodeCollection }, ({ flow, node }) => eq(flow.id, node.flowId))
+    .leftJoin({ edge: flowEdgeCollection }, ({ flow, edge }) => eq(flow.id, edge.flowId))
 )
 
 export { flowNodeCollection, flowEdgeCollection }

@@ -1,21 +1,28 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { useIsFirstRender } from '@uidotdev/usehooks'
 import { ReactFlow, ReactFlowProvider, useReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { nanoid } from 'nanoid'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { Menu, MenuItem, Popover } from 'react-aria-components'
 import * as hooks from 'src/hooks'
+import { flowCollection } from 'src/state/flow'
 import { useTranslations } from 'use-intl'
 
 function Flow() {
   const params = Route.useParams()
   const t = useTranslations()
 
+  const isFirstRender = useIsFirstRender()
+  if (isFirstRender) flowCollection.insert({ id: params.id })
+
   const ref = useRef<HTMLDivElement>(null)
+
   const [menuPosition, setMenuPosition] = useState<{
     offset: number
     crossOffset: number
   } | null>(null)
+
   const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
     e.preventDefault()
     const rect = e.currentTarget.getBoundingClientRect()
@@ -24,14 +31,15 @@ function Flow() {
       crossOffset: e.clientX - rect.left
     })
   }
+
   const onPaneClick = () => setMenuPosition(null)
   const onOpenChange = onPaneClick
   const onClose = onPaneClick
 
   const { screenToFlowPosition } = useReactFlow()
   const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
-  const onNodesChange = hooks.flow.useOnNodesChange(params.id)
-  const onEdgesChange = hooks.flow.useOnEdgesChange(params.id)
+  const onNodesChange = hooks.flow.useOnNodesChange()
+  const onEdgesChange = hooks.flow.useOnEdgesChange()
   const onConnect = hooks.flow.useOnConnect(params.id)
   const addNode = hooks.flow.useAddNode(params.id)
 

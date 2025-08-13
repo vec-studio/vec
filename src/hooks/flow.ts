@@ -1,23 +1,22 @@
 import { eq, useLiveQuery } from '@tanstack/react-db'
 import { addEdge, applyEdgeChanges, applyNodeChanges, useEdges, useNodes, useReactFlow } from '@xyflow/react'
 import { type Connection, type EdgeChange, type NodeBase, type NodeChange } from '@xyflow/system'
-import lodash from 'lodash'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import * as schema from 'src/schema'
-import { flowEdgeCollection, flowNodeCollection, flowNodeEdgeCollection } from 'src/state/flow'
+import { flowEdgeCollection, flowNodeCollection } from 'src/state/flow'
 
 export function useNodesEdges(flowId: schema.Flow['id']) {
-  const { data } = useLiveQuery(q =>
-    q.from({ flowNodesEdges: flowNodeEdgeCollection }).where(({ flowNodesEdges }) => eq(flowNodesEdges.flow.id, flowId))
-  )
+  const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowId)))
 
-  const nodes = useMemo(() => data.filter(v => v.node).map(v => v.node!.data), [data])
-  const edges = useMemo(() => data.filter(v => v.edge).map(v => v.edge!.data), [data])
+  const edgeQuery = useLiveQuery(q => q.from({ edge: flowEdgeCollection }).where(({ edge }) => eq(edge.flowId, flowId)))
+
+  const nodes = nodeQuery.data.map(v => v.data)
+  const edges = edgeQuery.data.map(v => v.data)
 
   return { nodes, edges }
 }
 
-export function useOnNodesChange(flowId: schema.Flow['id']) {
+export function useOnNodesChange() {
   const nodes = useNodes()
 
   const onNodesChange = useCallback(
@@ -27,7 +26,7 @@ export function useOnNodesChange(flowId: schema.Flow['id']) {
 
       const tx = flowNodeCollection.update(updateNodeIds, prevNodes => {
         prevNodes.forEach((node, index) => {
-          node = lodash.merge({}, node, { flowId, data: updateNodes[index] })
+          node.data = updateNodes[index]
         })
       })
 
@@ -39,7 +38,7 @@ export function useOnNodesChange(flowId: schema.Flow['id']) {
   return onNodesChange
 }
 
-export function useOnEdgesChange(flowId: schema.Flow['id']) {
+export function useOnEdgesChange() {
   const edges = useEdges()
 
   const onEdgesChange = useCallback(
@@ -48,8 +47,8 @@ export function useOnEdgesChange(flowId: schema.Flow['id']) {
       const updateEdgeIds = updateEdges.map(v => v.id)
 
       const tx = flowEdgeCollection.update(updateEdgeIds, prevEdges => {
-        prevEdges.forEach((node, index) => {
-          node = lodash.merge({}, node, { flowId, data: updateEdges[index] })
+        prevEdges.forEach((prevEdge, index) => {
+          prevEdge.data = updateEdges[index]
         })
       })
 
@@ -65,17 +64,14 @@ export function useOnConnect(flowId: schema.Flow['id']) {
   const edges = useEdges()
 
   const onConnect = useCallback(
-    (params: Connection) => async () => {
-      const updateEdges = addEdge(params, edges)
-      const updateEdgeIds = updateEdges.map(v => v.id)
+    async (params: Connection) => {
+      const allEdges = addEdge(params, edges)
+      const addedEdges = allEdges.filter(edge => edge.source === params.source && edge.target === params.target)
 
-      const tx = flowEdgeCollection.update(updateEdgeIds, prevEdges => {
-        prevEdges.forEach((node, index) => {
-          node = lodash.merge({}, node, { flowId, data: updateEdges[index] })
-        })
-      })
-
-      await tx.isPersisted.promise
+      for (const addedEdge of addedEdges) {
+        const tx = flowEdgeCollection.insert({ id: addedEdge.id, data: addedEdge, flowId })
+        await tx.isPersisted.promise
+      }
     },
     [edges]
   )

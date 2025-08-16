@@ -42,6 +42,7 @@
     "react-dom": "19.1.1",
     "react-robot": "1.2.0",
     "robot3": "1.1.1",
+    "ucastle": "1.4.3",
     "use-intl": "4.3.4",
     "zod": "4.0.14"
   },

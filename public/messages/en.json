@@ -2,7 +2,8 @@
   "flow": {
     "new": "New",
     "context-menu": {
-      "add": "Add"
+      "add": "Add",
+      "add_function": "Add Code"
     }
   }
 }

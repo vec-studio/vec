@@ -92,3 +92,17 @@ export function useAddNode(flowId: schema.Flow['id']) {
 
   return addNode
 }
+
+export function useFunctionCodeNode(flowId: schema.Flow['id']) {
+  const { addNodes } = useReactFlow()
+
+  const addFunctionNode = useCallback(async (node: NodeBase) => {
+    addNodes(node)
+
+    const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
+
+    await tx.isPersisted.promise
+  }, [])
+
+  return addFunctionNode
+}

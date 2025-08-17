@@ -4,6 +4,7 @@ import { ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
+import { nodeTypes } from 'src/components/flow/node'
 import * as hooks from 'src/hooks'
 import { flowCollection } from 'src/state/flow'
 
@@ -43,6 +44,7 @@ function Flow() {
         edges={edges}
         fitView
         nodes={nodes}
+        nodeTypes={nodeTypes}
         onConnect={onConnect}
         onContextMenu={onContextMenu}
         onEdgesChange={onEdgesChange}

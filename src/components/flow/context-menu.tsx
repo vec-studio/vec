@@ -1,5 +1,6 @@
 import { useReactFlow } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type Dispatch, type MouseEventHandler, type RefObject, type SetStateAction } from 'react'
 import { Menu, MenuItem, Popover } from 'react-aria-components'
@@ -27,19 +28,35 @@ export function FlowContextMenu(props: FlowContextMenuProps) {
 
   const { screenToFlowPosition } = useReactFlow()
   const addNode = hooks.flow.useAddNode(props.flowId)
+  const addFunctionNode = hooks.flow.useFunctionCodeNode(props.flowId)
 
   const onClickAddNode: MouseEventHandler = e => {
     const id = nanoid()
-    const node = {
+    const node: NodeBase = {
       id,
       position: screenToFlowPosition({
         x: e.clientX,
         y: e.clientY
       }),
-      data: { label: '' },
+      data: { label: '', input: [], output: [], fn: '' },
       origin: [0.5, 0.0] as any
     }
     addNode(node)
+  }
+
+  const onClickAddFunctionNode: MouseEventHandler = e => {
+    const id = nanoid()
+    const node: NodeBase = {
+      id,
+      type: 'functionNode',
+      position: screenToFlowPosition({
+        x: e.clientX,
+        y: e.clientY
+      }),
+      data: { label: '', input: [], output: [], fn: '//' },
+      origin: [0.5, 0.0] as any
+    }
+    addFunctionNode(node)
   }
 
   return (
@@ -56,6 +73,9 @@ export function FlowContextMenu(props: FlowContextMenuProps) {
       <Menu aria-label="menu" onClose={onClose}>
         <MenuItem key="add" onClick={onClickAddNode}>
           {t('flow.context-menu.add')}
+        </MenuItem>
+        <MenuItem key="add_function" onClick={onClickAddFunctionNode}>
+          {t('flow.context-menu.add_function')}
         </MenuItem>
       </Menu>
     </Popover>

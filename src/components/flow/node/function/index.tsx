@@ -24,10 +24,11 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
     if (editorRef.current) return
 
     const baseEheme = EditorView.baseTheme({
-      '&': {
+      '&': {},
+      '&.cm-editor': {
         height: '100%',
-        width: '100%',
-        position: 'absolute'
+        position: 'absolute !important',
+        width: '100%'
       }
     })
 

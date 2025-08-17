@@ -1,4 +1,4 @@
-import { View } from '@adobe/react-spectrum'
+import { Flex, View } from '@adobe/react-spectrum'
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
 import { type DOMRef } from '@react-types/shared'
@@ -29,6 +29,9 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
         height: '100%',
         position: 'absolute !important',
         width: '100%'
+      },
+      '&.cm-focused': {
+        outline: 'none'
       }
     })
 
@@ -49,16 +52,20 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
         borderRadius="medium"
         borderWidth="thin"
         height="100%"
-        minHeight="10rem"
+        minHeight={150}
+        minWidth={200}
         overflow="hidden"
         position="relative"
-        ref={editorParentRef}
         width="100%"
-        minWidth="15rem"
-      />
+      >
+        <Flex direction="column" height="100%" position="absolute" width="100%">
+          <View></View>
+          <View flex={1} position="relative" ref={editorParentRef} />
+        </Flex>
+      </View>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />
       <Handle type="source" isConnectable={props.isConnectable} position={Position.Right} />
-      <NodeResizer isVisible={props.selected} />
+      <NodeResizer isVisible={props.selected} minHeight={150} minWidth={200} />
     </>
   )
 })

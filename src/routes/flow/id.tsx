@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useIsFirstRender } from '@uidotdev/usehooks'
-import { ReactFlow, ReactFlowProvider } from '@xyflow/react'
+import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
@@ -39,10 +39,17 @@ function Flow() {
 
   return (
     <>
+      <Background variant={BackgroundVariant.Dots} />
+      <Controls />
+      <FlowContextMenu
+        flowId={params.id}
+        position={contextMenuPosition}
+        ref={ref}
+        updatePosition={setContextMenuPosition}
+      />
       <ReactFlow
         aria-haspopup="menu"
         edges={edges}
-        fitView
         nodes={nodes}
         nodeTypes={nodeTypes}
         onConnect={onConnect}
@@ -51,12 +58,6 @@ function Flow() {
         onNodesChange={onNodesChange}
         onPaneClick={onPaneClick}
         ref={ref}
-      />
-      <FlowContextMenu
-        flowId={params.id}
-        ref={ref}
-        position={contextMenuPosition}
-        updatePosition={setContextMenuPosition}
       />
     </>
   )

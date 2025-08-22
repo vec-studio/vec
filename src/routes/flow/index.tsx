@@ -7,7 +7,6 @@ import { useTranslations } from 'use-intl'
 function component() {
   const t = useTranslations()
   const router = useRouter()
-
   const addFlow = useAddFlow()
 
   const onClickNew = async () => {

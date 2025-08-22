@@ -2,7 +2,7 @@ import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection } from '@tanstack/react-db'
 import { QueryClient } from '@tanstack/react-query'
 import { flowNodeSchema } from 'src/schema/flow-node'
-import { add, list } from 'src/server/flow-node'
+import { add, list, update } from 'src/server/flow-node'
 
 const queryClient = new QueryClient()
 
@@ -11,7 +11,9 @@ export const flowNodeCollection = createCollection(
     id: 'flow-node',
     queryClient,
     queryKey: ['flow-node'],
-    queryFn: async () => await list(),
+    queryFn: async () => {
+      return await list()
+    },
     getKey: item => item.id,
     schema: flowNodeSchema,
     onInsert: async ({ transaction }) => {
@@ -20,6 +22,7 @@ export const flowNodeCollection = createCollection(
     },
     onUpdate: async ({ transaction }) => {
       const { original, modified } = transaction.mutations[0]
+      await update({data: modified})
     },
     onDelete: async ({ transaction }) => {
       const { original } = transaction.mutations[0]

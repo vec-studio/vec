@@ -12,7 +12,9 @@ export const flowCollection = createCollection(
   queryCollectionOptions({
     id: 'flow',
     queryKey: ['flow'],
-    queryFn: async () => await list(),
+    queryFn: async () => {
+      return await list()
+    },
     getKey: item => item.id,
     schema: flowSchema,
     queryClient,

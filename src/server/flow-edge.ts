@@ -18,3 +18,27 @@ export const list = createServerFn()
 
     return result
   })
+
+export const add = createServerFn({ method: 'POST' })
+  .validator(
+    flowEdgeSchema.pick({ id: true, data: true, flowId: true }).required({ id: true, data: true, flowId: true })
+  )
+  .handler(async ({ data }) => {
+    const result = await db.insert(flowEdge).values(data).returning().get()
+    return result
+  })
+
+export const update = createServerFn({ method: 'POST' })
+  .validator(
+    flowEdgeSchema.pick({ id: true, data: true, flowId: true }).required({ id: true, data: true, flowId: true })
+  )
+  .handler(async ({ data }) => {
+    const result = await db
+      .update(flowEdge)
+      .set(data)
+      .where(and(eq(flowEdge.id, data.id), eq(flowEdge.flowId, data.flowId)))
+      .returning()
+      .get()
+
+    return result
+  })

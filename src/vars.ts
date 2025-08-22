@@ -12,7 +12,7 @@ const envSchema = z.object({
   BETTER_AUTH_SECRET: z.string().nonempty()
 })
 
-export const env = envSchema.parse(import.meta.env)
+export const env = envSchema.parse(process.env)
 
 export const vars = {
   consolaLevel: env.CONSOLA_LEVEL,

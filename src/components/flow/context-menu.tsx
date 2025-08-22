@@ -28,7 +28,7 @@ export function FlowContextMenu(props: FlowContextMenuProps) {
 
   const { screenToFlowPosition } = useReactFlow()
   const addNode = hooks.flow.useAddNode(props.flowId)
-  const addFunctionNode = hooks.flow.useFunctionCodeNode(props.flowId)
+  const addFunctionNode = hooks.flow.useAddFunctionNode(props.flowId)
 
   const onClickAddNode: MouseEventHandler = e => {
     const id = nanoid()

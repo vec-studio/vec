@@ -1,19 +1,13 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useIsFirstRender } from '@uidotdev/usehooks'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
 import * as hooks from 'src/hooks'
-import { flowCollection } from 'src/state/flow'
 
 function Flow() {
   const params = Route.useParams()
-
-  const isFirstRender = useIsFirstRender()
-  if (isFirstRender) flowCollection.insert({ id: params.id })
-
   const ref = useRef<HTMLDivElement>(null)
 
   const [contextMenuPosition, setContextMenuPosition] = useState<{

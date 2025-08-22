@@ -1,20 +1,30 @@
-import { Grid, View } from '@adobe/react-spectrum'
-import { createFileRoute } from '@tanstack/react-router'
-import { nanoid } from 'nanoid'
-import { useState } from 'react'
-import { ButtonLink } from 'src/components'
+import { Button, Grid, View } from '@adobe/react-spectrum'
+import { createFileRoute, useRouter } from '@tanstack/react-router'
+import consola from 'consola'
+import { useAddFlow } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
 function component() {
   const t = useTranslations()
-  const [id] = useState(nanoid())
+  const router = useRouter()
+
+  const addFlow = useAddFlow()
+
+  const onClickNew = async () => {
+    const id = await addFlow()
+    if (id) {
+      router.navigate({ to: `/flow/${id}`, params: { id } })
+    } else {
+      consola.error(`failed to add flow id: ${id}`)
+    }
+  }
 
   return (
     <Grid>
       <View>
-        <ButtonLink to={`/flow/$id`} params={{ id }} variant="secondary">
+        <Button onPress={onClickNew} variant="secondary">
           {t('flow.new')}
-        </ButtonLink>
+        </Button>
       </View>
     </Grid>
   )

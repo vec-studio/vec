@@ -1,22 +1,32 @@
-import { createCollection, createLiveQueryCollection, eq, localStorageCollectionOptions } from '@tanstack/react-db'
+import { queryCollectionOptions } from '@tanstack/query-db-collection'
+import { createCollection } from '@tanstack/react-db'
+import { QueryClient } from '@tanstack/react-query'
 import { flowSchema } from 'src/schema/flow'
+import { add, list } from 'src/server/flow'
 import { flowEdgeCollection } from './edge'
 import { flowNodeCollection } from './node'
 
+const queryClient = new QueryClient()
+
 export const flowCollection = createCollection(
-  localStorageCollectionOptions({
+  queryCollectionOptions({
     id: 'flow',
-    storageKey: 'vec-collection-flow',
+    queryKey: ['flow'],
+    queryFn: async () => await list(),
     getKey: item => item.id,
-    schema: flowSchema
+    schema: flowSchema,
+    queryClient,
+    onInsert: async ({ transaction }) => {
+      const { modified } = transaction.mutations[0]
+      await add({ data: modified })
+    },
+    onUpdate: async ({ transaction }) => {
+      const { original, modified } = transaction.mutations[0]
+    },
+    onDelete: async ({ transaction }) => {
+      const { original } = transaction.mutations[0]
+    }
   })
 )
 
-export const flowNodeEdgeCollection = createLiveQueryCollection(q =>
-  q
-    .from({ flow: flowCollection })
-    .leftJoin({ node: flowNodeCollection }, ({ flow, node }) => eq(flow.id, node.flowId))
-    .leftJoin({ edge: flowEdgeCollection }, ({ flow, edge }) => eq(flow.id, edge.flowId))
-)
-
-export { flowNodeCollection, flowEdgeCollection }
+export { flowEdgeCollection, flowNodeCollection }

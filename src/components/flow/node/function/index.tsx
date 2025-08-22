@@ -1,10 +1,12 @@
-import { Flex, View } from '@adobe/react-spectrum'
+import { Flex, View, Button } from '@adobe/react-spectrum'
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
-import { type DOMRef } from '@react-types/shared'
+import { type PressEvent, type DOMRef } from '@react-types/shared'
 import { Handle, NodeResizer, Position, type NodeProps, type NodeResizerProps, type OnConnect } from '@xyflow/react'
 import { EditorView, basicSetup } from 'codemirror'
 import { memo, useEffect, useRef } from 'react'
+import { useUpdateFunctionNode } from 'src/hooks/flow'
+import { useTranslations } from 'use-intl'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
   data: {
@@ -13,6 +15,8 @@ interface FunctionNodeProps extends NodeProps, NodeResizerProps {
 }
 
 export const FunctionNode = memo<FunctionNodeProps>(props => {
+  const t = useTranslations()
+  const updateFunctionNode = useUpdateFunctionNode()
   const editorRef = useRef<EditorView>(null)
   const editorParentDOMRef = useRef<HTMLElement>(null)
   const editorParentRef: DOMRef = r => {
@@ -44,6 +48,10 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
 
   const onConnect: OnConnect = params => {}
 
+  const onPressSave = (e: PressEvent) => {
+    updateFunctionNode(props.id, { data: { fn: editorRef.current?.state.doc.toString() } })
+  }
+
   return (
     <>
       <View
@@ -59,8 +67,14 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
         width="100%"
       >
         <Flex direction="column" height="100%" position="absolute" width="100%">
-          <View></View>
           <View flex={1} position="relative" ref={editorParentRef} />
+          <View padding="size-100">
+            <Flex justifyContent="end">
+              <Button variant="secondary" onPress={onPressSave}>
+                {t('flow.node.function.action.save')}
+              </Button>
+            </Flex>
+          </View>
         </Flex>
       </View>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />

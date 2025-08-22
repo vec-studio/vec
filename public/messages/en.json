@@ -4,6 +4,13 @@
     "context-menu": {
       "add": "Add",
       "add_function": "Add Code"
+    },
+    "node": {
+      "function": {
+        "action": {
+          "save": "Save"
+        }
+      }
     }
   }
 }

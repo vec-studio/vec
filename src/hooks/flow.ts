@@ -1,13 +1,14 @@
 import { eq, useLiveQuery } from '@tanstack/react-db'
 import { addEdge, applyEdgeChanges, applyNodeChanges, useEdges, useNodes, useReactFlow } from '@xyflow/react'
 import { type Connection, type EdgeChange, type NodeBase, type NodeChange } from '@xyflow/system'
+import consola from 'consola'
+import { nanoid } from 'nanoid'
 import { useCallback } from 'react'
 import * as schema from 'src/schema'
-import { flowEdgeCollection, flowNodeCollection } from 'src/state/flow'
+import { flowCollection, flowEdgeCollection, flowNodeCollection } from 'src/state/flow'
 
 export function useNodesEdges(flowId: schema.Flow['id']) {
   const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowId)))
-
   const edgeQuery = useLiveQuery(q => q.from({ edge: flowEdgeCollection }).where(({ edge }) => eq(edge.flowId, flowId)))
 
   const nodes = nodeQuery.data.map(v => v.data)
@@ -93,7 +94,7 @@ export function useAddNode(flowId: schema.Flow['id']) {
   return addNode
 }
 
-export function useFunctionCodeNode(flowId: schema.Flow['id']) {
+export function useAddFunctionNode(flowId: schema.Flow['id']) {
   const { addNodes } = useReactFlow()
 
   const addFunctionNode = useCallback(async (node: NodeBase) => {
@@ -105,4 +106,38 @@ export function useFunctionCodeNode(flowId: schema.Flow['id']) {
   }, [])
 
   return addFunctionNode
+}
+
+export function useUpdateFunctionNode() {
+  const { updateNode } = useReactFlow()
+
+  const updateFunctionNode = useCallback(async (id: NodeBase['id'], node: Partial<NodeBase>) => {
+    updateNode(id, node)
+
+    const tx = flowNodeCollection.update(id, prevNode => {
+      for (const k in node.data) {
+        prevNode.data.data[k] = node.data?.[k]
+      }
+    })
+
+    await tx.isPersisted.promise
+  }, [])
+
+  return updateFunctionNode
+}
+
+export function useAddFlow() {
+  const addFlow = async () => {
+    try {
+      const id = nanoid()
+
+      const tx = flowCollection.insert({ id })
+      await tx.isPersisted.promise
+
+      return id
+    } catch (err) {
+      consola.error(err)
+    }
+  }
+  return addFlow
 }

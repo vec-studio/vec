@@ -6,7 +6,7 @@ export const flowEdge = sqliteTable('flow_edge', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  data: text('data', { mode: 'json' }).$type<EdgeBase<any>>(),
+  data: text('data', { mode: 'json' }).$type<EdgeBase<any>>().notNull(),
   flowId: text('flow_id')
     .notNull()
 })

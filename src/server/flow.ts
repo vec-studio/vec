@@ -20,7 +20,7 @@ export const list = createServerFn()
   })
 
 export const add = createServerFn({ method: 'POST' })
-  .validator(flowSchema.pick({}))
+  .validator(flowSchema)
   .handler(async ({ data }) => {
     const result = await db.insert(flow).values(data).returning().get()
     return result

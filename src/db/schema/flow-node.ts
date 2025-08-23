@@ -6,7 +6,7 @@ export const flowNode = sqliteTable('flow_node', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  data: text('data', { mode: 'json' }).$type<NodeBase<any>>(),
+  data: text('data', { mode: 'json' }).$type<NodeBase<any>>().notNull(),
   flowId: text('flow_id')
     .notNull()
 })

@@ -1,5 +1,5 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
-import { createCollection, useLiveQuery } from '@tanstack/react-db'
+import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { QueryClient } from '@tanstack/react-query'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'

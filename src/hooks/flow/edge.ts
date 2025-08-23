@@ -13,7 +13,7 @@ import {
 } from 'src/server/flow-edge'
 
 // react-flow edges
-export function useNodesEdges(flowId: schema.Flow['id']) {
+export function useFlowEdges(flowId: schema.Flow['id']) {
   const flowEdgeCollection = useFlowEdgeCollection(flowId)
 
   const edgeQuery = useLiveQuery(q => q.from({ edge: flowEdgeCollection }).where(({ edge }) => eq(edge.flowId, flowId)))

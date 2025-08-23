@@ -6,8 +6,8 @@ import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
 import {
   useFlowContextCollection,
-  useNodesEdges,
-  useOnConnect,
+  useFlowEdges,
+  useFlowNodes, useOnConnect,
   useOnEdgesChange,
   useOnNodesChange
 } from 'src/hooks/flow'
@@ -41,7 +41,8 @@ function Flow() {
 
   const onPaneClick = () => setContextMenuPosition(null)
 
-  const { nodes, edges } = useNodesEdges(params.id)
+  const nodes = useFlowNodes(params.id)
+  const edges = useFlowEdges(params.id)
   const onNodesChange = useOnNodesChange(params.id)
   const onEdgesChange = useOnEdgesChange(params.id)
   const onConnect = useOnConnect(params.id)

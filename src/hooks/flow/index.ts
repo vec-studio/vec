@@ -1,28 +1,13 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
-import { createCollection, eq, localStorageCollectionOptions, useLiveQuery } from '@tanstack/react-db'
+import { createCollection, localStorageCollectionOptions, useLiveQuery } from '@tanstack/react-db'
 import { QueryClient } from '@tanstack/react-query'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
 import { flowSchema, type Flow } from 'src/schema/flow'
 import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
 import z from 'zod'
-import { useFlowEdgeCollection } from './edge'
-import { useFlowNodeCollection } from './node'
-export { useOnConnect, useOnEdgesChange } from './edge'
-export { useOnNodesChange, useUpdateFunctionNode } from './node'
-
-export function useNodesEdges(flowId: Flow['id']) {
-  const flowNodeCollection = useFlowNodeCollection(flowId)
-  const flowEdgeCollection = useFlowEdgeCollection(flowId)
-
-  const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowId)))
-  const edgeQuery = useLiveQuery(q => q.from({ edge: flowEdgeCollection }).where(({ edge }) => eq(edge.flowId, flowId)))
-
-  const nodes = nodeQuery.data.map(v => v.data)
-  const edges = edgeQuery.data.map(v => v.data)
-
-  return { nodes, edges }
-}
+export { useFlowEdges, useOnConnect, useOnEdgesChange } from './edge'
+export { useFlowNodes, useOnNodesChange, useUpdateFunctionNode } from './node'
 
 export function useAddFlow(flowId: Flow['id']) {
   const flowCollection = useFlowCollection(flowId)

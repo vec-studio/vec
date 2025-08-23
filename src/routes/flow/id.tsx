@@ -1,14 +1,29 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { type MouseEventHandler, useRef, useState } from 'react'
+import { type MouseEventHandler, useEffect, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
-import { useNodesEdges, useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
+import {
+  useFlowContextCollection,
+  useNodesEdges,
+  useOnConnect,
+  useOnEdgesChange,
+  useOnNodesChange
+} from 'src/hooks/flow'
 
 function Flow() {
   const params = Route.useParams()
   const ref = useRef<HTMLDivElement>(null)
+
+  const flowContextCollection = useFlowContextCollection()
+
+  useEffect(() => {
+    flowContextCollection.insert({ id: params.id })
+    return () => {
+      flowContextCollection.cleanup()
+    }
+  }, [params.id])
 
   const [contextMenuPosition, setContextMenuPosition] = useState<{
     offset: number

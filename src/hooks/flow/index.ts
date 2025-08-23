@@ -1,16 +1,17 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
-import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
+import { createCollection, eq, localStorageCollectionOptions, useLiveQuery } from '@tanstack/react-db'
 import { QueryClient } from '@tanstack/react-query'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
-import * as schema from 'src/schema'
+import { flowSchema, type Flow } from 'src/schema/flow'
 import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
+import z from 'zod'
 import { useFlowEdgeCollection } from './edge'
 import { useFlowNodeCollection } from './node'
 export { useOnConnect, useOnEdgesChange } from './edge'
 export { useOnNodesChange, useUpdateFunctionNode } from './node'
 
-export function useNodesEdges(flowId: schema.Flow['id']) {
+export function useNodesEdges(flowId: Flow['id']) {
   const flowNodeCollection = useFlowNodeCollection(flowId)
   const flowEdgeCollection = useFlowEdgeCollection(flowId)
 
@@ -23,7 +24,7 @@ export function useNodesEdges(flowId: schema.Flow['id']) {
   return { nodes, edges }
 }
 
-export function useAddFlow(flowId: schema.Flow['id']) {
+export function useAddFlow(flowId: Flow['id']) {
   const flowCollection = useFlowCollection(flowId)
 
   const addFlow = async () => {
@@ -41,7 +42,7 @@ export function useAddFlow(flowId: schema.Flow['id']) {
   return addFlow
 }
 
-export function useFlowCollection(id: schema.Flow['id']) {
+export function useFlowCollection(id: Flow['id']) {
   const queryClient = new QueryClient()
 
   const flowCollection = createCollection(
@@ -52,7 +53,7 @@ export function useFlowCollection(id: schema.Flow['id']) {
         return await listFlowServerFunction({ data: { id } })
       },
       getKey: item => item.id,
-      schema: schema.flowSchema,
+      schema: flowSchema,
       queryClient,
       onInsert: async ({ transaction }) => {
         const { modified } = transaction.mutations[0]
@@ -64,6 +65,26 @@ export function useFlowCollection(id: schema.Flow['id']) {
       onDelete: async ({ transaction }) => {
         const { original } = transaction.mutations[0]
       }
+    })
+  )
+
+  return flowCollection
+}
+
+export function useFlowContext() {
+  const flowContextCollection = useFlowContextCollection()
+  const flowContextQuery = useLiveQuery(q => q.from({ context: flowContextCollection }))
+  return flowContextQuery.data[0] || null
+}
+
+export function useFlowContextCollection() {
+  const flowCollection = createCollection(
+    localStorageCollectionOptions({
+      id: 'flow-context',
+      // localStorage key
+      storageKey: 'vec-flow-context',
+      getKey: item => item.id,
+      schema: z.object({ id: flowSchema.shape.id }),
     })
   )
 

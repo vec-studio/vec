@@ -1,11 +1,11 @@
-import { Flex, View, Button } from '@adobe/react-spectrum'
+import { Button, Flex, View } from '@adobe/react-spectrum'
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
-import { type PressEvent, type DOMRef } from '@react-types/shared'
+import { type DOMRef, type PressEvent } from '@react-types/shared'
 import { Handle, NodeResizer, Position, type NodeProps, type NodeResizerProps, type OnConnect } from '@xyflow/react'
 import { EditorView, basicSetup } from 'codemirror'
 import { memo, useEffect, useRef } from 'react'
-import { useUpdateFunctionNode } from 'src/hooks/flow'
+import { useFlowContext, useUpdateFunctionNode } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
@@ -16,7 +16,8 @@ interface FunctionNodeProps extends NodeProps, NodeResizerProps {
 
 export const FunctionNode = memo<FunctionNodeProps>(props => {
   const t = useTranslations()
-  const updateFunctionNode = useUpdateFunctionNode()
+  const flowContext = useFlowContext()
+  const updateFunctionNode = useUpdateFunctionNode(flowContext.id)
   const editorRef = useRef<EditorView>(null)
   const editorParentDOMRef = useRef<HTMLElement>(null)
   const editorParentRef: DOMRef = r => {

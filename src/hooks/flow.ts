@@ -1,13 +1,30 @@
-import { eq, useLiveQuery } from '@tanstack/react-db'
+import { queryCollectionOptions } from '@tanstack/query-db-collection'
+import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
+import { QueryClient } from '@tanstack/react-query'
 import { addEdge, applyEdgeChanges, applyNodeChanges, useEdges, useNodes, useReactFlow } from '@xyflow/react'
 import { type Connection, type EdgeChange, type NodeBase, type NodeChange } from '@xyflow/system'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
 import { useCallback } from 'react'
 import * as schema from 'src/schema'
-import { flowCollection, flowEdgeCollection, flowNodeCollection } from 'src/state/flow'
+import { flowEdgeSchema } from 'src/schema/flow-edge'
+import { flowNodeSchema } from 'src/schema/flow-node'
+import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
+import {
+  add as addFlowEdgeServerFunction,
+  list as listFlowEdgeServerFunction,
+  update as updateFlowEdgeServerFunction
+} from 'src/server/flow-edge'
+import {
+  add as addFlowNodeServerFunction,
+  list as listFlowNodeServerFunction,
+  update as updateFlowNodeServerFunction
+} from 'src/server/flow-node'
 
 export function useNodesEdges(flowId: schema.Flow['id']) {
+  const flowNodeCollection = useFlowNodeCollection(flowId)
+  const flowEdgeCollection = useFlowEdgeCollection(flowId)
+
   const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowId)))
   const edgeQuery = useLiveQuery(q => q.from({ edge: flowEdgeCollection }).where(({ edge }) => eq(edge.flowId, flowId)))
 
@@ -17,21 +34,13 @@ export function useNodesEdges(flowId: schema.Flow['id']) {
   return { nodes, edges }
 }
 
-export function useOnNodesChange() {
+export function useOnNodesChange(flowId: schema.Flow['id']) {
   const nodes = useNodes()
+  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
-      const updateNodes = applyNodeChanges(changes, nodes)
-      const updateNodeIds = updateNodes.map(v => v.id)
-
-      const tx = flowNodeCollection.update(updateNodeIds, prevNodes => {
-        prevNodes.forEach((node, index) => {
-          node.data = updateNodes[index]
-        })
-      })
-
-      await tx.isPersisted.promise
+      const updatedNodes = applyNodeChanges(changes, nodes)
     },
     [nodes]
   )
@@ -39,21 +48,13 @@ export function useOnNodesChange() {
   return onNodesChange
 }
 
-export function useOnEdgesChange() {
+export function useOnEdgesChange(flowId: schema.Flow['id']) {
   const edges = useEdges()
+  const flowEdgeCollection = useFlowEdgeCollection(flowId)
 
   const onEdgesChange = useCallback(
     async (changes: EdgeChange[]) => {
       const updateEdges = applyEdgeChanges(changes, edges)
-      const updateEdgeIds = updateEdges.map(v => v.id)
-
-      const tx = flowEdgeCollection.update(updateEdgeIds, prevEdges => {
-        prevEdges.forEach((prevEdge, index) => {
-          prevEdge.data = updateEdges[index]
-        })
-      })
-
-      await tx.isPersisted.promise
     },
     [edges]
   )
@@ -63,6 +64,7 @@ export function useOnEdgesChange() {
 
 export function useOnConnect(flowId: schema.Flow['id']) {
   const edges = useEdges()
+  const flowEdgeCollection = useFlowEdgeCollection(flowId)
 
   const onConnect = useCallback(
     async (params: Connection) => {
@@ -82,12 +84,12 @@ export function useOnConnect(flowId: schema.Flow['id']) {
 
 export function useAddNode(flowId: schema.Flow['id']) {
   const { addNodes } = useReactFlow()
+  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const addNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
 
     const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
-
     await tx.isPersisted.promise
   }, [])
 
@@ -96,20 +98,21 @@ export function useAddNode(flowId: schema.Flow['id']) {
 
 export function useAddFunctionNode(flowId: schema.Flow['id']) {
   const { addNodes } = useReactFlow()
+  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const addFunctionNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
 
     const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
-
     await tx.isPersisted.promise
   }, [])
 
   return addFunctionNode
 }
 
-export function useUpdateFunctionNode() {
+export function useUpdateFunctionNode(flowId: schema.Flow['id']) {
   const { updateNode } = useReactFlow()
+  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const updateFunctionNode = useCallback(async (id: NodeBase['id'], node: Partial<NodeBase>) => {
     updateNode(id, node)
@@ -126,7 +129,9 @@ export function useUpdateFunctionNode() {
   return updateFunctionNode
 }
 
-export function useAddFlow() {
+export function useAddFlow(flowId: schema.Flow['id']) {
+  const flowCollection = useFlowCollection(flowId)
+
   const addFlow = async () => {
     try {
       const id = nanoid()
@@ -140,4 +145,93 @@ export function useAddFlow() {
     }
   }
   return addFlow
+}
+
+export function useFlowCollection(id: schema.Flow['id']) {
+  const queryClient = new QueryClient()
+
+  const flowCollection = createCollection(
+    queryCollectionOptions({
+      id: 'flow',
+      queryKey: ['flow', id],
+      queryFn: async () => {
+        return await listFlowServerFunction({ data: { id } })
+      },
+      getKey: item => item.id,
+      schema: schema.flowSchema,
+      queryClient,
+      onInsert: async ({ transaction }) => {
+        const { modified } = transaction.mutations[0]
+        await addFlowServerFunction({ data: modified })
+      },
+      onUpdate: async ({ transaction }) => {
+        const { original, modified } = transaction.mutations[0]
+      },
+      onDelete: async ({ transaction }) => {
+        const { original } = transaction.mutations[0]
+      }
+    })
+  )
+
+  return flowCollection
+}
+
+export function useFlowNodeCollection(flowId: schema.Flow['id']) {
+  const queryClient = new QueryClient()
+
+  const flowNodeCollection = createCollection(
+    queryCollectionOptions({
+      id: 'flow-node',
+      queryClient,
+      queryKey: ['flow-node', flowId],
+      queryFn: async () => {
+        return await listFlowNodeServerFunction({ data: { flowId } })
+      },
+      getKey: item => item.id,
+      schema: flowNodeSchema,
+      onInsert: async ({ transaction }) => {
+        const { modified } = transaction.mutations[0]
+        await addFlowNodeServerFunction({ data: modified })
+      },
+      onUpdate: async ({ transaction }) => {
+        const { original, modified } = transaction.mutations[0]
+        await updateFlowNodeServerFunction({ data: modified })
+      },
+      onDelete: async ({ transaction }) => {
+        const { original } = transaction.mutations[0]
+      }
+    })
+  )
+
+  return flowNodeCollection
+}
+
+export function useFlowEdgeCollection(flowId: schema.Flow['id']) {
+  const queryClient = new QueryClient()
+
+  const flowEdgeCollection = createCollection(
+    queryCollectionOptions({
+      id: 'flow-edge',
+      queryClient,
+      queryKey: ['flow-edge', flowId],
+      queryFn: async () => {
+        return await listFlowEdgeServerFunction()
+      },
+      getKey: item => item.id,
+      schema: flowEdgeSchema,
+      onInsert: async ({ transaction }) => {
+        const { modified } = transaction.mutations[0]
+        await addFlowEdgeServerFunction({ data: modified })
+      },
+      onUpdate: async ({ transaction }) => {
+        const { original, modified } = transaction.mutations[0]
+        await updateFlowEdgeServerFunction({ data: modified })
+      },
+      onDelete: async ({ transaction }) => {
+        const { original } = transaction.mutations[0]
+      }
+    })
+  )
+
+  return flowEdgeCollection
 }

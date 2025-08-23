@@ -27,8 +27,8 @@ function Flow() {
   const onPaneClick = () => setContextMenuPosition(null)
 
   const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
-  const onNodesChange = hooks.flow.useOnNodesChange()
-  const onEdgesChange = hooks.flow.useOnEdgesChange()
+  const onNodesChange = hooks.flow.useOnNodesChange(params.id)
+  const onEdgesChange = hooks.flow.useOnEdgesChange(params.id)
   const onConnect = hooks.flow.useOnConnect(params.id)
 
   return (

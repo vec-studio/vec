@@ -4,7 +4,7 @@ import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
-import * as hooks from 'src/hooks'
+import { useNodesEdges, useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
 
 function Flow() {
   const params = Route.useParams()
@@ -26,10 +26,10 @@ function Flow() {
 
   const onPaneClick = () => setContextMenuPosition(null)
 
-  const { nodes, edges } = hooks.flow.useNodesEdges(params.id)
-  const onNodesChange = hooks.flow.useOnNodesChange(params.id)
-  const onEdgesChange = hooks.flow.useOnEdgesChange(params.id)
-  const onConnect = hooks.flow.useOnConnect(params.id)
+  const { nodes, edges } = useNodesEdges(params.id)
+  const onNodesChange = useOnNodesChange(params.id)
+  const onEdgesChange = useOnEdgesChange(params.id)
+  const onConnect = useOnConnect(params.id)
 
   return (
     <>

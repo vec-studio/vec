@@ -4,7 +4,7 @@ import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type Dispatch, type MouseEventHandler, type RefObject, type SetStateAction } from 'react'
 import { Menu, MenuItem, Popover } from 'react-aria-components'
-import * as hooks from 'src/hooks'
+import { useAddFunctionNode, useAddNode } from 'src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
 interface FlowContextMenuProps<
@@ -27,8 +27,8 @@ export function FlowContextMenu(props: FlowContextMenuProps) {
   const onClose = onPaneClick
 
   const { screenToFlowPosition } = useReactFlow()
-  const addNode = hooks.flow.useAddNode(props.flowId)
-  const addFunctionNode = hooks.flow.useAddFunctionNode(props.flowId)
+  const addNode = useAddNode(props.flowId)
+  const addFunctionNode = useAddFunctionNode(props.flowId)
 
   const onClickAddNode: MouseEventHandler = e => {
     const id = nanoid()

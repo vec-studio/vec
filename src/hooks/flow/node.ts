@@ -126,7 +126,8 @@ export function useFlowNodeCollection() {
     [flowContext.id]
   )
 
-  flowNodeCollection.preload()
+  // a new collections doesn't start syncing until you call collection.preload() or you query it
+  if (!flowNodeCollection.isReady()) flowNodeCollection.preload()
 
   return flowNodeCollection
 }

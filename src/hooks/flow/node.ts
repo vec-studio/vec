@@ -11,12 +11,14 @@ import {
   list as listFlowNodeServerFunction,
   update as updateFlowNodeServerFunction
 } from 'src/server/flow-node'
+import { useFlowContext } from './index'
 
 // react-flow nodes
-export function useFlowNodes(flowId: schema.Flow['id']) {
-  const flowNodeCollection = useFlowNodeCollection(flowId)
+export function useFlowNodes() {
+  const flowContext = useFlowContext()
+  const flowNodeCollection = useFlowNodeCollection()
 
-  const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowId)))
+  const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowContext.id)))
 
   const nodes = nodeQuery.data.map(v => v.data)
 
@@ -24,18 +26,31 @@ export function useFlowNodes(flowId: schema.Flow['id']) {
 }
 
 // react-flow change node
-export function useOnNodesChange(flowId: schema.Flow['id']) {
+export function useOnNodesChange() {
   const nodes = useNodes()
-  const flowNodeCollection = useFlowNodeCollection(flowId)
+
+  const flowContext = useFlowContext()
+  const flowNodeCollection = useFlowNodeCollection()
 
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
-      const updatedNodes = applyNodeChanges(changes, nodes)
+      const changedNodes = applyNodeChanges(changes, nodes)
 
       for (const change of changes) {
-        if (change.type === 'add') {
-          const updatedNode = updatedNodes.find(v => v.id === change.item.id)!
-          flowNodeCollection.insert({ id: updatedNode.id, data: updatedNode, flowId })
+        switch (change.type) {
+          case 'add': {
+            const changedNode = changedNodes.find(v => v.id === change.item.id)!
+            flowNodeCollection.insert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
+            break
+          }
+          case 'replace': {
+            const changedNode = changedNodes.find(v => v.id === change.item.id)!
+            flowNodeCollection.update(changedNode.id, prevNode => {
+              prevNode.data = changedNode
+            })
+          }
+          default: {
+          }
         }
       }
     },
@@ -46,22 +61,18 @@ export function useOnNodesChange(flowId: schema.Flow['id']) {
 }
 
 // add node
-export function useAddNode(flowId: schema.Flow['id']) {
+export function useAddNode() {
   const { addNodes } = useReactFlow()
-  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const addNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
-
-    const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
-    await tx.isPersisted.promise
   }, [])
 
   return addNode
 }
 
 // add function node
-export function useAddFunctionNode(flowId: schema.Flow['id']) {
+export function useAddFunctionNode() {
   const { addNodes } = useReactFlow()
 
   const addFunctionNode = useCallback(async (node: NodeBase) => {
@@ -72,36 +83,29 @@ export function useAddFunctionNode(flowId: schema.Flow['id']) {
 }
 
 // update function node
-export function useUpdateFunctionNode(flowId: schema.Flow['id']) {
+export function useUpdateFunctionNodeData() {
   const { updateNode } = useReactFlow()
-  const flowNodeCollection = useFlowNodeCollection(flowId)
 
-  const updateFunctionNode = useCallback(async (id: NodeBase['id'], node: Partial<NodeBase>) => {
+  const updateFunctionNodeData = useCallback(async (id: NodeBase['id'], node: Partial<NodeBase>) => {
     updateNode(id, node)
-
-    const tx = flowNodeCollection.update(id, prevNode => {
-      for (const k in node.data) {
-        prevNode.data!.data[k] = node.data?.[k]
-      }
-    })
-
-    await tx.isPersisted.promise
   }, [])
 
-  return updateFunctionNode
+  return updateFunctionNodeData
 }
 
 // node tanstack-db collection
-export function useFlowNodeCollection(flowId: schema.Flow['id']) {
+export function useFlowNodeCollection() {
   const queryClient = useQueryClient()
+
+  const flowContext = useFlowContext()
 
   const flowNodeCollection = createCollection(
     queryCollectionOptions({
       id: 'flow-node',
       queryClient,
-      queryKey: ['flow-node', flowId],
+      queryKey: ['flow-node', flowContext.id],
       queryFn: async () => {
-        return await listFlowNodeServerFunction({ data: { flowId } })
+        return await listFlowNodeServerFunction({ data: { flowId: flowContext.id } })
       },
       getKey: item => item.id,
       schema: flowNodeSchema,

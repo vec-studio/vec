@@ -5,7 +5,7 @@ import { type DOMRef, type PressEvent } from '@react-types/shared'
 import { Handle, NodeResizer, Position, type NodeProps, type NodeResizerProps, type OnConnect } from '@xyflow/react'
 import { EditorView, basicSetup } from 'codemirror'
 import { memo, useEffect, useRef } from 'react'
-import { useFlowContext, useUpdateFunctionNode } from 'src/hooks/flow'
+import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
@@ -16,8 +16,7 @@ interface FunctionNodeProps extends NodeProps, NodeResizerProps {
 
 export const FunctionNode = memo<FunctionNodeProps>(props => {
   const t = useTranslations()
-  const flowContext = useFlowContext()
-  const updateFunctionNode = useUpdateFunctionNode(flowContext.id)
+  const updateFunctionNodeData = useUpdateFunctionNodeData()
   const editorRef = useRef<EditorView>(null)
   const editorParentDOMRef = useRef<HTMLElement>(null)
   const editorParentRef: DOMRef = r => {
@@ -50,7 +49,7 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
   const onConnect: OnConnect = params => {}
 
   const onPressSave = (e: PressEvent) => {
-    updateFunctionNode(props.id, { data: { fn: editorRef.current?.state.doc.toString() } })
+    updateFunctionNodeData(props.id, { data: { fn: editorRef.current?.state.doc.toString() } })
   }
 
   return (

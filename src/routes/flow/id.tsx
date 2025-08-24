@@ -1,29 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { type MouseEventHandler, useEffect, useRef, useState } from 'react'
+import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
-import {
-  useFlowContextCollection,
-  useFlowEdges,
-  useFlowNodes, useOnConnect,
-  useOnEdgesChange,
-  useOnNodesChange
-} from 'src/hooks/flow'
+import { useFlowEdges, useFlowNodes, useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
 
 function Flow() {
   const params = Route.useParams()
   const ref = useRef<HTMLDivElement>(null)
-
-  const flowContextCollection = useFlowContextCollection()
-
-  useEffect(() => {
-    flowContextCollection.insert({ id: params.id })
-    return () => {
-      flowContextCollection.cleanup()
-    }
-  }, [params.id])
 
   const [contextMenuPosition, setContextMenuPosition] = useState<{
     offset: number
@@ -41,9 +26,9 @@ function Flow() {
 
   const onPaneClick = () => setContextMenuPosition(null)
 
-  const nodes = useFlowNodes(params.id)
+  const nodes = useFlowNodes()
   const edges = useFlowEdges(params.id)
-  const onNodesChange = useOnNodesChange(params.id)
+  const onNodesChange = useOnNodesChange()
   const onEdgesChange = useOnEdgesChange(params.id)
   const onConnect = useOnConnect(params.id)
 

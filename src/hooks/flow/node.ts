@@ -1,6 +1,6 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
-import { QueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { useCallback } from 'react'
@@ -31,6 +31,13 @@ export function useOnNodesChange(flowId: schema.Flow['id']) {
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
       const updatedNodes = applyNodeChanges(changes, nodes)
+
+      for (const change of changes) {
+        if (change.type === 'add') {
+          const updatedNode = updatedNodes.find(v => v.id === change.item.id)!
+          flowNodeCollection.insert({ id: updatedNode.id, data: updatedNode, flowId })
+        }
+      }
     },
     [nodes]
   )
@@ -56,13 +63,9 @@ export function useAddNode(flowId: schema.Flow['id']) {
 // add function node
 export function useAddFunctionNode(flowId: schema.Flow['id']) {
   const { addNodes } = useReactFlow()
-  const flowNodeCollection = useFlowNodeCollection(flowId)
 
   const addFunctionNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
-
-    const tx = flowNodeCollection.insert({ id: node.id, data: node, flowId })
-    await tx.isPersisted.promise
   }, [])
 
   return addFunctionNode
@@ -90,7 +93,7 @@ export function useUpdateFunctionNode(flowId: schema.Flow['id']) {
 
 // node tanstack-db collection
 export function useFlowNodeCollection(flowId: schema.Flow['id']) {
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
 
   const flowNodeCollection = createCollection(
     queryCollectionOptions({

@@ -1,6 +1,6 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
-import { QueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { addEdge, applyEdgeChanges, useEdges } from '@xyflow/react'
 import { type Connection, type EdgeChange } from '@xyflow/system'
 import { useCallback } from 'react'
@@ -61,7 +61,7 @@ export function useOnConnect(flowId: schema.Flow['id']) {
 
 // edge tanstack-db collection
 export function useFlowEdgeCollection(flowId: schema.Flow['id']) {
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
 
   const flowEdgeCollection = createCollection(
     queryCollectionOptions({

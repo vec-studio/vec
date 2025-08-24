@@ -1,6 +1,6 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, localStorageCollectionOptions, useLiveQuery } from '@tanstack/react-db'
-import { QueryClient } from '@tanstack/react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
 import { flowSchema, type Flow } from 'src/schema/flow'
@@ -28,7 +28,7 @@ export function useAddFlow(flowId: Flow['id']) {
 }
 
 export function useFlowCollection(id: Flow['id']) {
-  const queryClient = new QueryClient()
+  const queryClient = useQueryClient()
 
   const flowCollection = createCollection(
     queryCollectionOptions({

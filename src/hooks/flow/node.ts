@@ -4,7 +4,6 @@ import { useQueryClient } from '@tanstack/react-query'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { useCallback, useMemo } from 'react'
-import * as schema from 'src/schema'
 import { flowNodeSchema } from 'src/schema/flow-node'
 import {
   add as addFlowNodeServerFunction,
@@ -18,7 +17,9 @@ export function useFlowNodes() {
   const flowContext = useFlowContext()
   const flowNodeCollection = useFlowNodeCollection()
 
-  const nodeQuery = useLiveQuery(q => q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowContext.id)))
+  const nodeQuery = useLiveQuery(q =>
+    q.from({ node: flowNodeCollection }).where(({ node }) => eq(node.flowId, flowContext.id))
+  )
 
   const nodes = nodeQuery.data.map(v => v.data)
 
@@ -99,29 +100,33 @@ export function useFlowNodeCollection() {
 
   const flowContext = useFlowContext()
 
-  const flowNodeCollection = useMemo(() => createCollection(
-    queryCollectionOptions({
-      id: 'flow-node',
-      queryClient,
-      queryKey: ['flow-node', flowContext.id],
-      queryFn: async () => {
-        return await listFlowNodeServerFunction({ data: { flowId: flowContext.id } })
-      },
-      getKey: item => item.id,
-      schema: flowNodeSchema,
-      onInsert: async ({ transaction }) => {
-        const { modified } = transaction.mutations[0]
-        await addFlowNodeServerFunction({ data: modified })
-      },
-      onUpdate: async ({ transaction }) => {
-        const { original, modified } = transaction.mutations[0]
-        await updateFlowNodeServerFunction({ data: modified })
-      },
-      onDelete: async ({ transaction }) => {
-        const { original } = transaction.mutations[0]
-      }
-    })
-  ), [flowContext.id])
+  const flowNodeCollection = useMemo(
+    () =>
+      createCollection(
+        queryCollectionOptions({
+          id: 'flow-node',
+          queryClient,
+          queryKey: ['flow-node', flowContext.id],
+          queryFn: async () => await listFlowNodeServerFunction({ data: { flowId: flowContext.id } }),
+          getKey: item => item.id,
+          schema: flowNodeSchema,
+          onInsert: async ({ transaction }) => {
+            const { modified } = transaction.mutations[0]
+            await addFlowNodeServerFunction({ data: modified })
+          },
+          onUpdate: async ({ transaction }) => {
+            const { original, modified } = transaction.mutations[0]
+            await updateFlowNodeServerFunction({ data: modified })
+          },
+          onDelete: async ({ transaction }) => {
+            const { original } = transaction.mutations[0]
+          }
+        })
+      ),
+    [flowContext.id]
+  )
+
+  flowNodeCollection.preload()
 
   return flowNodeCollection
 }

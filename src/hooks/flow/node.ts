@@ -3,7 +3,7 @@ import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { useQueryClient } from '@tanstack/react-query'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import * as schema from 'src/schema'
 import { flowNodeSchema } from 'src/schema/flow-node'
 import {
@@ -54,7 +54,7 @@ export function useOnNodesChange() {
         }
       }
     },
-    [nodes]
+    [nodes, flowContext.id]
   )
 
   return onNodesChange
@@ -82,7 +82,7 @@ export function useAddFunctionNode() {
   return addFunctionNode
 }
 
-// update function node
+// update function node data
 export function useUpdateFunctionNodeData() {
   const { updateNode } = useReactFlow()
 
@@ -99,7 +99,7 @@ export function useFlowNodeCollection() {
 
   const flowContext = useFlowContext()
 
-  const flowNodeCollection = createCollection(
+  const flowNodeCollection = useMemo(() => createCollection(
     queryCollectionOptions({
       id: 'flow-node',
       queryClient,
@@ -121,7 +121,7 @@ export function useFlowNodeCollection() {
         const { original } = transaction.mutations[0]
       }
     })
-  )
+  ), [flowContext.id])
 
   return flowNodeCollection
 }

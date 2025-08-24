@@ -3,6 +3,7 @@ import { createCollection, localStorageCollectionOptions, useLiveQuery } from '@
 import { useQueryClient } from '@tanstack/react-query'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
+import { useMemo } from 'react'
 import { flowSchema } from 'src/schema/flow'
 import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
 import z from 'zod'
@@ -16,8 +17,7 @@ export function useAddFlow() {
   const addFlow = async () => {
     try {
       const id = nanoid()
-      await flowContextCollection.cleanup()
-      await flowContextCollection.insert({ id, createdAt: Date.now() }).isPersisted.promise
+      await flowContextCollection.insert({ id }).isPersisted.promise
       await flowCollection.insert({ id }).isPersisted.promise
       return id
     } catch (err) {
@@ -32,27 +32,31 @@ export function useFlowCollection() {
 
   const flowContext = useFlowContext()
 
-  const flowCollection = createCollection(
-    queryCollectionOptions({
-      id: 'flow',
-      queryKey: ['flow', flowContext?.id],
-      queryFn: async () => {
-        return await listFlowServerFunction({ data: { id: flowContext?.id } })
-      },
-      getKey: item => item.id,
-      schema: flowSchema,
-      queryClient,
-      onInsert: async ({ transaction }) => {
-        const { modified } = transaction.mutations[0]
-        await addFlowServerFunction({ data: modified })
-      },
-      onUpdate: async ({ transaction }) => {
-        const { original, modified } = transaction.mutations[0]
-      },
-      onDelete: async ({ transaction }) => {
-        const { original } = transaction.mutations[0]
-      }
-    })
+  const flowCollection = useMemo(
+    () =>
+      createCollection(
+        queryCollectionOptions({
+          id: 'flow',
+          queryKey: ['flow', flowContext?.id],
+          queryFn: async () => {
+            return await listFlowServerFunction({ data: { id: flowContext?.id } })
+          },
+          getKey: item => item.id,
+          schema: flowSchema,
+          queryClient,
+          onInsert: async ({ transaction }) => {
+            const { modified } = transaction.mutations[0]
+            await addFlowServerFunction({ data: modified })
+          },
+          onUpdate: async ({ transaction }) => {
+            const { original, modified } = transaction.mutations[0]
+          },
+          onDelete: async ({ transaction }) => {
+            const { original } = transaction.mutations[0]
+          }
+        })
+      ),
+    [flowContext?.id]
   )
 
   return flowCollection
@@ -60,7 +64,7 @@ export function useFlowCollection() {
 
 export function useFlowContext() {
   const flowContextCollection = useFlowContextCollection()
-  const flowContextQuery = useLiveQuery(q => q.from({ flowContext: flowContextCollection }).orderBy(({flowContext}) => flowContext.createdAt, 'desc').limit(1))
+  const flowContextQuery = useLiveQuery(q => q.from({ flowContext: flowContextCollection }))
   return flowContextQuery.data[0] || null
 }
 
@@ -71,7 +75,11 @@ export function useFlowContextCollection() {
       // localStorage key
       storageKey: 'vec-flow-context',
       getKey: item => item.id,
-      schema: z.object({ id: flowSchema.shape.id, createdAt: z.number() })
+      schema: z.object({ id: flowSchema.shape.id }),
+      onInsert: async () => {
+        // keep only one flowContext record
+        window.localStorage.clear()
+      }
     })
   )
 

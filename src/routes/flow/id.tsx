@@ -1,5 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
+import {
+  Background,
+  BackgroundVariant,
+  Controls,
+  ReactFlow,
+  ReactFlowProvider
+} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
@@ -9,6 +15,16 @@ import { useFlowEdges, useFlowNodes, useOnConnect, useOnEdgesChange, useOnNodesC
 function Flow() {
   const params = Route.useParams()
   const ref = useRef<HTMLDivElement>(null)
+
+  const initialNodes = useFlowNodes()
+  const initialEdges = useFlowEdges()
+
+  const [nodes, setNodes] = useState(initialNodes)
+  const [edges, setEdges] = useState(initialEdges)
+
+  const onNodesChange = useOnNodesChange(setNodes)
+  const onEdgesChange = useOnEdgesChange(setEdges)
+  const onConnect = useOnConnect()
 
   const [contextMenuPosition, setContextMenuPosition] = useState<{
     offset: number
@@ -25,12 +41,6 @@ function Flow() {
   }
 
   const onPaneClick = () => setContextMenuPosition(null)
-
-  const nodes = useFlowNodes()
-  const edges = useFlowEdges(params.id)
-  const onNodesChange = useOnNodesChange()
-  const onEdgesChange = useOnEdgesChange(params.id)
-  const onConnect = useOnConnect(params.id)
 
   return (
     <>

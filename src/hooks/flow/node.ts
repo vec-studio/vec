@@ -1,9 +1,10 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
+import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
 import { useQueryClient } from '@tanstack/react-query'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
-import { useCallback, useMemo } from 'react'
+import { type Dispatch, useCallback, useMemo } from 'react'
 import { flowNodeSchema } from 'src/schema/flow-node'
 import {
   add as addFlowNodeServerFunction,
@@ -27,30 +28,38 @@ export function useFlowNodes() {
 }
 
 // react-flow change node
-export function useOnNodesChange() {
+export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBase[]>>) {
   const nodes = useNodes()
-
   const flowContext = useFlowContext()
   const flowNodeCollection = useFlowNodeCollection()
+
+  const debouncedInsert = useDebouncedCallback(x => flowNodeCollection.insert(x), { wait: 500 })
+  const debouncedUpdate = useDebouncedCallback((x, y) => flowNodeCollection.update(x, y), { wait: 500 })
 
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
       const changedNodes = applyNodeChanges(changes, nodes)
+      setNodes(changedNodes)
 
       for (const change of changes) {
         switch (change.type) {
           case 'add': {
             const changedNode = changedNodes.find(v => v.id === change.item.id)!
-            flowNodeCollection.insert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
+            debouncedInsert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
             break
           }
           case 'replace': {
             const changedNode = changedNodes.find(v => v.id === change.item.id)!
-            flowNodeCollection.update(changedNode.id, prevNode => {
+            debouncedUpdate(changedNode.id, prevNode => {
               prevNode.data = changedNode
             })
+            break
           }
           default: {
+            const changedNode = changedNodes.find(v => v.id === change.id)!
+            debouncedUpdate(changedNode.id, prevNode => {
+              prevNode.data = changedNode
+            })
           }
         }
       }

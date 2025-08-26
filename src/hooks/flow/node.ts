@@ -48,11 +48,7 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
   const flowContext = useFlowContext()
   const flowNodeCollection = useFlowNodeCollection()
 
-  const debouncedInsert = useDebouncedCallback<typeof flowNodeCollection.insert>(
-    data => flowNodeCollection.insert(data),
-    { wait: 500 }
-  )
-
+  const debouncedInsert = useDebouncedCallback(data => flowNodeCollection.insert(data), { wait: 500 })
   const debouncedUpdate = useDebouncedCallback<
     <T extends typeof flowNodeCollection.update<NodeBase>>(
       id: Parameters<T>[0],

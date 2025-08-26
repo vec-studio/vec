@@ -47,8 +47,13 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
   const flowContext = useFlowContext()
   const flowEdgeCollection = useFlowEdgeCollection()
 
-  const debouncedInsert = useDebouncedCallback(x => flowEdgeCollection.insert(x), {wait: 500})
-  const debouncedUpdate = useDebouncedCallback((x, y) => flowEdgeCollection.update(x, y), {wait: 500})
+  const debouncedInsert = useDebouncedCallback(data => flowEdgeCollection.insert(data), { wait: 500 })
+  const debouncedUpdate = useDebouncedCallback<
+    <T extends typeof flowEdgeCollection.update<EdgeBase>>(
+      id: Parameters<T>[0],
+      callback: Parameters<T>[2]
+    ) => ReturnType<T> | unknown
+  >((id, callback) => flowEdgeCollection.update(id, callback), { wait: 500 })
 
   const onEdgesChange = useCallback(
     async (changes: EdgeChange[]) => {

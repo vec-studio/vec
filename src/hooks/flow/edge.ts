@@ -2,6 +2,7 @@ import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
 import { useQueryClient } from '@tanstack/react-query'
+import { useIsFirstRender } from '@uidotdev/usehooks'
 import { addEdge, applyEdgeChanges, useEdges } from '@xyflow/react'
 import { type Connection, type EdgeBase, type EdgeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
@@ -24,6 +25,20 @@ export function useFlowEdges() {
   const edges = edgeQuery.data.map(v => v.data)
 
   return edges
+}
+
+// react-flow edge loads first time
+export function useFlowEdgesFirstLoad(setEdges: Dispatch<React.SetStateAction<EdgeBase[]>>) {
+  const isFirstRender = useIsFirstRender()
+
+  const flowEdgeCollection = useFlowEdgeCollection()
+
+  if (isFirstRender) {
+    flowEdgeCollection.onFirstReady(() => {
+      const data = Array.from(flowEdgeCollection.state, ([k, v]) => v.data)
+      setEdges(data)
+    })
+  }
 }
 
 // react-flow change

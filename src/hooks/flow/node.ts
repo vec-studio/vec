@@ -2,6 +2,7 @@ import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
 import { useQueryClient } from '@tanstack/react-query'
+import { useIsFirstRender } from '@uidotdev/usehooks'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
@@ -25,6 +26,20 @@ export function useFlowNodes() {
   const nodes = nodeQuery.data.map(v => v.data)
 
   return nodes
+}
+
+// react-flow node loads first time
+export function useFlowNodesFirstLoad(setNodes: Dispatch<React.SetStateAction<NodeBase[]>>) {
+  const isFirstRender = useIsFirstRender()
+
+  const flowNodeCollection = useFlowNodeCollection()
+
+  if (isFirstRender) {
+    flowNodeCollection.onFirstReady(() => {
+      const data = Array.from(flowNodeCollection.state, ([k, v]) => v.data)
+      setNodes(data)
+    })
+  }
 }
 
 // react-flow change node

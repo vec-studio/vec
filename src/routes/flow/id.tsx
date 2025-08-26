@@ -1,26 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router'
-import {
-  Background,
-  BackgroundVariant,
-  Controls,
-  ReactFlow,
-  ReactFlowProvider
-} from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+
+import { createFileRoute } from '@tanstack/react-router'
+import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
+import { type EdgeBase, type NodeBase } from '@xyflow/system'
 import { type MouseEventHandler, useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
-import { useFlowEdges, useFlowNodes, useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
+import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
+import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
+import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
 
 function Flow() {
   const params = Route.useParams()
   const ref = useRef<HTMLDivElement>(null)
 
-  const initialNodes = useFlowNodes()
-  const initialEdges = useFlowEdges()
+  const [nodes, setNodes] = useState<NodeBase[]>([])
+  const [edges, setEdges] = useState<EdgeBase[]>([])
 
-  const [nodes, setNodes] = useState(initialNodes)
-  const [edges, setEdges] = useState(initialEdges)
+  useFlowNodesFirstLoad(setNodes)
+  useFlowEdgesFirstLoad(setEdges)
 
   const onNodesChange = useOnNodesChange(setNodes)
   const onEdgesChange = useOnEdgesChange(setEdges)

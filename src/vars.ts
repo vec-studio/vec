@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 config({ override: true })
 
-import z from 'zod'
+import { z } from 'zod'
 
 const envSchema = z.object({
   CONSOLA_LEVEL: z.string(),

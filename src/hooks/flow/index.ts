@@ -4,9 +4,9 @@ import { useQueryClient } from '@tanstack/react-query'
 import consola from 'consola'
 import { nanoid } from 'nanoid'
 import { useMemo } from 'react'
+import { flowContextSchema } from 'src/schema/context'
 import { flowSchema } from 'src/schema/flow'
 import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
-import z from 'zod'
 export { useFlowEdges, useOnConnect, useOnEdgesChange } from './edge'
 export { useFlowNodes, useOnNodesChange, useUpdateFunctionNodeData } from './node'
 
@@ -75,7 +75,7 @@ export function useFlowContextCollection() {
       // localStorage key
       storageKey: 'vec-flow-context',
       getKey: item => item.id,
-      schema: z.object({ id: flowSchema.shape.id }),
+      schema: flowContextSchema,
       onInsert: async () => {
         // keep only one flowContext record
         window.localStorage.clear()

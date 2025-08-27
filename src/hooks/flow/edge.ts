@@ -130,13 +130,16 @@ export function useFlowEdgeCollection() {
           onInsert: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
             await addFlowEdgeServerFunction({ data: modified })
+            return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { original, modified } = transaction.mutations[0]
             await updateFlowEdgeServerFunction({ data: modified })
+            return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { original } = transaction.mutations[0]
+            return { refetch: false }
           }
         })
       ),

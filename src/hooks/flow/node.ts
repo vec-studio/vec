@@ -126,7 +126,7 @@ export function useUpdateFunctionNodeData() {
 // node tanstack-db collection
 export function useFlowNodeCollection() {
   const queryClient = useQueryClient()
-
+  const isFirstRender = useIsFirstRender()
   const flowContext = useFlowContext()
 
   const flowNodeCollection = useMemo(
@@ -142,15 +142,16 @@ export function useFlowNodeCollection() {
           onInsert: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
             await addFlowNodeServerFunction({ data: modified })
-            // TODO: incremental fetches
-            // https://tanstack.com/db/latest/docs/collections/query-collection#handling-partialincremental-fetches
+            return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { original, modified } = transaction.mutations[0]
             await updateFlowNodeServerFunction({ data: modified })
+            return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { original } = transaction.mutations[0]
+            return { refetch: false }
           }
         })
       ),
@@ -158,7 +159,7 @@ export function useFlowNodeCollection() {
   )
 
   // a new collections doesn't start syncing until you call collection.preload() or you query it
-  if (!flowNodeCollection.isReady()) flowNodeCollection.preload()
+  if (isFirstRender) flowNodeCollection.preload()
 
   return flowNodeCollection
 }

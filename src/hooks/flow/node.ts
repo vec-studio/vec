@@ -142,6 +142,8 @@ export function useFlowNodeCollection() {
           onInsert: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
             await addFlowNodeServerFunction({ data: modified })
+            // TODO: incremental fetches
+            // https://tanstack.com/db/latest/docs/collections/query-collection#handling-partialincremental-fetches
           },
           onUpdate: async ({ transaction }) => {
             const { original, modified } = transaction.mutations[0]

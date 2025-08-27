@@ -20,18 +20,14 @@ export const list = createServerFn()
   })
 
 export const add = createServerFn({ method: 'POST' })
-  .validator(
-    flowNodeSchema.pick({ id: true, data: true, flowId: true }).required({ id: true, data: true, flowId: true })
-  )
+  .validator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowNode).values(data).returning().get()
     return result
   })
 
 export const update = createServerFn({ method: 'POST' })
-  .validator(
-    flowNodeSchema.pick({ id: true, data: true, flowId: true }).required({ id: true, data: true, flowId: true })
-  )
+  .validator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db
       .update(flowNode)

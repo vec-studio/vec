@@ -3,8 +3,9 @@ import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
 import { useQueryClient } from '@tanstack/react-query'
 import { useIsFirstRender } from '@uidotdev/usehooks'
-import { addEdge, applyEdgeChanges, useEdges } from '@xyflow/react'
+import { addEdge, applyEdgeChanges, useEdges, useReactFlow } from '@xyflow/react'
 import { type Connection, type EdgeBase, type EdgeChange } from '@xyflow/system'
+import { nanoid } from 'nanoid'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { flowEdgeSchema } from 'src/schema/flow-edge'
 import {
@@ -92,17 +93,12 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
 // react-flow edge connect
 export function useOnConnect() {
   const edges = useEdges()
-  const flowContext = useFlowContext()
-  const flowEdgeCollection = useFlowEdgeCollection()
+  const { addEdges } = useReactFlow()
 
   const onConnect = useCallback(
     async (params: Connection) => {
-      const allEdges = addEdge(params, edges)
-      const addedEdges = allEdges.filter(edge => edge.source === params.source && edge.target === params.target)
-
-      for (const addedEdge of addedEdges) {
-        flowEdgeCollection.insert({ id: addedEdge.id, data: addedEdge, flowId: flowContext.id })
-      }
+      const changedEdges = addEdge({ ...params, id: nanoid() }, edges)
+      addEdges(changedEdges)
     },
     [edges]
   )
@@ -113,6 +109,7 @@ export function useOnConnect() {
 // edge tanstack-db collection
 export function useFlowEdgeCollection() {
   const queryClient = useQueryClient()
+  const isFirstRender = useIsFirstRender()
   const flowContext = useFlowContext()
 
   const flowEdgeCollection = useMemo(
@@ -145,6 +142,9 @@ export function useFlowEdgeCollection() {
       ),
     [flowContext.id]
   )
+
+  // a new collections doesn't start syncing until you call collection.preload() or you query it
+  if (isFirstRender) flowEdgeCollection.preload()
 
   return flowEdgeCollection
 }

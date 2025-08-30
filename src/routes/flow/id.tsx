@@ -3,10 +3,12 @@ import '@xyflow/react/dist/style.css'
 import { createFileRoute } from '@tanstack/react-router'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
 import { type EdgeBase, type NodeBase } from '@xyflow/system'
-import { type MouseEventHandler, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
+import { FlowNodeContextMenu } from 'src/components/flow/context-menu/node'
 import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
+import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
 
@@ -24,27 +26,21 @@ function Flow() {
   const onEdgesChange = useOnEdgesChange(setEdges)
   const onConnect = useOnConnect()
 
-  const [contextMenuPosition, setContextMenuPosition] = useState<{
-    offset: number
-    crossOffset: number
-  } | null>(null)
-
-  const onContextMenu: MouseEventHandler<HTMLDivElement> = e => {
-    e.preventDefault()
-    const rect = e.currentTarget.getBoundingClientRect()
-    setContextMenuPosition({
-      offset: e.clientY - rect.bottom,
-      crossOffset: e.clientX - rect.left
-    })
-  }
-
-  const onPaneClick = () => setContextMenuPosition(null)
+  const {
+    contextMenuPosition,
+    onContextMenu,
+    onNodeContextMenu,
+    onPaneClick,
+    setContextMenuPosition,
+    contextMenuNodeId,
+  } = useFlowContextMenu()
 
   return (
     <>
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
       <FlowContextMenu
+        nodeId={contextMenuNodeId}
         flowId={params.id}
         position={contextMenuPosition}
         ref={ref}
@@ -57,6 +53,7 @@ function Flow() {
         nodeTypes={nodeTypes}
         onConnect={onConnect}
         onContextMenu={onContextMenu}
+        onNodeContextMenu={onNodeContextMenu}
         onEdgesChange={onEdgesChange}
         onNodesChange={onNodesChange}
         onPaneClick={onPaneClick}

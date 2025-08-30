@@ -4,7 +4,7 @@ import { db } from 'src/db'
 import { flowNode } from 'src/db/schema/flow-node'
 import { flowNodeSchema } from 'src/schema/flow-node'
 
-export const list = createServerFn()
+export const listFlowNodeServerFunction = createServerFn()
   .validator(flowNodeSchema.pick({ flowId: true }).partial({ flowId: true }).optional())
   .handler(async ({ data }) => {
     let where
@@ -19,14 +19,14 @@ export const list = createServerFn()
     return result
   })
 
-export const add = createServerFn({ method: 'POST' })
+export const addFlowNodeServerFunction = createServerFn({ method: 'POST' })
   .validator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowNode).values(data).returning().get()
     return result
   })
 
-export const update = createServerFn({ method: 'POST' })
+export const updateFlowNodeServerFunction = createServerFn({ method: 'POST' })
   .validator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db
@@ -36,5 +36,12 @@ export const update = createServerFn({ method: 'POST' })
       .returning()
       .get()
 
+    return result
+  })
+
+export const deleteFlowNodeServerFunction = createServerFn({ method: 'POST' })
+  .validator(flowNodeSchema.pick({ id: true, flowId: true }))
+  .handler(async ({ data }) => {
+    const result = await db.delete(flowNode).where(eq(flowNode.id, data.id)).returning().get()
     return result
   })

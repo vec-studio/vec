@@ -3,7 +3,8 @@
     "new": "New",
     "context-menu": {
       "add": "Add",
-      "add_function": "Add Code"
+      "add_function": "Add Code",
+      "delete": "Delete"
     },
     "node": {
       "function": {

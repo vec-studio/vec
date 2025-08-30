@@ -8,9 +8,10 @@ import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { flowNodeSchema } from 'src/schema/flow-node'
 import {
-  add as addFlowNodeServerFunction,
-  list as listFlowNodeServerFunction,
-  update as updateFlowNodeServerFunction
+  addFlowNodeServerFunction,
+  deleteFlowNodeServerFunction,
+  listFlowNodeServerFunction,
+  updateFlowNodeServerFunction
 } from 'src/server/flow-node'
 import { useFlowContext } from './index'
 
@@ -123,6 +124,15 @@ export function useUpdateFunctionNodeData() {
   return updateFunctionNodeData
 }
 
+// delete function node
+export function useDeleteFunctionNode() {
+  const deleteFunctionNode = useCallback(async (id: NodeBase['id']) => {
+
+  }, [])
+
+  return deleteFunctionNode
+}
+
 // node tanstack-db collection
 export function useFlowNodeCollection() {
   const queryClient = useQueryClient()
@@ -145,12 +155,13 @@ export function useFlowNodeCollection() {
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
-            const { original, modified } = transaction.mutations[0]
+            const { modified } = transaction.mutations[0]
             await updateFlowNodeServerFunction({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
-            const { original } = transaction.mutations[0]
+            const { modified } = transaction.mutations[0]
+            await deleteFlowNodeServerFunction({ data: { id: modified.id, flowId: flowContext.id } })
             return { refetch: false }
           }
         })

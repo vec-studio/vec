@@ -56,8 +56,7 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
   >(
     async (id, callback) => {
       if (!flowEdgeCollection.has(id as string)) return
-      const tx = flowEdgeCollection.update(id, callback)
-      await tx.isPersisted.promise
+      flowEdgeCollection.update(id, callback)
     },
     { wait: 500 }
   )
@@ -72,8 +71,7 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
           case 'add': {
             const changedEdge = changedEdges.find(v => v.id === change.item.id)
             if (!changedEdge) break
-            const tx = flowEdgeCollection.insert({ id: changedEdge.id, data: changedEdge, flowId: flowContext.id })
-            await tx.isPersisted.promise
+            flowEdgeCollection.insert({ id: changedEdge.id, data: changedEdge, flowId: flowContext.id })
             break
           }
           case 'replace': {

@@ -57,8 +57,7 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
     ) => Promise<ReturnType<T> | unknown>
   >(async (id, callback) => {
     if (!flowNodeCollection.has(id as string)) return
-    const tx = flowNodeCollection.update(id, callback)
-    await tx.isPersisted.promise
+    flowNodeCollection.update(id, callback)
   }, { wait: 500 })
 
   const onNodesChange = useCallback(
@@ -71,8 +70,7 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
           case 'add': {
             const changedNode = changedNodes.find(v => v.id === change.item.id)
             if (!changedNode) break
-            const tx = flowNodeCollection.insert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
-            await tx.isPersisted.promise
+            flowNodeCollection.insert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
             break
           }
           case 'replace': {

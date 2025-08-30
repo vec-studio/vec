@@ -16,8 +16,8 @@ export function useFlowContextMenu() {
       offset: e.clientY - rect.bottom,
       crossOffset: e.clientX - rect.left
     })
-    currentContextMenuRegion.current = 'pane'
     if (currentContextMenuRegion.current === 'pane') setContextMenuNodeId(undefined)
+    currentContextMenuRegion.current = 'pane'
   }
 
   const onNodeContextMenu: NodeMouseHandler<Node> = (e, node) => {

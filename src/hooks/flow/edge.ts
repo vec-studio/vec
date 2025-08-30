@@ -1,6 +1,6 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
-import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
+import { useAsyncDebouncedCallback } from '@tanstack/react-pacer/async-debouncer'
 import { useQueryClient } from '@tanstack/react-query'
 import { useIsFirstRender } from '@uidotdev/usehooks'
 import { addEdge, applyEdgeChanges, useEdges, useReactFlow } from '@xyflow/react'
@@ -48,13 +48,19 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
   const flowContext = useFlowContext()
   const flowEdgeCollection = useFlowEdgeCollection()
 
-  const debouncedInsert = useDebouncedCallback(data => flowEdgeCollection.insert(data), { wait: 500 })
-  const debouncedUpdate = useDebouncedCallback<
+  const debouncedUpdate = useAsyncDebouncedCallback<
     <T extends typeof flowEdgeCollection.update<EdgeBase>>(
       id: Parameters<T>[0],
       callback: Parameters<T>[2]
-    ) => ReturnType<T> | unknown
-  >((id, callback) => flowEdgeCollection.update(id, callback), { wait: 500 })
+    ) => Promise<ReturnType<T> | unknown>
+  >(
+    async (id, callback) => {
+      if (!flowEdgeCollection.has(id as string)) return
+      const tx = flowEdgeCollection.update(id, callback)
+      await tx.isPersisted.promise
+    },
+    { wait: 500 }
+  )
 
   const onEdgesChange = useCallback(
     async (changes: EdgeChange[]) => {
@@ -64,12 +70,15 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
       for (const change of changes) {
         switch (change.type) {
           case 'add': {
-            const changedEdge = changedEdges.find(v => v.id === change.item.id)!
-            debouncedInsert({ id: changedEdge.id, data: changedEdge, flowId: flowContext.id })
+            const changedEdge = changedEdges.find(v => v.id === change.item.id)
+            if (!changedEdge) break
+            const tx = flowEdgeCollection.insert({ id: changedEdge.id, data: changedEdge, flowId: flowContext.id })
+            await tx.isPersisted.promise
             break
           }
           case 'replace': {
-            const changedEdge = changedEdges.find(v => v.id === change.item.id)!
+            const changedEdge = changedEdges.find(v => v.id === change.item.id)
+            if (!changedEdge) break
             debouncedUpdate(changedEdge.id, prevEdge => {
               prevEdge.data = changedEdge
             })

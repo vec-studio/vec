@@ -136,9 +136,10 @@ export function useFlowEdgeCollection() {
           },
           getKey: item => item.id,
           schema: flowEdgeSchema,
-          onInsert: async ({ transaction }) => {
+          onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            await addFlowEdgeServerFunction({ data: modified })
+            const o = await addFlowEdgeServerFunction({ data: modified })
+            collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {

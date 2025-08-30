@@ -164,9 +164,10 @@ export function useFlowNodeCollection() {
           },
           getKey: item => item.id,
           schema: flowNodeSchema,
-          onInsert: async ({ transaction }) => {
+          onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            await addFlowNodeServerFunction({ data: modified })
+            const o = await addFlowNodeServerFunction({ data: modified })
+            collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {

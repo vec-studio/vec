@@ -1,11 +1,13 @@
 import { type Node, type NodeMouseHandler } from '@xyflow/react'
-import { type MouseEventHandler, useState } from 'react'
+import { type MouseEventHandler, useRef, useState } from 'react'
 
 export function useFlowContextMenu() {
   const [contextMenuPosition, setContextMenuPosition] = useState<{
     offset: number
     crossOffset: number
   } | null>(null)
+  const [contextMenuNodeId, setContextMenuNodeId] = useState<string>()
+  const currentContextMenuRegion = useRef<'node' | 'pane'>('pane')
 
   const onContextMenu: MouseEventHandler<Element> = e => {
     e.preventDefault()
@@ -14,13 +16,19 @@ export function useFlowContextMenu() {
       offset: e.clientY - rect.bottom,
       crossOffset: e.clientX - rect.left
     })
+    currentContextMenuRegion.current = 'pane'
+    if (currentContextMenuRegion.current === 'pane') setContextMenuNodeId(undefined)
   }
 
-  const [contextMenuNodeId, setContextMenuNodeId] = useState<string>()
-
   const onNodeContextMenu: NodeMouseHandler<Node> = (e, node) => {
-    onContextMenu(e)
+    e.preventDefault()
+    const rect = e.currentTarget.getBoundingClientRect()
+    setContextMenuPosition({
+      offset: e.clientY - rect.bottom,
+      crossOffset: e.clientX - rect.left
+    })
     setContextMenuNodeId(node.id)
+    currentContextMenuRegion.current = 'node'
   }
 
   const onPaneClick = () => {
@@ -28,5 +36,13 @@ export function useFlowContextMenu() {
     setContextMenuNodeId(undefined)
   }
 
-  return { contextMenuPosition, contextMenuNodeId, onContextMenu, onNodeContextMenu, onPaneClick, setContextMenuPosition, setContextMenuNodeId }
+  return {
+    contextMenuPosition,
+    contextMenuNodeId,
+    onContextMenu,
+    onNodeContextMenu,
+    onPaneClick,
+    setContextMenuPosition,
+    setContextMenuNodeId
+  }
 }

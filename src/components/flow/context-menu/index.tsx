@@ -1,7 +1,6 @@
 import '@xyflow/react/dist/style.css'
 import { type Dispatch, type RefObject, type SetStateAction } from 'react'
 import { Menu, Popover } from 'react-aria-components'
-import { useTranslations } from 'use-intl'
 import { FlowContextMenuNodeMenuItems } from './node'
 import { FlowContextMenuPaneMenuItems } from './pane'
 
@@ -20,8 +19,6 @@ interface FlowContextMenuProps<
 }
 
 export function FlowContextMenu(props: FlowContextMenuProps) {
-  const t = useTranslations()
-
   const onOpenChange = () => {
     props.onPaneClick()
   }

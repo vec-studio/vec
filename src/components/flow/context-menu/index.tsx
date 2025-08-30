@@ -16,23 +16,31 @@ interface FlowContextMenuProps<
   ref?: RefObject<Element | null>
   position?: T
   updatePosition: Dispatch<SetStateAction<T>>
+  onPaneClick: () => void
 }
 
 export function FlowContextMenu(props: FlowContextMenuProps) {
   const t = useTranslations()
 
-  const onPaneClick = () => props.updatePosition(null)
-  const onOpenChange = onPaneClick
-  const onClose = onPaneClick
+  const onOpenChange = () => {
+    props.onPaneClick()
+  }
 
+  const onClose = () => {
+    props.onPaneClick()
+  }
+
+  const isOpen = !!props.position
   const isNodeContextMenu = !!props.nodeId
   const isPaneContextMenu = !props.nodeId
+
+  if (!isOpen) return null
 
   return (
     <Popover
       crossOffset={props.position?.crossOffset}
       isNonModal={true}
-      isOpen={!!props.position}
+      isOpen={isOpen}
       offset={props.position?.offset}
       onOpenChange={onOpenChange}
       placement="bottom start"
@@ -41,7 +49,7 @@ export function FlowContextMenu(props: FlowContextMenuProps) {
     >
       <Menu aria-label="menu" onClose={onClose}>
         {isPaneContextMenu && <FlowContextMenuPaneMenuItems />}
-        {isNodeContextMenu && <FlowContextMenuNodeMenuItems nodeId={props.nodeId!} />}
+        {isNodeContextMenu && <FlowContextMenuNodeMenuItems nodeId={props.nodeId!} onClose={onClose} />}
       </Menu>
     </Popover>
   )

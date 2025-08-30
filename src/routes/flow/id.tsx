@@ -6,7 +6,6 @@ import { type EdgeBase, type NodeBase } from '@xyflow/system'
 import { useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
 import { nodeTypes } from 'src/components/flow/node'
-import { FlowNodeContextMenu } from 'src/components/flow/context-menu/node'
 import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
 import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
@@ -45,6 +44,7 @@ function Flow() {
         position={contextMenuPosition}
         ref={ref}
         updatePosition={setContextMenuPosition}
+        onPaneClick={onPaneClick}
       />
       <ReactFlow
         aria-haspopup="menu"

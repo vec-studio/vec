@@ -1,6 +1,6 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
-import { useDebouncedCallback } from '@tanstack/react-pacer/debouncer'
+import { useAsyncDebouncedCallback } from '@tanstack/react-pacer/async-debouncer'
 import { useQueryClient } from '@tanstack/react-query'
 import { useIsFirstRender } from '@uidotdev/usehooks'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
@@ -13,6 +13,7 @@ import {
   listFlowNodeServerFunction,
   updateFlowNodeServerFunction
 } from 'src/server/flow-node'
+import { z } from 'zod'
 import { useFlowContext } from './index'
 
 // react-flow nodes
@@ -49,13 +50,16 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
   const flowContext = useFlowContext()
   const flowNodeCollection = useFlowNodeCollection()
 
-  const debouncedInsert = useDebouncedCallback(data => flowNodeCollection.insert(data), { wait: 500 })
-  const debouncedUpdate = useDebouncedCallback<
+  const debouncedUpdate = useAsyncDebouncedCallback<
     <T extends typeof flowNodeCollection.update<NodeBase>>(
       id: Parameters<T>[0],
       callback: Parameters<T>[2]
-    ) => ReturnType<T> | unknown
-  >((id, callback) => flowNodeCollection.update(id, callback), { wait: 500 })
+    ) => Promise<ReturnType<T> | unknown>
+  >(async (id, callback) => {
+    if (!flowNodeCollection.has(id as string)) return
+    const tx = flowNodeCollection.update(id, callback)
+    await tx.isPersisted.promise
+  }, { wait: 500 })
 
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
@@ -65,19 +69,27 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
       for (const change of changes) {
         switch (change.type) {
           case 'add': {
-            const changedNode = changedNodes.find(v => v.id === change.item.id)!
-            debouncedInsert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
+            const changedNode = changedNodes.find(v => v.id === change.item.id)
+            if (!changedNode) break
+            const tx = flowNodeCollection.insert({ id: changedNode.id, data: changedNode, flowId: flowContext.id })
+            await tx.isPersisted.promise
             break
           }
           case 'replace': {
-            const changedNode = changedNodes.find(v => v.id === change.item.id)!
+            const changedNode = changedNodes.find(v => v.id === change.item.id)
+            if (!changedNode) break
             debouncedUpdate(changedNode.id, prevNode => {
               prevNode.data = changedNode
             })
             break
           }
+          case 'remove': {
+            flowNodeCollection.delete(change.id)
+            break
+          }
           default: {
-            const changedNode = changedNodes.find(v => v.id === change.id)!
+            const changedNode = changedNodes.find(v => v.id === change.id)
+            if (!changedNode) break
             debouncedUpdate(changedNode.id, prevNode => {
               prevNode.data = changedNode
             })
@@ -126,8 +138,9 @@ export function useUpdateFunctionNodeData() {
 
 // delete function node
 export function useDeleteFunctionNode() {
+  const { deleteElements } = useReactFlow()
   const deleteFunctionNode = useCallback(async (id: NodeBase['id']) => {
-
+    deleteElements({ nodes: [{ id }] })
   }, [])
 
   return deleteFunctionNode
@@ -146,7 +159,11 @@ export function useFlowNodeCollection() {
           id: 'flow-node',
           queryClient,
           queryKey: ['flow-node', flowContext.id],
-          queryFn: async () => await listFlowNodeServerFunction({ data: { flowId: flowContext.id } }),
+          queryFn: async () => {
+            const a1 = await listFlowNodeServerFunction({ data: { flowId: flowContext.id } })
+            const a2 = z.array(flowNodeSchema).parse(a1)
+            return a2
+          },
           getKey: item => item.id,
           schema: flowNodeSchema,
           onInsert: async ({ transaction }) => {

@@ -4,7 +4,12 @@ import { MenuItem } from 'react-aria-components'
 import { useDeleteFunctionNode } from 'src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
-export function FlowContextMenuNodeMenuItems(props: { nodeId: string }) {
+interface FlowContextMenuNodeMenuItemsProps {
+  nodeId: string
+  onClose: () => void
+}
+
+export function FlowContextMenuNodeMenuItems(props: FlowContextMenuNodeMenuItemsProps) {
   const t = useTranslations()
 
   const deleteFunctionNode = useDeleteFunctionNode()
@@ -13,6 +18,7 @@ export function FlowContextMenuNodeMenuItems(props: { nodeId: string }) {
     if (!props.nodeId) return
     e.preventDefault()
     deleteFunctionNode(props.nodeId)
+    props.onClose()
   }
 
   return (

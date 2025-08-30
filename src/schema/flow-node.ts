@@ -6,9 +6,9 @@ export const flowNodeSchema = z.object({
   id: z.string().nonempty(),
   data: z.custom<NodeBase>(),
   flowId: flowSchema.shape.id,
-  createdAt: z.number().optional().nullable(),
-  updatedAt: z.number().optional().nullable(),
-  deletedAt: z.number().optional().nullable()
+  createdAt: z.number().nullish(),
+  updatedAt: z.number().nullish(),
+  deletedAt: z.number().nullish()
 })
 
 export type FlowNode = z.infer<typeof flowNodeSchema>

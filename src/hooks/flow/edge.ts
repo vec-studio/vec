@@ -75,8 +75,13 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
             })
             break
           }
+          case 'remove': {
+            flowEdgeCollection.delete(change.id)
+            break
+          }
           default: {
-            const changedEdge = changedEdges.find(v => v.id === change.id)!
+            const changedEdge = changedEdges.find(v => v.id === change.id)
+            if (!changedEdge) break
             debouncedUpdate(changedEdge.id, prevEdge => {
               prevEdge.data = changedEdge
             })

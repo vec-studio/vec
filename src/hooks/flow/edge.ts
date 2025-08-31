@@ -12,7 +12,7 @@ import {
   add as addFlowEdgeServerFunction,
   list as listFlowEdgeServerFunction,
   update as updateFlowEdgeServerFunction
-} from 'src/server/flow-edge'
+} from 'src/server/flow/edge'
 import { useFlowContext } from './index'
 
 // react-flow edges

@@ -12,7 +12,7 @@ import {
   deleteFlowNodeServerFunction,
   listFlowNodeServerFunction,
   updateFlowNodeServerFunction
-} from 'src/server/flow-node'
+} from 'src/server/flow/node'
 import { z } from 'zod'
 import { useFlowContext } from './index'
 

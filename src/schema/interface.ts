@@ -8,10 +8,11 @@ export type InterfaceType = InterfaceTypes[number]
 
 export const interfaceSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  type: z.enum(interfaceTypes),
+  actionId: actionSchema.shape.id,
   selectorId: selectorSchema.shape.id,
-  actionId: actionSchema.shape.id
+  //
+  name: z.string(),
+  type: z.enum(interfaceTypes)
 })
 
 export type Interface = z.infer<typeof interfaceSchema>

@@ -1,20 +1,22 @@
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { nanoid } from 'nanoid'
 import { user } from './user'
+import { times } from './shared/times'
 
 export const session = sqliteTable('session', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-  token: text('token').notNull().unique(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
-  ipAddress: text('ip_address'),
-  userAgent: text('user_agent'),
   userId: text('user_id')
     .notNull()
-    .references(() => user.id, { onDelete: 'cascade' })
+    .references(() => user.id, { onDelete: 'cascade' }),
+  //
+  ...times,
+  //
+  expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
+  ipAddress: text('ip_address'),
+  token: text('token').notNull().unique(),
+  userAgent: text('user_agent')
 })
 
 export const account = sqliteTable('account', {
@@ -26,33 +28,35 @@ export const account = sqliteTable('account', {
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
+  //
+  ...times,
+  //
   accessToken: text('access_token'),
-  refreshToken: text('refresh_token'),
-  idToken: text('id_token'),
   accessTokenExpiresAt: integer('access_token_expires_at', { mode: 'timestamp' }),
-  refreshTokenExpiresAt: integer('refresh_token_expires_at', { mode: 'timestamp' }),
-  scope: text('scope'),
+  idToken: text('id_token'),
   password: text('password'),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull()
+  refreshToken: text('refresh_token'),
+  refreshTokenExpiresAt: integer('refresh_token_expires_at', { mode: 'timestamp' }),
+  scope: text('scope')
 })
 
 export const verification = sqliteTable('verification', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  identifier: text('identifier').notNull(),
-  value: text('value').notNull(),
+  //
   expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).$defaultFn(() => new Date()),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).$defaultFn(() => new Date())
+  identifier: text('identifier').notNull(),
+  value: text('value').notNull()
 })
 
 export const jwks = sqliteTable('jwks', {
   id: text('id')
     .primaryKey()
     .$defaultFn(() => nanoid()),
-  publicKey: text('public_key').notNull(),
+  //
+  ...times,
+  //
   privateKey: text('private_key').notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).notNull()
+  publicKey: text('public_key').notNull()
 })

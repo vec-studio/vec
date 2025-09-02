@@ -6,10 +6,11 @@ export type FieldType = FieldTypes[number]
 
 export const formFieldSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  //
   label: z.string(),
-  type: z.enum(fieldTypes),
-  pattern: z.union([z.string(), z.instanceof(RegExp)])
+  name: z.string(),
+  pattern: z.union([z.string(), z.instanceof(RegExp)]),
+  type: z.enum(fieldTypes)
 })
 
 export type FormField = z.infer<typeof formFieldSchema>

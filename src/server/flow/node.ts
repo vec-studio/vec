@@ -27,20 +27,15 @@ export const addFlowNodeServerFunction = createServerFn({ method: 'POST' })
   })
 
 export const updateFlowNodeServerFunction = createServerFn({ method: 'POST' })
-  .validator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
+  .validator(flowNodeSchema.pick({ id: true, data: true }))
   .handler(async ({ data }) => {
-    const result = await db
-      .update(flowNode)
-      .set(data)
-      .where(and(eq(flowNode.id, data.id), eq(flowNode.flowId, data.flowId)))
-      .returning()
-      .get()
+    const result = await db.update(flowNode).set(data).where(eq(flowNode.id, data.id)).returning().get()
 
     return result
   })
 
 export const deleteFlowNodeServerFunction = createServerFn({ method: 'POST' })
-  .validator(flowNodeSchema.pick({ id: true, flowId: true }))
+  .validator(flowNodeSchema.pick({ id: true }))
   .handler(async ({ data }) => {
     const result = await db.delete(flowNode).where(eq(flowNode.id, data.id)).returning().get()
     return result

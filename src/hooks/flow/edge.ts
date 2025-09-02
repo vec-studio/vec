@@ -13,6 +13,7 @@ import {
   list as listFlowEdgeServerFunction,
   update as updateFlowEdgeServerFunction
 } from 'src/server/flow/edge'
+import { z } from 'zod'
 import { useFlowContext } from './index'
 
 // react-flow edges
@@ -71,7 +72,11 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
           case 'add': {
             const changedEdge = changedEdges.find(v => v.id === change.item.id)
             if (!changedEdge) break
-            flowEdgeCollection.insert({ id: changedEdge.id, data: changedEdge, flowId: flowContext.id })
+            flowEdgeCollection.insert({
+              id: changedEdge.id,
+              data: changedEdge,
+              flowId: flowContext.id
+            })
             break
           }
           case 'replace': {
@@ -132,7 +137,9 @@ export function useFlowEdgeCollection() {
           queryClient,
           queryKey: ['flow-edge', flowContext.id],
           queryFn: async () => {
-            return await listFlowEdgeServerFunction()
+            const a1 = await listFlowEdgeServerFunction()
+            const a2 = z.array(flowEdgeSchema).parse(a1)
+            return a2
           },
           getKey: item => item.id,
           schema: flowEdgeSchema,

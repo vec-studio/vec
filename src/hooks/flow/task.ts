@@ -5,10 +5,10 @@ import { useIsFirstRender } from '@uidotdev/usehooks'
 import { useMemo } from 'react'
 import { flowTaskSchema } from 'src/schema/flow-task'
 import {
-  addFlowTaskServerFunction,
-  deleteFlowTaskServerFunction,
-  listFlowTaskServerFunction,
-  updateFlowTaskServerFunction
+  addFlowTaskServerFn,
+  deleteFlowTaskServerFn,
+  listFlowTaskServerFn,
+  updateFlowTaskServerFn
 } from 'src/server/flow/task'
 import { z } from 'zod'
 import { useFlowContext } from './index'
@@ -41,7 +41,7 @@ export function useFlowTaskCollection() {
           queryClient,
           queryKey: ['flow-node', flowContext.id],
           queryFn: async () => {
-            const a1 = await listFlowTaskServerFunction({ data: { flowId: flowContext.id } })
+            const a1 = await listFlowTaskServerFn({ data: { flowId: flowContext.id } })
             const a2 = z.array(flowTaskSchema).parse(a1)
             return a2
           },
@@ -49,18 +49,18 @@ export function useFlowTaskCollection() {
           schema: flowTaskSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowTaskServerFunction({ data: modified })
+            const o = await addFlowTaskServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await updateFlowTaskServerFunction({ data: modified })
+            await updateFlowTaskServerFn({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowTaskServerFunction({ data: { id: modified.id } })
+            await deleteFlowTaskServerFn({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

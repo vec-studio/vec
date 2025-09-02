@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid'
 import { useMemo } from 'react'
 import { flowContextSchema } from 'src/schema/context'
 import { flowSchema } from 'src/schema/flow'
-import { add as addFlowServerFunction, list as listFlowServerFunction } from 'src/server/flow'
+import { addFlowServerFn, listFlowServerFn } from 'src/server/flow'
 export { useFlowEdges, useOnConnect, useOnEdgesChange } from './edge'
 export { useFlowNodes, useOnNodesChange, useUpdateFunctionNodeData } from './node'
 
@@ -39,14 +39,14 @@ export function useFlowCollection() {
           id: 'flow',
           queryKey: ['flow', flowContext?.id],
           queryFn: async () => {
-            return await listFlowServerFunction({ data: { id: flowContext?.id } })
+            return await listFlowServerFn({ data: { id: flowContext?.id } })
           },
           getKey: item => item.id,
           schema: flowSchema,
           queryClient,
           onInsert: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await addFlowServerFunction({ data: modified })
+            await addFlowServerFn({ data: modified })
           },
           onUpdate: async ({ transaction }) => {
             const { original, modified } = transaction.mutations[0]

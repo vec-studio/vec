@@ -8,10 +8,10 @@ import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { flowNodeSchema } from 'src/schema/flow-node'
 import {
-  addFlowNodeServerFunction,
-  deleteFlowNodeServerFunction,
-  listFlowNodeServerFunction,
-  updateFlowNodeServerFunction
+  addFlowNodeServerFn,
+  deleteFlowNodeServerFn,
+  listFlowNodeServerFn,
+  updateFlowNodeServerFn
 } from 'src/server/flow/node'
 import { z } from 'zod'
 import { useFlowContext } from './index'
@@ -161,7 +161,7 @@ export function useFlowNodeCollection() {
           queryClient,
           queryKey: ['flow-node', flowContext.id],
           queryFn: async () => {
-            const a1 = await listFlowNodeServerFunction({ data: { flowId: flowContext.id } })
+            const a1 = await listFlowNodeServerFn({ data: { flowId: flowContext.id } })
             const a2 = z.array(flowNodeSchema).parse(a1)
             return a2
           },
@@ -169,18 +169,18 @@ export function useFlowNodeCollection() {
           schema: flowNodeSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowNodeServerFunction({ data: modified })
+            const o = await addFlowNodeServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await updateFlowNodeServerFunction({ data: modified })
+            await updateFlowNodeServerFn({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowNodeServerFunction({ data: { id: modified.id } })
+            await deleteFlowNodeServerFn({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

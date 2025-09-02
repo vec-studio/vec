@@ -4,7 +4,7 @@ import { db } from 'src/db'
 import { flowEdge } from 'src/db/schema/flow-edge'
 import { flowEdgeSchema } from 'src/schema/flow-edge'
 
-export const list = createServerFn()
+export const listFlowEdgeServerFn = createServerFn()
   .validator(flowEdgeSchema.pick({ flowId: true }).partial({ flowId: true }).optional())
   .handler(async ({ data }) => {
     let where
@@ -19,17 +19,24 @@ export const list = createServerFn()
     return result
   })
 
-export const add = createServerFn({ method: 'POST' })
+export const addFlowEdgeServerFn = createServerFn({ method: 'POST' })
   .validator(flowEdgeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowEdge).values(data).returning().get()
     return result
   })
 
-export const update = createServerFn({ method: 'POST' })
+export const updateFlowEdgeServerFn = createServerFn({ method: 'POST' })
   .validator(flowEdgeSchema.pick({ id: true, data: true }))
   .handler(async ({ data }) => {
     const result = await db.update(flowEdge).set(data).where(eq(flowEdge.id, data.id)).returning().get()
 
+    return result
+  })
+
+export const deleteFlowEdgeServerFn = createServerFn({ method: 'POST' })
+  .validator(flowEdgeSchema.pick({ id: true }))
+  .handler(async ({ data }) => {
+    const result = await db.delete(flowEdge).where(eq(flowEdge.id, data.id)).returning().get()
     return result
   })

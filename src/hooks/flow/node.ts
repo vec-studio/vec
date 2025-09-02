@@ -55,10 +55,13 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
       id: Parameters<T>[0],
       callback: Parameters<T>[2]
     ) => Promise<ReturnType<T> | unknown>
-  >(async (id, callback) => {
-    if (!flowNodeCollection.has(id as string)) return
-    flowNodeCollection.update(id, callback)
-  }, { wait: 500 })
+  >(
+    async (id, callback) => {
+      if (!flowNodeCollection.has(id as string)) return
+      flowNodeCollection.update(id, callback)
+    },
+    { wait: 500 }
+  )
 
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
@@ -177,7 +180,7 @@ export function useFlowNodeCollection() {
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowNodeServerFunction({ data: { id: modified.id, flowId: flowContext.id } })
+            await deleteFlowNodeServerFunction({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

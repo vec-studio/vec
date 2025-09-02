@@ -9,9 +9,10 @@ import { nanoid } from 'nanoid'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { flowEdgeSchema } from 'src/schema/flow-edge'
 import {
-  add as addFlowEdgeServerFunction,
-  list as listFlowEdgeServerFunction,
-  update as updateFlowEdgeServerFunction
+  addFlowEdgeServerFn,
+  deleteFlowEdgeServerFn,
+  listFlowEdgeServerFn,
+  updateFlowEdgeServerFn
 } from 'src/server/flow/edge'
 import { z } from 'zod'
 import { useFlowContext } from './index'
@@ -137,7 +138,7 @@ export function useFlowEdgeCollection() {
           queryClient,
           queryKey: ['flow-edge', flowContext.id],
           queryFn: async () => {
-            const a1 = await listFlowEdgeServerFunction()
+            const a1 = await listFlowEdgeServerFn()
             const a2 = z.array(flowEdgeSchema).parse(a1)
             return a2
           },
@@ -145,17 +146,18 @@ export function useFlowEdgeCollection() {
           schema: flowEdgeSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowEdgeServerFunction({ data: modified })
+            const o = await addFlowEdgeServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
-            const { original, modified } = transaction.mutations[0]
-            await updateFlowEdgeServerFunction({ data: modified })
+            const { modified } = transaction.mutations[0]
+            await updateFlowEdgeServerFn({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
-            const { original } = transaction.mutations[0]
+            const { modified } = transaction.mutations[0]
+            await deleteFlowEdgeServerFn({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

@@ -2,8 +2,8 @@
   "flow": {
     "new": "New",
     "context-menu": {
-      "add": "Add",
-      "add_function": "Add Code",
+      "add": "Add Node",
+      "add_function": "Add Code Node",
       "delete": "Delete"
     },
     "node": {

@@ -44,11 +44,13 @@ export function FlowContextMenuPaneMenuItems() {
 
   return (
     <>
+      {/*
       <MenuItem key="add" onClick={onClickAddNode}>
         {t('flow.context-menu.add')}
       </MenuItem>
+      */}
       <MenuItem key="add_function" onClick={onClickAddFunctionNode}>
-        {t('flow.context-menu.add_function')}
+        {t('flow.context-menu.add')}
       </MenuItem>
     </>
   )

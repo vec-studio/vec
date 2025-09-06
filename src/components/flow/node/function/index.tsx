@@ -2,8 +2,16 @@ import { Button, Flex, View } from '@adobe/react-spectrum'
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
 import { type DOMRef, type PressEvent } from '@react-types/shared'
-import { Handle, NodeResizer, Position, type NodeProps, type NodeResizerProps, type OnConnect } from '@xyflow/react'
+import {
+  Handle,
+  NodeResizeControl,
+  Position,
+  type NodeProps,
+  type NodeResizerProps,
+  type OnConnect
+} from '@xyflow/react'
 import { EditorView, basicSetup } from 'codemirror'
+import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
 import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
@@ -79,7 +87,9 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
       </View>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />
       <Handle type="source" isConnectable={props.isConnectable} position={Position.Right} />
-      <NodeResizer isVisible={props.selected} minHeight={150} minWidth={200} />
+      <NodeResizeControl style={{ background: 'transparent', border: 'none' }} minWidth={200} minHeight={150}>
+        <MoveDiagonal2Icon style={{ color: 'var(--spectrum-alias-border-color)' }} />
+      </NodeResizeControl>
     </>
   )
 })

@@ -1,14 +1,7 @@
-import { Button, Content, View } from '@adobe/react-spectrum'
-import {
-  ErrorComponent,
-  Link,
-  rootRouteId,
-  useMatch,
-  useRouter,
-  type ErrorComponentProps
-} from '@tanstack/react-router'
+import { ErrorComponent, rootRouteId, useMatch, useRouter, type ErrorComponentProps } from '@tanstack/react-router'
 import consola from 'consola'
 import { type FunctionComponent } from 'react'
+import { Button } from 'react-aria-components'
 import { ButtonLink } from './link'
 
 const CustomErrorComponent: FunctionComponent<ErrorComponentProps> = props => {
@@ -21,23 +14,13 @@ const CustomErrorComponent: FunctionComponent<ErrorComponentProps> = props => {
   consola.error(props.error)
 
   return (
-    <View>
+    <div>
       <ErrorComponent error={props.error} />
-      <Content>
-        <Button variant="secondary" onPress={() => router.invalidate()}>
-          Try Again
-        </Button>
-        {isRoot ? (
-          <ButtonLink variant="secondary" to="/">
-            Home
-          </ButtonLink>
-        ) : (
-          <Button variant="secondary" onPress={() => router.history.back()}>
-            Go Back
-          </Button>
-        )}
-      </Content>
-    </View>
+      <div>
+        <Button onPress={() => router.invalidate()}>Try Again</Button>
+        {isRoot ? <ButtonLink to="/">Home</ButtonLink> : <Button onPress={() => router.history.back()}>Go Back</Button>}
+      </div>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
-import { Button, Grid, View } from '@adobe/react-spectrum'
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import consola from 'consola'
+import { Button } from 'react-aria-components'
 import { useAddFlow } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
@@ -19,13 +19,11 @@ function component() {
   }
 
   return (
-    <Grid>
-      <View>
-        <Button onPress={onClickNew} variant="secondary">
-          {t('flow.new')}
-        </Button>
-      </View>
-    </Grid>
+    <div>
+      <div>
+        <Button onPress={onClickNew}>{t('flow.new')}</Button>
+      </div>
+    </div>
   )
 }
 

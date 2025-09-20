@@ -23,8 +23,5 @@ export default defineConfig({
       public: fileURLToPath(new URL('public', import.meta.url)),
       src: fileURLToPath(new URL('src', import.meta.url))
     }
-  },
-  ssr: {
-    noExternal: ['@adobe/react-spectrum', '@react-spectrum/*', '@spectrum-icons/*']
   }
 })

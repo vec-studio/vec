@@ -1,7 +1,6 @@
-import { Button, Flex, View } from '@adobe/react-spectrum'
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
-import { type DOMRef, type PressEvent } from '@react-types/shared'
+import { type PressEvent } from '@react-types/shared'
 import {
   Handle,
   NodeResizeControl,
@@ -13,6 +12,7 @@ import {
 import { EditorView, basicSetup } from 'codemirror'
 import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
+import { Button } from 'react-aria-components'
 import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
@@ -26,10 +26,7 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
   const t = useTranslations()
   const updateFunctionNodeData = useUpdateFunctionNodeData()
   const editorRef = useRef<EditorView>(null)
-  const editorParentDOMRef = useRef<HTMLElement>(null)
-  const editorParentRef: DOMRef = r => {
-    editorParentDOMRef.current = r?.UNSAFE_getDOMNode() || null
-  }
+  const editorParentDOMRef = useRef<HTMLDivElement>(null)
 
   // initialize codemirror
   useEffect(() => {
@@ -62,33 +59,20 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
 
   return (
     <>
-      <View
-        backgroundColor="static-white"
-        borderColor="default"
-        borderRadius="medium"
-        borderWidth="thin"
-        height="100%"
-        minHeight={150}
-        minWidth={200}
-        overflow="hidden"
-        position="relative"
-        width="100%"
-      >
-        <Flex direction="column" height="100%" position="absolute" width="100%">
-          <View flex={1} position="relative" ref={editorParentRef} />
-          <View padding="size-100">
-            <Flex justifyContent="end">
-              <Button variant="secondary" onPress={onPressSave}>
-                {t('flow.node.function.action.save')}
-              </Button>
-            </Flex>
-          </View>
-        </Flex>
-      </View>
+      <div>
+        <div>
+          <div ref={editorParentDOMRef} />
+          <div>
+            <div>
+              <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
+            </div>
+          </div>
+        </div>
+      </div>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />
       <Handle type="source" isConnectable={props.isConnectable} position={Position.Right} />
       <NodeResizeControl style={{ background: 'transparent', border: 'none' }} minWidth={200} minHeight={150}>
-        <MoveDiagonal2Icon style={{ color: 'var(--spectrum-alias-border-color)' }} />
+        <MoveDiagonal2Icon />
       </NodeResizeControl>
     </>
   )

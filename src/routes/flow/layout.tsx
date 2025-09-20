@@ -1,11 +1,10 @@
-import { View } from '@adobe/react-spectrum'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
 
 function component() {
   return (
-    <View height="100vh">
+    <div>
       <Outlet />
-    </View>
+    </div>
   )
 }
 

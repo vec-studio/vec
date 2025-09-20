@@ -1,7 +1,6 @@
-import '@xyflow/react/dist/style.css'
-
 import { createFileRoute } from '@tanstack/react-router'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
+import '@xyflow/react/dist/style.css'
 import { type EdgeBase, type NodeBase } from '@xyflow/system'
 import { useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
@@ -31,7 +30,7 @@ function Flow() {
     onNodeContextMenu,
     onPaneClick,
     setContextMenuPosition,
-    contextMenuNodeId,
+    contextMenuNodeId
   } = useFlowContextMenu()
 
   return (

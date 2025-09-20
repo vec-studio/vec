@@ -1,15 +1,13 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
 import { WithIntl } from 'src/components/with-intl'
 import { WithQuery } from 'src/components/with-query'
+import style from './root.css?url'
 
 function component() {
-  const style = `body { margin: 0; }`
-
   return (
     <html>
       <head>
         <HeadContent />
-        <style>{style}</style>
       </head>
       <body>
         <WithQuery>
@@ -36,7 +34,8 @@ export const Route = createRootRoute({
       {
         title: ''
       }
-    ]
+    ],
+    links: [{ rel: 'stylesheet', href: style }]
   }),
   async loader() {},
   shellComponent: component

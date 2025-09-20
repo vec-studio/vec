@@ -1,4 +1,3 @@
-import '@xyflow/react/dist/style.css'
 import { type MouseEventHandler } from 'react'
 import { MenuItem } from 'react-aria-components'
 import { useDeleteFunctionNode } from 'src/hooks/flow/node'

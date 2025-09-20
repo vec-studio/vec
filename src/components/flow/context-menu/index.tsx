@@ -1,4 +1,3 @@
-import '@xyflow/react/dist/style.css'
 import { type Dispatch, type RefObject, type SetStateAction } from 'react'
 import { Menu, Popover } from 'react-aria-components'
 import { FlowContextMenuNodeMenuItems } from './node'

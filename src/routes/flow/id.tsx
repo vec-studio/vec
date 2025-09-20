@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider } from '@xyflow/react'
-import '@xyflow/react/dist/style.css'
 import { type EdgeBase, type NodeBase } from '@xyflow/system'
 import { useRef, useState } from 'react'
 import { FlowContextMenu } from 'src/components/flow/context-menu'
@@ -9,6 +8,7 @@ import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow
 import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
+import xflowStyle from '@xyflow/react/dist/style.css?url'
 
 function Flow() {
   const params = Route.useParams()
@@ -71,5 +71,8 @@ function component() {
 }
 
 export const Route = createFileRoute('/_layout/flow/_layout/$id')({
+  head: () => ({
+    links: [{ rel: 'stylesheet', href: xflowStyle }]
+  }),
   component
 })

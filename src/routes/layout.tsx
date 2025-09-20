@@ -1,6 +1,5 @@
 import { defaultTheme, Provider as SpectrumProvider } from '@adobe/react-spectrum'
 import { createFileRoute, Outlet } from '@tanstack/react-router'
-import './layout.css'
 
 function component() {
   return (

@@ -39,5 +39,5 @@ export const Route = createRootRoute({
     ]
   }),
   async loader() {},
-  component
+  shellComponent: component
 })

@@ -1,7 +1,6 @@
-import { Content, Heading, View } from '@adobe/react-spectrum'
+import { Button, Content, Heading, View } from '@adobe/react-spectrum'
 import { useRouter } from '@tanstack/react-router'
 import { type FunctionComponent, type PropsWithChildren } from 'react'
-import { Button } from 'react-aria-components'
 import { ButtonLink } from './link'
 
 export const NotFoundComponent: FunctionComponent<PropsWithChildren> = props => {
@@ -12,7 +11,9 @@ export const NotFoundComponent: FunctionComponent<PropsWithChildren> = props => 
       <Heading>404 Not Found</Heading>
       {props.children || (
         <Content>
-          <Button onClick={() => router.history.back()}>Go Back</Button>
+          <Button variant="accent" onPress={() => router.history.back()}>
+            Go Back
+          </Button>
           <ButtonLink to="/" variant="accent">
             Start Over
           </ButtonLink>

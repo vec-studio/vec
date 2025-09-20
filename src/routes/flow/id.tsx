@@ -8,7 +8,7 @@ import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow
 import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
-import xflowStyle from '@xyflow/react/dist/style.css?url'
+import xflowCSS from '@xyflow/react/dist/style.css?url'
 
 function Flow() {
   const params = Route.useParams()
@@ -72,7 +72,7 @@ function component() {
 
 export const Route = createFileRoute('/_layout/flow/_layout/$id')({
   head: () => ({
-    links: [{ rel: 'stylesheet', href: xflowStyle }]
+    links: [{ rel: 'stylesheet', href: xflowCSS }]
   }),
   component
 })

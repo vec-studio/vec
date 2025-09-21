@@ -1,0 +1,5 @@
+@reference "../root.css";
+
+.root {
+  @apply h-screen w-screen;
+}

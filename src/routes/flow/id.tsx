@@ -8,7 +8,8 @@ import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow
 import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
-import xflowCSS from '@xyflow/react/dist/style.css?url'
+import '@xyflow/react/dist/style.css'
+import styles from './id.module.css'
 
 function Flow() {
   const params = Route.useParams()
@@ -34,7 +35,7 @@ function Flow() {
   } = useFlowContextMenu()
 
   return (
-    <>
+    <div className={styles.root} ref={ref}>
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
       <FlowContextMenu
@@ -58,7 +59,7 @@ function Flow() {
         onPaneClick={onPaneClick}
         ref={ref}
       />
-    </>
+    </div>
   )
 }
 
@@ -71,8 +72,5 @@ function component() {
 }
 
 export const Route = createFileRoute('/_layout/flow/_layout/$id')({
-  head: () => ({
-    links: [{ rel: 'stylesheet', href: xflowCSS }]
-  }),
   component
 })

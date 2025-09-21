@@ -9,7 +9,6 @@ import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
 import '@xyflow/react/dist/style.css'
-import classes from './id.module.css'
 
 function Flow() {
   const params = Route.useParams()
@@ -35,7 +34,7 @@ function Flow() {
   } = useFlowContextMenu()
 
   return (
-    <div className={classes.root} ref={ref}>
+    <div ref={ref}>
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
       <FlowContextMenu

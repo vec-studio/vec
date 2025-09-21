@@ -10,11 +10,13 @@ import {
   type OnConnect
 } from '@xyflow/react'
 import { EditorView, basicSetup } from 'codemirror'
+import { cx } from 'cva'
 import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
 import { Button } from 'react-aria-components'
 import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
+import classes from './index.module.css'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
   data: {
@@ -59,14 +61,10 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
 
   return (
     <>
-      <div>
-        <div>
-          <div ref={editorParentDOMRef} />
-          <div>
-            <div>
-              <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
-            </div>
-          </div>
+      <div className={cx(classes.editor)}>
+        <div className={cx(classes.content)} ref={editorParentDOMRef} />
+        <div className={cx(classes.actions)}>
+          <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
         </div>
       </div>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />

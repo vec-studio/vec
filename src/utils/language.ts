@@ -29,7 +29,7 @@ export function parse(al) {
   return strings
 }
 
-export function pick(supportedLanguages, acceptLanguage, options) {
+export function pick(supportedLanguages, acceptLanguage, options?: any) {
   options = options ?? {}
 
   if (!supportedLanguages || !supportedLanguages.length || !acceptLanguage) return null

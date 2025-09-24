@@ -5,7 +5,7 @@ import { flowTask } from 'src/db/schema/flow-task'
 import { flowTaskSchema } from 'src/schema/flow-task'
 
 export const listFlowTaskServerFn = createServerFn()
-  .validator(flowTaskSchema.pick({ flowId: true }).partial({ flowId: true }).optional())
+  .inputValidator(flowTaskSchema.pick({ flowId: true }).partial({ flowId: true }).optional())
   .handler(async ({ data }) => {
     let where
 
@@ -20,14 +20,14 @@ export const listFlowTaskServerFn = createServerFn()
   })
 
 export const addFlowTaskServerFn = createServerFn({ method: 'POST' })
-  .validator(flowTaskSchema.pick({ id: true, flowId: true, flowNodeId: true, data: true }))
+  .inputValidator(flowTaskSchema.pick({ id: true, flowId: true, flowNodeId: true, data: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowTask).values(data).returning().get()
     return result
   })
 
 export const updateFlowTaskServerFn = createServerFn({ method: 'POST' })
-  .validator(flowTaskSchema.pick({ id: true, data: true }))
+  .inputValidator(flowTaskSchema.pick({ id: true, data: true }))
   .handler(async ({ data }) => {
     const result = await db.update(flowTask).set(data).where(eq(flowTask.id, data.id)).returning().get()
 
@@ -35,7 +35,7 @@ export const updateFlowTaskServerFn = createServerFn({ method: 'POST' })
   })
 
 export const deleteFlowTaskServerFn = createServerFn({ method: 'POST' })
-  .validator(flowTaskSchema.pick({ id: true }))
+  .inputValidator(flowTaskSchema.pick({ id: true }))
   .handler(async ({ data }) => {
     const result = await db.delete(flowTask).where(eq(flowTask.id, data.id)).returning().get()
     return result

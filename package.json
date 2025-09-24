@@ -4,9 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
+    "prepack": "vite build",
     "prepare": "husky",
-    "prestart": "vite build && tsc --noEmit",
-    "start": "node .output/server/index.mjs"
+    "prestart": "vite build",
+    "start": ""
   },
   "dependencies": {
     "@casl/ability": "6.7.3",
@@ -20,8 +21,8 @@
     "@tanstack/react-form": "1.23.0",
     "@tanstack/react-pacer": "0.16.3",
     "@tanstack/react-query": "5.89.0",
-    "@tanstack/react-router": "1.131.49",
-    "@tanstack/react-start": "1.131.49",
+    "@tanstack/react-router": "1.132.2",
+    "@tanstack/react-start": "1.132.2",
     "@tanstack/react-table": "8.21.3",
     "@tanstack/virtual-file-routes": "1.131.2",
     "@uidotdev/usehooks": "2.4.1",
@@ -48,7 +49,7 @@
   },
   "devDependencies": {
     "@types/lodash": "4.17.20",
-    "@types/node": "24.0.15",
+    "@types/node": "24.5.2",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@vitejs/plugin-react": "4.7.0",

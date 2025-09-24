@@ -1,6 +1,5 @@
 {
-  "private": true,
-  "name": "@vec/app",
+  "name": "@vec-studio/vec",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

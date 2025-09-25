@@ -16,6 +16,5 @@
     "target": "esnext",
     "types": ["vite/client"]
   },
-  "files": ["vite.config.ts"],
   "include": ["src"]
 }

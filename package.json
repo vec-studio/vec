@@ -25,6 +25,7 @@
     "@tanstack/react-table": "8.21.3",
     "@tanstack/virtual-file-routes": "1.131.2",
     "@uidotdev/usehooks": "2.4.1",
+    "@vec-studio/ui": "file:../ui",
     "@xyflow/react": "12.8.2",
     "better-auth": "1.3.4",
     "codemirror": "6.0.2",

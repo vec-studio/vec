@@ -15,7 +15,7 @@ export default defineConfig({
         }
       },
       router: {
-        generatedRouteTree: './src/routeTree.gen.ts',
+        generatedRouteTree: './routeTree.gen.ts',
         virtualRouteConfig: './src/routes.ts'
       }
     }),

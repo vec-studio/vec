@@ -63,5 +63,9 @@
   "overrides": {
     "react": "19.1.1",
     "react-dom": "19.1.1"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
   }
 }

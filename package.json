@@ -56,7 +56,7 @@
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "@vanilla-extract/vite-plugin": "5.1.1",
-    "@vitejs/plugin-react": "4.7.0",
+    "@vitejs/plugin-react": "5.0.4",
     "drizzle-kit": "0.31.4",
     "husky": "9.1.7",
     "lint-staged": "16.1.2",

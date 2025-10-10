@@ -4,7 +4,7 @@ import { Button } from 'react-aria-components'
 import { useAddFlow } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
-function component() {
+function FlowIndexPage() {
   const t = useTranslations()
   const router = useRouter()
   const addFlow = useAddFlow()
@@ -28,5 +28,5 @@ function component() {
 }
 
 export const Route = createFileRoute('/_layout/flow/_layout/')({
-  component
+  component: FlowIndexPage
 })

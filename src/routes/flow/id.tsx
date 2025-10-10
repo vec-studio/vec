@@ -9,6 +9,7 @@ import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow
 import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
 import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
 import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
+import * as classNames from './id.css'
 
 function Flow() {
   const params = Route.useParams()
@@ -34,7 +35,7 @@ function Flow() {
   } = useFlowContextMenu()
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className={classNames.rootClassName}>
       <Background variant={BackgroundVariant.Dots} />
       <Controls />
       <FlowContextMenu
@@ -62,7 +63,7 @@ function Flow() {
   )
 }
 
-function component() {
+function FlowIdPage() {
   return (
     <ReactFlowProvider>
       <Flow />
@@ -71,5 +72,5 @@ function component() {
 }
 
 export const Route = createFileRoute('/_layout/flow/_layout/$id')({
-  component
+  component: FlowIdPage
 })

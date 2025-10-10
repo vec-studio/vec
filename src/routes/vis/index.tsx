@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-function component() {
+function VisIndexPage() {
   return <></>
 }
 
 export const Route = createFileRoute('/_layout/vis/_layout/')({
-  component
+  component: VisIndexPage
 })

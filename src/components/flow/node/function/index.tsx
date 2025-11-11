@@ -15,6 +15,7 @@ import { memo, useEffect, useRef } from 'react'
 import { Button } from 'react-aria-components'
 import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
+import { buttonGroupClassName, contentClassName, rootClassName } from './index.css'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
   data: {
@@ -59,9 +60,9 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
 
   return (
     <>
-      <div>
-        <div ref={editorParentDOMRef} />
-        <div>
+      <div className={rootClassName}>
+        <div className={contentClassName} ref={editorParentDOMRef} />
+        <div className={buttonGroupClassName}>
           <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
         </div>
       </div>

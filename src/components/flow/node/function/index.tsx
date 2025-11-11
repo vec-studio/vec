@@ -12,7 +12,7 @@ import {
 import { EditorView, basicSetup } from 'codemirror'
 import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
-import { Button } from 'react-aria-components'
+import { Button } from '@vec-studio/ui/src'
 import { useUpdateFunctionNodeData } from 'src/hooks/flow'
 import { useTranslations } from 'use-intl'
 import { buttonGroupClassName, contentClassName, rootClassName } from './index.css'

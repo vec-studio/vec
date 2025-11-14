@@ -17,4 +17,10 @@ export const contentClassName = style({
   backgroundColor: openProps.gray1
 })
 
-export const buttonGroupClassName = style({})
+export const buttonGroupClassName = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: openProps.size2,
+  paddingInline: openProps.size2,
+  paddingBlock: openProps.size2
+})

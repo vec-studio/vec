@@ -64,6 +64,7 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
         <div className={contentClassName} ref={editorParentDOMRef} />
         <div className={buttonGroupClassName}>
           <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
+          <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
         </div>
       </div>
       <Handle type="target" isConnectable={props.isConnectable} onConnect={onConnect} position={Position.Left} />

@@ -1,0 +1,17 @@
+{
+  "flow": {
+    "new": "New",
+    "context-menu": {
+      "add": "Add Node",
+      "add_function": "Add Code Node",
+      "delete": "Delete"
+    },
+    "node": {
+      "function": {
+        "action": {
+          "save": "Save"
+        }
+      }
+    }
+  }
+}

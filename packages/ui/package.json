@@ -1,0 +1,51 @@
+{
+  "name": "@vec-studio/ui",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "./dist",
+    "./src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    },
+    "./index.css": {
+      "require": "./dist/index.css",
+      "import": "./dist/index.css"
+    },
+    "./src": {
+      "import": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "prepack": "vite build"
+  },
+  "peerDependencies": {
+    "@vanilla-extract/css": "1.17.4",
+    "@vanilla-extract/dynamic": "2.1.5",
+    "@vanilla-extract/recipes": "0.5.7",
+    "clsx": "2.1.1",
+    "lodash": "4.17.21",
+    "open-props": "1.7.16",
+    "react": "19.1.1",
+    "react-aria": "3.43.2",
+    "react-aria-components": "1.12.2",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@types/lodash": "4.17.20",
+    "@types/react": "19.1.13",
+    "@types/react-dom": "19.1.9",
+    "@vanilla-extract/vite-plugin": "5.1.1",
+    "@vitejs/plugin-react": "5.0.3",
+    "typescript": "5.9.2",
+    "vite": "6.3.6",
+    "vite-plugin-dts": "4.5.4",
+    "vite-plugin-externalize-deps": "0.9.0"
+  }
+}

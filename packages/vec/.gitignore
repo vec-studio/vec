@@ -1,0 +1,13 @@
+/*
+
+!.gitignore
+
+!public
+!src
+
+!.env.template
+!drizzle.config.ts
+!package.json
+!README.md
+!tsconfig.json
+!vite.config.ts

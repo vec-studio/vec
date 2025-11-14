@@ -1,0 +1,25 @@
+import { style } from '@vanilla-extract/css'
+import { themeVars } from '../theme'
+
+export const treeClassName = style({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '2px',
+  overflow: 'auto',
+  padding: '4px',
+  border: `1px solid ${themeVars.color.borderColor}`,
+  borderRadius: '6px',
+  background: themeVars.color.overlayBackground,
+  forcedColorAdjust: 'none',
+  outline: 'none',
+  width: '250px',
+  maxHeight: '300px',
+  boxSizing: 'border-box',
+
+  selectors: {
+    '&[data-focus-visible]': {
+      outline: '2px solid var(--focus-ring-color)',
+      outlineOffset: '-1px'
+    }
+  }
+})

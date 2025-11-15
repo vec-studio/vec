@@ -19,7 +19,7 @@ export const getMessages = createServerFn({ method: 'GET' })
   .middleware([contextMiddleware])
   .inputValidator((data: string) => data)
   .handler(async ctx => {
-    const module = await import(`public/messages/${ctx.data}.json`)
+    const module = await import(`~/public/messages/${ctx.data}.json`)
     const response = new Response(JSON.stringify(module?.default ?? {}))
     const messages = await response.json()
     return messages

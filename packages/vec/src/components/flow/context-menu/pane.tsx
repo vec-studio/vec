@@ -2,7 +2,7 @@ import { useReactFlow } from '@xyflow/react'
 import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type MouseEventHandler } from 'react'
-import { MenuItem } from 'react-aria-components'
+import { MenuItem, type MenuItemProps } from 'react-aria-components'
 import { useAddFunctionNode, useAddNode } from 'src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
@@ -41,16 +41,20 @@ export function FlowContextMenuPaneMenuItems() {
     addFunctionNode(node)
   }
 
-  return (
-    <>
-      {/*
-      <MenuItem key="add" onClick={onClickAddNode}>
-        {t('flow.context-menu.add')}
-      </MenuItem>
-      */}
-      <MenuItem key="add_function" onClick={onClickAddFunctionNode}>
-        {t('flow.context-menu.add')}
-      </MenuItem>
-    </>
-  )
+  const menuItemPropsList: (MenuItemProps & { locale: string })[] = [
+    {
+      locale: 'flow.context-menu.add',
+      onClick: onClickAddNode
+    },
+    {
+      locale: 'flow.context-menu.add_function',
+      onClick: onClickAddFunctionNode
+    }
+  ]
+
+  return menuItemPropsList.map((menuItemProps, index) => (
+    <MenuItem onClick={menuItemProps.onClick} key={index}>
+      {t(menuItemProps.locale)}
+    </MenuItem>
+  ))
 }

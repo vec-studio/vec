@@ -7,6 +7,8 @@ export const rootClassName = style({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
+  minHeight: '200px',
+  minWidth: '300px',
   width: '100%',
   backgroundColor: openProps.gray0
 })

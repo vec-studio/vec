@@ -1,6 +1,6 @@
 import { type MouseEventHandler } from 'react'
 import { MenuItem } from 'react-aria-components'
-import { useDeleteFunctionNode } from '~/src/hooks/flow/node'
+import { useRemoveFunctionNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
 interface FlowContextMenuNodeMenuItemsProps {
@@ -11,20 +11,18 @@ interface FlowContextMenuNodeMenuItemsProps {
 export function FlowContextMenuNodeMenuItems(props: FlowContextMenuNodeMenuItemsProps) {
   const t = useTranslations()
 
-  const deleteFunctionNode = useDeleteFunctionNode()
+  const removeFunctionNode = useRemoveFunctionNode()
 
-  const onClickDeleteNode: MouseEventHandler = e => {
+  const onClickRemoveNode: MouseEventHandler = e => {
     if (!props.nodeId) return
     e.preventDefault()
-    deleteFunctionNode(props.nodeId)
+    removeFunctionNode(props.nodeId)
     props.onClose()
   }
 
   return (
     <>
-      <MenuItem key="add" onClick={onClickDeleteNode}>
-        {t('flow.context-menu.delete')}
-      </MenuItem>
+      <MenuItem onClick={onClickRemoveNode}>{t('flow.context-menu.remove')}</MenuItem>
     </>
   )
 }

@@ -1,20 +1,20 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import consola from 'consola'
 import { Button } from 'react-aria-components'
-import { useAddFlow } from '~/src/hooks/flow'
+import { useCreateFlow } from '~/src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
 function FlowIndexPage() {
   const t = useTranslations()
   const router = useRouter()
-  const addFlow = useAddFlow()
+  const createFlow = useCreateFlow()
 
   const onClickNew = async () => {
-    const id = await addFlow()
+    const id = await createFlow()
     if (id) {
       router.navigate({ to: `/flow/${id}`, params: { id } })
     } else {
-      consola.error(`failed to add flow id: ${id}`)
+      consola.error(`failed to create flow id: ${id}`)
     }
   }
 

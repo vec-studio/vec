@@ -19,7 +19,7 @@ export const listFlowNodeServerFn = createServerFn()
     return result
   })
 
-export const addFlowNodeServerFn = createServerFn({ method: 'POST' })
+export const createFlowNodeServerFn = createServerFn({ method: 'POST' })
   .inputValidator(flowNodeSchema.pick({ id: true, data: true, flowId: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowNode).values(data).returning().get()
@@ -34,7 +34,7 @@ export const updateFlowNodeServerFn = createServerFn({ method: 'POST' })
     return result
   })
 
-export const deleteFlowNodeServerFn = createServerFn({ method: 'POST' })
+export const removeFlowNodeServerFn = createServerFn({ method: 'POST' })
   .inputValidator(flowNodeSchema.pick({ id: true }))
   .handler(async ({ data }) => {
     const result = await db.delete(flowNode).where(eq(flowNode.id, data.id)).returning().get()

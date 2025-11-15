@@ -5,8 +5,8 @@ import { useIsFirstRender } from '@uidotdev/usehooks'
 import { useMemo } from 'react'
 import { flowTaskSchema } from '~/src/schema/flow-task'
 import {
-  addFlowTaskServerFn,
-  deleteFlowTaskServerFn,
+  createFlowTaskServerFn,
+  removeFlowTaskServerFn,
   listFlowTaskServerFn,
   updateFlowTaskServerFn
 } from '~/src/server/flow/task'
@@ -49,7 +49,7 @@ export function useFlowTaskCollection() {
           schema: flowTaskSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowTaskServerFn({ data: modified })
+            const o = await createFlowTaskServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
@@ -60,7 +60,7 @@ export function useFlowTaskCollection() {
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowTaskServerFn({ data: { id: modified.id } })
+            await removeFlowTaskServerFn({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

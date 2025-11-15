@@ -3,16 +3,16 @@ import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type MouseEventHandler } from 'react'
 import { MenuItem, type MenuItemProps } from 'react-aria-components'
-import { useAddFunctionNode, useAddNode } from '~/src/hooks/flow/node'
+import { useCreateFunctionNode, useCreateNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
 export function FlowContextMenuPaneMenuItems() {
   const t = useTranslations()
-  const addNode = useAddNode()
-  const addFunctionNode = useAddFunctionNode()
+  const createNode = useCreateNode()
+  const createFunctionNode = useCreateFunctionNode()
   const { screenToFlowPosition } = useReactFlow()
 
-  const onClickAddNode: MouseEventHandler = e => {
+  const onClickCreateNode: MouseEventHandler = e => {
     const id = nanoid()
     const node: NodeBase = {
       id,
@@ -23,10 +23,10 @@ export function FlowContextMenuPaneMenuItems() {
       data: { label: '', input: [], output: [], fn: '' },
       origin: [0.5, 0.0] as any
     }
-    addNode(node)
+    createNode(node)
   }
 
-  const onClickAddFunctionNode: MouseEventHandler = e => {
+  const onClickCreateFunctionNode: MouseEventHandler = e => {
     const id = nanoid()
     const node: NodeBase = {
       id,
@@ -38,17 +38,17 @@ export function FlowContextMenuPaneMenuItems() {
       data: { label: '', input: [], output: [], fn: '//' },
       origin: [0.5, 0.0] as any
     }
-    addFunctionNode(node)
+    createFunctionNode(node)
   }
 
   const menuItemPropsList: (MenuItemProps & { locale: string })[] = [
     {
-      locale: 'flow.context-menu.add',
-      onClick: onClickAddNode
+      locale: 'flow.context-menu.create',
+      onClick: onClickCreateNode
     },
     {
-      locale: 'flow.context-menu.add_function',
-      onClick: onClickAddFunctionNode
+      locale: 'flow.context-menu.create_function',
+      onClick: onClickCreateFunctionNode
     }
   ]
 

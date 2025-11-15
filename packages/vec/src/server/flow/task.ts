@@ -19,7 +19,7 @@ export const listFlowTaskServerFn = createServerFn()
     return result
   })
 
-export const addFlowTaskServerFn = createServerFn({ method: 'POST' })
+export const createFlowTaskServerFn = createServerFn({ method: 'POST' })
   .inputValidator(flowTaskSchema.pick({ id: true, flowId: true, flowNodeId: true, data: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flowTask).values(data).returning().get()
@@ -34,7 +34,7 @@ export const updateFlowTaskServerFn = createServerFn({ method: 'POST' })
     return result
   })
 
-export const deleteFlowTaskServerFn = createServerFn({ method: 'POST' })
+export const removeFlowTaskServerFn = createServerFn({ method: 'POST' })
   .inputValidator(flowTaskSchema.pick({ id: true }))
   .handler(async ({ data }) => {
     const result = await db.delete(flowTask).where(eq(flowTask.id, data.id)).returning().get()

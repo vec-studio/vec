@@ -6,15 +6,15 @@ import { nanoid } from 'nanoid'
 import { useMemo } from 'react'
 import { flowContextSchema } from '~/src/schema/context'
 import { flowSchema } from '~/src/schema/flow'
-import { addFlowServerFn, listFlowServerFn } from '~/src/server/flow'
+import { createFlowServerFn, listFlowServerFn } from '~/src/server/flow'
 export { useFlowEdges, useOnConnect, useOnEdgesChange } from './edge'
 export { useFlowNodes, useOnNodesChange, useUpdateFunctionNodeData } from './node'
 
-export function useAddFlow() {
+export function useCreateFlow() {
   const flowContextCollection = useFlowContextCollection()
   const flowCollection = useFlowCollection()
 
-  const addFlow = async () => {
+  const createFlow = async () => {
     try {
       const id = nanoid()
       await flowContextCollection.insert({ id }).isPersisted.promise
@@ -24,7 +24,7 @@ export function useAddFlow() {
       consola.error(err)
     }
   }
-  return addFlow
+  return createFlow
 }
 
 export function useFlowCollection() {
@@ -46,7 +46,7 @@ export function useFlowCollection() {
           queryClient,
           onInsert: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await addFlowServerFn({ data: modified })
+            await createFlowServerFn({ data: modified })
           },
           onUpdate: async ({ transaction }) => {
             const { original, modified } = transaction.mutations[0]

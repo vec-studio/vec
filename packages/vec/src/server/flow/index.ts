@@ -19,7 +19,7 @@ export const listFlowServerFn = createServerFn()
     return result
   })
 
-export const addFlowServerFn = createServerFn({ method: 'POST' })
+export const createFlowServerFn = createServerFn({ method: 'POST' })
   .inputValidator(flowSchema.pick({ id: true }))
   .handler(async ({ data }) => {
     const result = await db.insert(flow).values(data).returning().get()

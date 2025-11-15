@@ -1,19 +1,19 @@
 import { queryCollectionOptions } from '@tanstack/query-db-collection'
 import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
-import { useAsyncDebouncedCallback } from '@tanstack/react-pacer/async-debouncer'
+import { useAsyncDebouncedCallback } from '@tanstack/react-pacer'
 import { useQueryClient } from '@tanstack/react-query'
 import { useIsFirstRender } from '@uidotdev/usehooks'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
+import { z } from 'zod'
 import { flowNodeSchema } from '~/src/schema/flow-node'
 import {
-  addFlowNodeServerFn,
-  deleteFlowNodeServerFn,
+  createFlowNodeServerFn,
   listFlowNodeServerFn,
+  removeFlowNodeServerFn,
   updateFlowNodeServerFn
 } from '~/src/server/flow/node'
-import { z } from 'zod'
 import { useFlowContext } from './index'
 
 // react-flow nodes
@@ -50,19 +50,6 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
   const flowContext = useFlowContext()
   const flowNodeCollection = useFlowNodeCollection()
 
-  const debouncedUpdate = useAsyncDebouncedCallback<
-    <T extends typeof flowNodeCollection.update<NodeBase>>(
-      id: Parameters<T>[0],
-      callback: Parameters<T>[2]
-    ) => Promise<ReturnType<T> | unknown>
-  >(
-    async (id, callback) => {
-      if (!flowNodeCollection.has(id as string)) return
-      flowNodeCollection.update(id, callback)
-    },
-    { wait: 500 }
-  )
-
   const onNodesChange = useCallback(
     async (changes: NodeChange[]) => {
       const changedNodes = applyNodeChanges(changes, nodes)
@@ -79,7 +66,7 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
           case 'replace': {
             const changedNode = changedNodes.find(v => v.id === change.item.id)
             if (!changedNode) break
-            debouncedUpdate(changedNode.id, prevNode => {
+            flowNodeCollection.update(changedNode.id, prevNode => {
               prevNode.data = changedNode
             })
             break
@@ -91,7 +78,7 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
           default: {
             const changedNode = changedNodes.find(v => v.id === change.id)
             if (!changedNode) break
-            debouncedUpdate(changedNode.id, prevNode => {
+            flowNodeCollection.update(changedNode.id, prevNode => {
               prevNode.data = changedNode
             })
           }
@@ -104,26 +91,26 @@ export function useOnNodesChange(setNodes: Dispatch<React.SetStateAction<NodeBas
   return onNodesChange
 }
 
-// add node
-export function useAddNode() {
+/** create node */
+export function useCreateNode() {
   const { addNodes } = useReactFlow()
 
-  const addNode = useCallback(async (node: NodeBase) => {
+  const createNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
   }, [])
 
-  return addNode
+  return createNode
 }
 
-// add function node
-export function useAddFunctionNode() {
+/** create function node */
+export function useCreateFunctionNode() {
   const { addNodes } = useReactFlow()
 
-  const addFunctionNode = useCallback(async (node: NodeBase) => {
+  const createFunctionNode = useCallback(async (node: NodeBase) => {
     addNodes(node)
   }, [])
 
-  return addFunctionNode
+  return createFunctionNode
 }
 
 // update function node data
@@ -137,14 +124,14 @@ export function useUpdateFunctionNodeData() {
   return updateFunctionNodeData
 }
 
-// delete function node
-export function useDeleteFunctionNode() {
+/** function node */
+export function useRemoveFunctionNode() {
   const { deleteElements } = useReactFlow()
-  const deleteFunctionNode = useCallback(async (id: NodeBase['id']) => {
+  const removeFunctionNode = useCallback(async (id: NodeBase['id']) => {
     deleteElements({ nodes: [{ id }] })
   }, [])
 
-  return deleteFunctionNode
+  return removeFunctionNode
 }
 
 // node tanstack-db collection
@@ -152,6 +139,9 @@ export function useFlowNodeCollection() {
   const queryClient = useQueryClient()
   const isFirstRender = useIsFirstRender()
   const flowContext = useFlowContext()
+
+  const updateFlowNodeServerFnDebounced = useAsyncDebouncedCallback(updateFlowNodeServerFn, { wait: 500 })
+  const removeFlowNodeServerFnDebounced = useAsyncDebouncedCallback(removeFlowNodeServerFn, { wait: 500 })
 
   const flowNodeCollection = useMemo(
     () =>
@@ -169,18 +159,18 @@ export function useFlowNodeCollection() {
           schema: flowNodeSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowNodeServerFn({ data: modified })
+            const o = await createFlowNodeServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await updateFlowNodeServerFn({ data: modified })
+            await updateFlowNodeServerFnDebounced({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowNodeServerFn({ data: { id: modified.id } })
+            await removeFlowNodeServerFnDebounced({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

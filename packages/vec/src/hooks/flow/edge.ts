@@ -7,14 +7,14 @@ import { addEdge, applyEdgeChanges, useEdges, useReactFlow } from '@xyflow/react
 import { type Connection, type EdgeBase, type EdgeChange } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type Dispatch, useCallback, useMemo } from 'react'
+import { z } from 'zod'
 import { flowEdgeSchema } from '~/src/schema/flow-edge'
 import {
-  addFlowEdgeServerFn,
-  deleteFlowEdgeServerFn,
+  createFlowEdgeServerFn,
   listFlowEdgeServerFn,
+  removeFlowEdgeServerFn,
   updateFlowEdgeServerFn
 } from '~/src/server/flow/edge'
-import { z } from 'zod'
 import { useFlowContext } from './index'
 
 // react-flow edges
@@ -50,19 +50,6 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
   const flowContext = useFlowContext()
   const flowEdgeCollection = useFlowEdgeCollection()
 
-  const debouncedUpdate = useAsyncDebouncedCallback<
-    <T extends typeof flowEdgeCollection.update<EdgeBase>>(
-      id: Parameters<T>[0],
-      callback: Parameters<T>[2]
-    ) => Promise<ReturnType<T> | unknown>
-  >(
-    async (id, callback) => {
-      if (!flowEdgeCollection.has(id as string)) return
-      flowEdgeCollection.update(id, callback)
-    },
-    { wait: 500 }
-  )
-
   const onEdgesChange = useCallback(
     async (changes: EdgeChange[]) => {
       const changedEdges = applyEdgeChanges(changes, edges)
@@ -83,7 +70,7 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
           case 'replace': {
             const changedEdge = changedEdges.find(v => v.id === change.item.id)
             if (!changedEdge) break
-            debouncedUpdate(changedEdge.id, prevEdge => {
+            flowEdgeCollection.update(changedEdge.id, prevEdge => {
               prevEdge.data = changedEdge
             })
             break
@@ -95,7 +82,7 @@ export function useOnEdgesChange(setEdges: Dispatch<React.SetStateAction<EdgeBas
           default: {
             const changedEdge = changedEdges.find(v => v.id === change.id)
             if (!changedEdge) break
-            debouncedUpdate(changedEdge.id, prevEdge => {
+            flowEdgeCollection.update(changedEdge.id, prevEdge => {
               prevEdge.data = changedEdge
             })
           }
@@ -130,6 +117,9 @@ export function useFlowEdgeCollection() {
   const isFirstRender = useIsFirstRender()
   const flowContext = useFlowContext()
 
+  const updateFlowEdgeServerFnDebounced = useAsyncDebouncedCallback(updateFlowEdgeServerFn, { wait: 500 })
+  const removeFlowEdgeServerFnDebounced = useAsyncDebouncedCallback(removeFlowEdgeServerFn, { wait: 500 })
+
   const flowEdgeCollection = useMemo(
     () =>
       createCollection(
@@ -146,18 +136,18 @@ export function useFlowEdgeCollection() {
           schema: flowEdgeSchema,
           onInsert: async ({ transaction, collection }) => {
             const { modified } = transaction.mutations[0]
-            const o = await addFlowEdgeServerFn({ data: modified })
+            const o = await createFlowEdgeServerFn({ data: modified })
             collection.utils.writeInsert(o)
             return { refetch: false }
           },
           onUpdate: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await updateFlowEdgeServerFn({ data: modified })
+            await updateFlowEdgeServerFnDebounced({ data: modified })
             return { refetch: false }
           },
           onDelete: async ({ transaction }) => {
             const { modified } = transaction.mutations[0]
-            await deleteFlowEdgeServerFn({ data: { id: modified.id } })
+            await removeFlowEdgeServerFnDebounced({ data: { id: modified.id } })
             return { refetch: false }
           }
         })

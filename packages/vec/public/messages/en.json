@@ -2,9 +2,9 @@
   "flow": {
     "new": "New",
     "context-menu": {
-      "add": "Add Node",
-      "add_function": "Add Code Node",
-      "delete": "Delete"
+      "create": "Create Node",
+      "create_function": "Create Code Node",
+      "remove": "Remove"
     },
     "node": {
       "function": {

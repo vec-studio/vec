@@ -6,13 +6,13 @@ import { useIsFirstRender } from '@uidotdev/usehooks'
 import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
-import { flowNodeSchema } from 'src/schema/flow-node'
+import { flowNodeSchema } from '~/src/schema/flow-node'
 import {
   addFlowNodeServerFn,
   deleteFlowNodeServerFn,
   listFlowNodeServerFn,
   updateFlowNodeServerFn
-} from 'src/server/flow/node'
+} from '~/src/server/flow/node'
 import { z } from 'zod'
 import { useFlowContext } from './index'
 

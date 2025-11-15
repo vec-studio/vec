@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders } from '@tanstack/react-start/server'
-import { contextMiddleware } from 'src/middleware'
-import { pick as pickLanguage } from 'src/utils'
+import { contextMiddleware } from '~/src/middleware'
+import { pick as pickLanguage } from '~/src/utils'
 
 const supportedLanguages = ['en', 'zh']
 const defaultLangauge = supportedLanguages[0]

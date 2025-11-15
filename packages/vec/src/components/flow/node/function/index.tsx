@@ -13,9 +13,9 @@ import { EditorView, basicSetup } from 'codemirror'
 import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
 import { Button } from '@vec-studio/ui/src'
-import { useUpdateFunctionNodeData } from 'src/hooks/flow'
+import { useUpdateFunctionNodeData } from '~/src/hooks/flow'
 import { useTranslations } from 'use-intl'
-import { buttonGroupClassName, contentClassName, rootClassName } from './index.css'
+import * as classNames from './index.css'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {
   data: {
@@ -60,9 +60,9 @@ export const FunctionNode = memo<FunctionNodeProps>(props => {
 
   return (
     <>
-      <div className={rootClassName}>
-        <div className={contentClassName} ref={editorParentDOMRef} />
-        <div className={buttonGroupClassName}>
+      <div className={classNames.rootClassName}>
+        <div className={classNames.contentClassName} ref={editorParentDOMRef} />
+        <div className={classNames.buttonGroupClassName}>
           <Button onPress={onPressSave}>{t('flow.node.function.action.save')}</Button>
         </div>
       </div>

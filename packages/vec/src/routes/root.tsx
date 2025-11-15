@@ -1,6 +1,6 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router'
-import { WithIntl } from 'src/components/with-intl'
-import { WithQuery } from 'src/components/with-query'
+import { WithIntl } from '~/src/components/with-intl'
+import { WithQuery } from '~/src/components/with-query'
 import './root.css'
 
 function component() {

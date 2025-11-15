@@ -1,7 +1,7 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router'
 import consola from 'consola'
 import { Button } from 'react-aria-components'
-import { useAddFlow } from 'src/hooks/flow'
+import { useAddFlow } from '~/src/hooks/flow'
 import { useTranslations } from 'use-intl'
 
 function FlowIndexPage() {

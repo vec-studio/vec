@@ -3,13 +3,13 @@ import { createCollection, eq, useLiveQuery } from '@tanstack/react-db'
 import { useQueryClient } from '@tanstack/react-query'
 import { useIsFirstRender } from '@uidotdev/usehooks'
 import { useMemo } from 'react'
-import { flowTaskSchema } from 'src/schema/flow-task'
+import { flowTaskSchema } from '~/src/schema/flow-task'
 import {
   addFlowTaskServerFn,
   deleteFlowTaskServerFn,
   listFlowTaskServerFn,
   updateFlowTaskServerFn
-} from 'src/server/flow/task'
+} from '~/src/server/flow/task'
 import { z } from 'zod'
 import { useFlowContext } from './index'
 

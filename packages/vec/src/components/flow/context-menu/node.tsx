@@ -1,6 +1,6 @@
 import { type MouseEventHandler } from 'react'
 import { MenuItem } from 'react-aria-components'
-import { useDeleteFunctionNode } from 'src/hooks/flow/node'
+import { useDeleteFunctionNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
 interface FlowContextMenuNodeMenuItemsProps {

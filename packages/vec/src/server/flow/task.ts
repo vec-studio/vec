@@ -1,8 +1,8 @@
 import { createServerFn } from '@tanstack/react-start'
 import { and, eq } from 'drizzle-orm'
-import { db } from 'src/db'
-import { flowTask } from 'src/db/schema/flow-task'
-import { flowTaskSchema } from 'src/schema/flow-task'
+import { db } from '~/src/db'
+import { flowTask } from '~/src/db/schema/flow-task'
+import { flowTaskSchema } from '~/src/schema/flow-task'
 
 export const listFlowTaskServerFn = createServerFn()
   .inputValidator(flowTaskSchema.pick({ flowId: true }).partial({ flowId: true }).optional())

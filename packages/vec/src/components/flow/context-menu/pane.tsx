@@ -3,7 +3,7 @@ import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type MouseEventHandler } from 'react'
 import { MenuItem, type MenuItemProps } from 'react-aria-components'
-import { useAddFunctionNode, useAddNode } from 'src/hooks/flow/node'
+import { useAddFunctionNode, useAddNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
 
 export function FlowContextMenuPaneMenuItems() {

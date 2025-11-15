@@ -3,12 +3,12 @@ import { Background, BackgroundVariant, Controls, ReactFlow, ReactFlowProvider }
 import '@xyflow/react/dist/style.css'
 import { type EdgeBase, type NodeBase } from '@xyflow/system'
 import { useRef, useState } from 'react'
-import { FlowContextMenu } from 'src/components/flow/context-menu'
-import { nodeTypes } from 'src/components/flow/node'
-import { useOnConnect, useOnEdgesChange, useOnNodesChange } from 'src/hooks/flow'
-import { useFlowContextMenu } from 'src/hooks/flow/context-menu'
-import { useFlowEdgesFirstLoad } from 'src/hooks/flow/edge'
-import { useFlowNodesFirstLoad } from 'src/hooks/flow/node'
+import { FlowContextMenu } from '~/src/components/flow/context-menu'
+import { nodeTypes } from '~/src/components/flow/node'
+import { useOnConnect, useOnEdgesChange, useOnNodesChange } from '~/src/hooks/flow'
+import { useFlowContextMenu } from '~/src/hooks/flow/context-menu'
+import { useFlowEdgesFirstLoad } from '~/src/hooks/flow/edge'
+import { useFlowNodesFirstLoad } from '~/src/hooks/flow/node'
 import * as classNames from './id.css'
 
 function Flow() {

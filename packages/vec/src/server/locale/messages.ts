@@ -1,14 +1,10 @@
-import en from '~/messages/en.json'
-import zh from '~/messages/zh.json'
+import type En from '~/messages/en.json'
+import type Zh from '~/messages/zh.json'
 
-export const messages = {
-  en,
-  zh
-}
+export type Messages = typeof En | typeof Zh
 
-export type Locale = keyof typeof messages
+export type Locale = 'en' | 'zh'
 export type Locales = Locale[]
-export type Messages = (typeof messages)[Locale]
 
 declare module 'use-intl' {
   interface AppConfig {

@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Locales } from './messages'
+import { type Locales } from './messages'
 
 // https://github.com/opentable/accept-language-parser/blob/master/index.js
 

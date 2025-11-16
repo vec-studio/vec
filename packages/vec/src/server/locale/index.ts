@@ -1,7 +1,8 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders, setCookie } from '@tanstack/react-start/server'
+import consola from 'consola'
 import { contextMiddleware } from '~/src/middleware'
-import { type Locale, type Locales, messages } from './messages'
+import { type Locale, type Locales, type Messages } from './messages'
 import { pick } from './utils'
 
 export const initLocaleServerFn = createServerFn()
@@ -36,5 +37,13 @@ const getMessagesServerFn = createServerFn({ method: 'GET' })
   .middleware([contextMiddleware])
   .inputValidator((data: Locale) => data)
   .handler(async ctx => {
-    return messages[ctx.data]
+    try {
+      const module = await import(`~/messages/${ctx.data}.json`)
+      const response = new Response(JSON.stringify(module?.default ?? {}))
+      const messages = await response.json()
+      return messages as Messages
+    } catch (e) {
+      consola.error(e)
+      return {}
+    }
   })

@@ -6,13 +6,14 @@ export const messages = {
   zh
 }
 
-export type Language = keyof typeof messages
-export type Languages = Language[]
+export type Locale = keyof typeof messages
+export type Locales = Locale[]
+export type Messages = (typeof messages)[Locale]
 
 declare module 'use-intl' {
   interface AppConfig {
-    Locale: Language
-    Messages: (typeof messages)['en']
+    Locale: Locale
+    Messages: Messages
     timeZone: 'UTC'
   }
 }

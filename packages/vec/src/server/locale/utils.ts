@@ -1,5 +1,5 @@
 import lodash from 'lodash'
-import { Languages } from './messages'
+import { Locales } from './messages'
 
 // https://github.com/opentable/accept-language-parser/blob/master/index.js
 
@@ -32,7 +32,7 @@ export function parse(s: string) {
   return a4
 }
 
-export function pick(supportedLanguages: Languages, acceptLanguage: string, options?: any) {
+export function pick(supportedLanguages: Locales, acceptLanguage: string, options?: any) {
   options = options ?? {}
 
   if (!supportedLanguages || !supportedLanguages.length || !acceptLanguage) return null

@@ -7,13 +7,13 @@ import { applyNodeChanges, useNodes, useReactFlow } from '@xyflow/react'
 import { type NodeBase, type NodeChange } from '@xyflow/system'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { z } from 'zod'
-import { flowNodeSchema } from '~/src/schema/flow-node'
+import { flowNodeSchema } from '../../schema/flow-node'
 import {
   createFlowNodeServerFn,
   listFlowNodeServerFn,
   removeFlowNodeServerFn,
   updateFlowNodeServerFn
-} from '~/src/server/flow/node'
+} from '../../server/flow/node'
 import { useFlowContext } from './index'
 
 // react-flow nodes

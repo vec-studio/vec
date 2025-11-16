@@ -22,10 +22,5 @@ export default defineConfig({
     }),
     viteReact(),
     vanillaExtractPlugin()
-  ],
-  resolve: {
-    alias: {
-      '~/': fileURLToPath(new URL('./', import.meta.url))
-    }
-  }
+  ]
 })

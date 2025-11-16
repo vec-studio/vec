@@ -8,13 +8,13 @@ import { type Connection, type EdgeBase, type EdgeChange } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type Dispatch, useCallback, useMemo } from 'react'
 import { z } from 'zod'
-import { flowEdgeSchema } from '~/src/schema/flow-edge'
+import { flowEdgeSchema } from '../../schema/flow-edge'
 import {
   createFlowEdgeServerFn,
   listFlowEdgeServerFn,
   removeFlowEdgeServerFn,
   updateFlowEdgeServerFn
-} from '~/src/server/flow/edge'
+} from '../../server/flow/edge'
 import { useFlowContext } from './index'
 
 // react-flow edges

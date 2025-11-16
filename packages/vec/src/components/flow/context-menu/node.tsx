@@ -1,7 +1,7 @@
 import { type MouseEventHandler } from 'react'
 import { MenuItem } from 'react-aria-components'
-import { useRemoveFunctionNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
+import { useRemoveFunctionNode } from '../../../hooks/flow/node'
 
 interface FlowContextMenuNodeMenuItemsProps {
   nodeId: string

@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useServerFn } from '@tanstack/react-start'
 import { type PropsWithChildren } from 'react'
 import { IntlProvider } from 'use-intl'
-import { initLocaleServerFn } from '~/src/server'
+import { initLocaleServerFn } from '../server'
 
 export function WithIntl(props: PropsWithChildren) {
   const initLocale = useServerFn(initLocaleServerFn)

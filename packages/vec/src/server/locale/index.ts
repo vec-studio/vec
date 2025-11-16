@@ -1,7 +1,7 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeaders, setCookie } from '@tanstack/react-start/server'
 import consola from 'consola'
-import { contextMiddleware } from '~/src/middleware'
+import { contextMiddleware } from '../../middleware'
 import { type Locale, type Locales, type Messages } from './messages'
 import { pick } from './utils'
 

@@ -1,6 +1,7 @@
 import { javascript } from '@codemirror/lang-javascript'
 import { type EditorStateConfig } from '@codemirror/state'
 import { type PressEvent } from '@react-types/shared'
+import { Button } from '@vec-studio/ui/src'
 import {
   Handle,
   NodeResizeControl,
@@ -12,9 +13,8 @@ import {
 import { EditorView, basicSetup } from 'codemirror'
 import { MoveDiagonal2Icon } from 'lucide-react'
 import { memo, useEffect, useRef } from 'react'
-import { Button } from '@vec-studio/ui/src'
-import { useUpdateFunctionNodeData } from '~/src/hooks/flow'
 import { useTranslations } from 'use-intl'
+import { useUpdateFunctionNodeData } from '../../../../hooks/flow'
 import * as classNames from './index.css'
 
 interface FunctionNodeProps extends NodeProps, NodeResizerProps {

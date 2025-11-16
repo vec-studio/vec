@@ -3,8 +3,8 @@ import { type NodeBase } from '@xyflow/system'
 import { nanoid } from 'nanoid'
 import { type MouseEventHandler } from 'react'
 import { MenuItem, type MenuItemProps } from 'react-aria-components'
-import { useCreateFunctionNode, useCreateNode } from '~/src/hooks/flow/node'
 import { useTranslations } from 'use-intl'
+import { useCreateFunctionNode, useCreateNode } from '../../../hooks/flow/node'
 
 export function FlowContextMenuPaneMenuItems() {
   const t = useTranslations()
